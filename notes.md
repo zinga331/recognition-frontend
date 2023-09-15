@@ -1,5 +1,12 @@
 # Github Basics
 
+[Go back to README](/notes.md)
+[Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
+
+## When formatting your notes, use the docs explaining writing on github to make things look pretty
+
+[Here](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#headings)
+
 ## Code can be edited directly through github, or on one of the related repository branches.
 
 You'll notice the different levels that are used in this. The main heading used a single pound symbol, and the next used two of them.
