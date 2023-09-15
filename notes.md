@@ -20,4 +20,4 @@ git commit
 > [!WARNING]
 > Critical content demanding immediate user attention due to potential risks.
 
-Importantly, you can add links to different text for later use [like the link you see here] (https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links)
+Importantly, you can add links to different text for later use [like the link you see here](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links)
