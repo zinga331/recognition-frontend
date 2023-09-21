@@ -2,7 +2,7 @@
 
 # Elevator Pitch
 
-    Indexing is a delicate process that requires a lot of trust in the participants.  We are building a system that will allow for the indexing of documents one page at a time, supported by machine learning. This will allow for the indexing of documents to be done by a larger group of people, and will allow for the indexing to be done more quickly and more accurately.
+Indexing is a delicate process that requires a lot of trust in the participants.  We are building a system that will allow for the indexing of documents one page at a time, supported by machine learning. This will allow for the indexing of documents to be done by a larger group of people, and will allow for the indexing to be done more quickly and more accurately.
 
 # Key Features
 
