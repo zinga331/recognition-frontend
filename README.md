@@ -1,7 +1,8 @@
 # recognition-frontend
 
-Front end of my web development project.
+# Startup Specs:
+[Specs](startupSpec.md)
 
-# Links to personal notes
+# Links to Christian's personal notes
 
 [GeneralNotes](/notes.md)
