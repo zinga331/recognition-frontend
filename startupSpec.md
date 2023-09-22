@@ -2,25 +2,37 @@
 
 # Elevator Pitch
 
-Indexing is a delicate process that requires a lot of trust in the participants.  We are building a system that will allow for the indexing of documents one page at a time, supported by machine learning. This will allow for the indexing of documents to be done by a larger group of people, and will allow for the indexing to be done more quickly and more accurately.
+Indexing is a delicate process that requires a lot of man-hours from trained participants.  We are building a system that will automate the process of indexing textual, handwritten docments in foreign languages. Our website will provide human-in-the-loop correction for this process to improve its performance and iterate our training data. Users will be shown a historical record with pre-indexed fields and asked to correct the fields. This data pipeline will be supported by cutting-edge research in [end-to-end image-to-text models](https://link.springer.com/chapter/10.1007/978-3-031-41731-3_5).
+
+# Website Sketch
+
+![Sketch of the website](./mock.png)
 
 # Key Features
 
-- User authentication through FamilySearch.org
--
+- User authentication with HTTPS, and new users can create an account (or potentially use their FamilySearch.org account)
+- Ability to choose what type of record to index
+- Display of an image of the historical record
+- Display of the AI-predicted fields from the image
+- Ability to correct the predicted fields
+- Ability to add new fields
+- User feedback is stored persistently
+- User contribution stats and notifications are updated in realtime from the server
 
 # Description of how you will use each technology
 
-- HTML - Uses correct HTML structure for application. Three HTML pages. A landing page, a login page, and the main page where the indexing will take place.
-- CSS - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast.
-- TypeScript - Provides login, FamilySearch API, and database services.
+- HTML - Uses correct HTML structure for application, with two HTML pages. One landing/login page, and the main page where the indexing will take place.
+- CSS - The webpage will be styled with good placement and color scheme. It will also adapt to various screen sizes.
+- TypeScript - We will use Typed JavaScript to support login, dynamic display of images and fields, API calls, and database connection.
 - Service - Backend service with endpoints for:
-- familysearch authentication
-- Machine learning API
-- DB - Store family records and user information.
-- Login - Authenticate through family search.
-- WebSocket - Server notifications sent from us to users.
-- React - Frontend will be developed in react
+  - Login authentication
+  - Data collection API
+  - Pulling user contribution stats
+  - Notifications
+- DB - We will store historical records, their index status, and user information.
+- Login - We will support user registration and login, with their credentials stored in the database. We will potentially allow authentication through FamilySearch.
+- WebSocket - Server notifications sent from us to users, and live updates of user contribution stats.
+- React - The frontend will be developed in React
 
 <!-- Your application needs to demonstrate the use of HTML, CSS, JavaScript, calling web services, providing web services, authentication, storing data persistently, and using web sockets for sending realtime data to and from your server. -->
 <!-- Authentication: An input for your user to create an account and login. You will want to display the user's name after they login.
