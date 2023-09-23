@@ -2,6 +2,7 @@
 
 [Go back to README](/notes.md)
 [Notes about dev versus prod](/IndividualNotes/devProd.md)
+[The Tech Stack](/IndividualNotes/techStack.md)
 
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
 
