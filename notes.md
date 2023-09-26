@@ -1,8 +1,11 @@
 # Github Basics
 
 [Go back to README](/notes.md)
+
 [Notes about dev versus prod](/IndividualNotes/devProd.md)
+
 [The Tech Stack ](/IndividualNotes/techStackandHTMLPrep.md)
+
 [Chris's elastic ip](http://54.81.122.76/)
 
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
