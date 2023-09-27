@@ -66,3 +66,18 @@ Modern HTML contains over 100 different elements. Here is a short list of HTML e
 ## index.html
 
 > By default a web server will display the HTML file named `index.html` when a web browser, such as Google Chrome, makes a request without asking for a specific HTML file. For example, when you ask for `https://google.com` in your web browser you will actually get back the HTML for the file `https://google.com/index.html`. For this reason, it is very common to name the main HTML file for your web application `index.html`.
+
+## Block versus Inline elements:
+
+> There is a distinction between structure elements that are block vs inline. A block element is meant to be a distinct block in the flow of the content structure. An inline element is meant to be inline with the content flow of a block element. In other words, inline elements do not disrupt the flow of a block element's content. For example, the block element div (division) could have an inline element b in order to bring attention to a portion of its sub-text. Likewise a p (paragraph) element could have a span to mark the paragraph's sub-text as a person's name.
+
+```html
+<div>He said <b>don't</b> stress about HTML. Practice makes perfect</div>
+
+<p>
+  Classes like <span>CS 260, or Web Development</span> will require you to learn
+  html
+</p>
+```
+
+[Check my codepen out](https://codepen.io/zinga331/pen/BavxMeJ)
