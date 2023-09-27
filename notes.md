@@ -6,7 +6,9 @@
 
 [The Tech Stack ](/IndividualNotes/techStackandHTMLPrep.md)
 
-[Chris's elastic ip](http://54.81.122.76/)
+[Chris's frontend](https://zinga.click/)
+
+[HTML](/IndividualNotes/html.md)
 
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
 
