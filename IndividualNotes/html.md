@@ -81,3 +81,54 @@ Modern HTML contains over 100 different elements. Here is a short list of HTML e
 ```
 
 [Check my codepen out](https://codepen.io/zinga331/pen/BavxMeJ)
+
+## Form Elements
+
+Form elements used to be the only way a website could submit info to a server. Now, we can use JavaScript to send data to a server without reloading the page. However, forms are still useful for collecting user input. But for the purposes of CS 260, they won't be required.
+
+## Input element
+
+The input element represents many different input types. You set the type of input with the `type` attribute. There are several different types to choose from. This includes different flavors of textual, numeric, date, and color inputs.
+
+| Type           | Meaning                           |
+| -------------- | --------------------------------- |
+| text           | Single line textual value         |
+| password       | Obscured password                 |
+| email          | Email address                     |
+| tel            | Telephone number                  |
+| url            | URL address                       |
+| number         | Numerical value                   |
+| checkbox       | Inclusive selection               |
+| radio          | Exclusive selection               |
+| range          | Range limited number              |
+| date           | Year, month, day                  |
+| datetime-local | Date and time                     |
+| month          | Year, month                       |
+| week           | Week of year                      |
+| color          | Color                             |
+| file           | Local file                        |
+| submit         | button to trigger form submission |
+
+In order to create an input you specify the desired `type` attribute along with any other attribute associated with that specific input. Here is an example of a checked radio button and its associated label.
+
+```html
+<label for="checkbox1">Check me</label>
+<input type="checkbox" name="varCheckbox" value="checkbox1" checked />
+```
+
+Most input elements share some common attributes. These include the following.
+
+| Attribute | Meaning                                                                             |
+| --------- | ----------------------------------------------------------------------------------- |
+| name      | The name of the input. This is submitted as the name of the input if used in a form |
+| disabled  | Disables the ability for the user to interact with the input                        |
+| value     | The initial value of the input                                                      |
+| required  | Signifies that a value is required in order to be valid                             |
+
+By the way, if you want to specify the default color for a color input, you'll need to specify the color as an input value. For example, `value="#ff0000"`.
+
+## HTML Media elements
+
+HTML has several different media elements, I'd refer to the readme by Dr. Jensen on this topic:
+
+[HTML Media Elements](https://github.com/webprogramming260/.github/blob/main/profile/html/media/media.md)
