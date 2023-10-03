@@ -132,3 +132,7 @@ By the way, if you want to specify the default color for a color input, you'll n
 HTML has several different media elements, I'd refer to the readme by Dr. Jensen on this topic:
 
 [HTML Media Elements](https://github.com/webprogramming260/.github/blob/main/profile/html/media/media.md)
+
+## Helpful Tips for Later
+
+> [!NOTE] You can select a radio button or dropdown option by default by adding the `checked` attribute to the input element. This also works with check boxes.
