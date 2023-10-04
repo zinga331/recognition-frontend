@@ -1,6 +1,6 @@
 # Christian Hall's Notes and Deliverables
 
-# HTML ASSIGNMENT DELIVERABLES
+## HTML ASSIGNMENT DELIVERABLES
 
 - _HTML pages_ - Two HTML pages that represent the ability to log in and index records.
 - _Links_ -Links at the top of the page that allow users to navigate between the two pages.
