@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <a href="index.html">Return to Landing Page</a>
+    </header>
+  <head>
+    <title>Full Page Indexing</title>
+    <h1>INDEX HOME</h1>
+    <fieldset>
+        <legend>Notifications Settings</legend>
+        <input type="radio" id="opt-in1" name="notification" value="receive">
+        <label for="opt-in">Receive</label><br>
+        <input type="radio" id="opt-out" name="notification" value="receive-not" checked>
+        <label for="opt-out">Don't Receive</label><br>
+        <p>Note: Site-wide notifications cannot be received if you are not opted in. You can opt in or out at any time.</p>
+      </fieldset>
+    <img alt="Slideshow Placeholder" src="dummy_example.png" />
+  </head>
+  <body>
+    <div id="recordForm">
+        <p>
+            <label for="optgroup">Record Type: </label>
+            <select id="optgroup" name="varOptGroup">
+              <optgroup label="French">
+                <option>1900 Census</option>
+                <option selected>1900 Obituary</option>
+              </optgroup>
+              <optgroup label="Spanish">
+                <option>1950 Baptism</option>
+                <option>1960 Census</option>
+              </optgroup>
+              <optgroup label="English">
+                <option>2000 Census</option>
+                <option>1950 Marriage Records</option>
+              </optgroup>
+            </select>
+        </p>
+
+        <table id="documentForm">
+            <legend>Indexing Entry</legend>
+            <tr>
+              <th>Name</th>
+              <td contenteditable="true">John Doe</td>
+            </tr>
+            <tr>
+              <th>Birthdate</th>
+              <td contenteditable="true">January 1, 2000</td>
+            </tr>
+            <tr>
+              <th>Birthplace</th>
+              <td contenteditable="true">New York, NY</td>
+            </tr>
+            <tr>
+              <th>Mother's Name</th>
+              <td contenteditable="true">Jane Doe</td>
+            </tr>
+            <tr>
+              <th>Father's Name</th>
+              <td contenteditable="true">John Doe Sr.</td>
+            </tr>
+
+          </table>
+          <div>
+          <button onclick="addRow()">+New Field</button> 
+            <button onclick="deleteRow()">-Delete Field</button>
+          </div>
+          <button onclick="resetTable()">Submit</button>
+          <!-- <button onclick="resetTable()">Reset</button> -->
+        <p>Verify the accuracy of the generation, then submit.</p>
+        </div>
+
+  </body>
+  <footer>
+    <p>Project by Lawry Sorenson and Christian Hall:</p>
+    <a href="https://github.com/zinga331/startup">Startup Repo</a>
+  </footer>
+
+</html>
