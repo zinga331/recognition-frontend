@@ -1,6 +1,16 @@
-# Github Basics
+# Christian Hall's Notes and Deliverables
 
-[Go back to README](/notes.md)
+## HTML ASSIGNMENT DELIVERABLES
+
+- _HTML pages_ - Two HTML pages that represent the ability to log in and index records.
+- _Links_ -Links at the top of the page that allow users to navigate between the two pages.
+- _Fill-out Form_ - A form that allows users index records by selecting a record category and verifying information served from the database.
+- _Images_ -Landing page hosts a dummy indexing banner, and the indexing page hosts a dummy image served from the database.
+- _Login_ - the main index page will have a login form that will allow users to log in or register. The header on top displayes the name of the current user.
+- _Database_ - database will serve the indexing images on the home.html page, i.e. indexing page.
+- _WebSocket_ - While logged in, users can receive server wide notifications if they are opted in.
+
+[Go back to main README](/notes.md)
 
 [Notes about dev versus prod](/IndividualNotes/devProd.md)
 
