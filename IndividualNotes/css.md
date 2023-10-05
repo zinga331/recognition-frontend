@@ -218,3 +218,174 @@ CSS defines multiple ways to describe color, ranging from representations famili
 ### Experiment
 
 ⚠ This [CodePen](https://codepen.io/zinga331/pen/BavGzMW) demonstrates the use of many of the above declarations. I've forked the original so I have it a copy of it for use in the future.
+
+## CSS Fonts
+
+There are four major families of fonts: `Serif`, `sans-serif`, `fixed`, and `symbol`. Seif fonts have the stroke I'm used to, and sans-serif don't. Fixed fonts characters are all the same width, and symbol fonts are used for symbols. Symbol fonts represent non--language characters such as arrowss or emojies.
+
+### Importing fonts
+
+> In addition to referencing standard fonts found on the user's computer you can specify a font that you provide with your application. That way your application is guaranteed to always look the same. In order to have the browser load a font you use the `@font-face` rule and provide the font name and source location.
+
+```css
+@font-face {
+  font-family: "Quicksand";
+  src: url("https://cs260.click/fonts/quicksand.woff2");
+}
+
+p {
+  font-family: Quicksand;
+}
+```
+
+> If you do not want to host font files on your server, then you can load them from a font provider. For example, Google provides a large selection of [open source fonts](https://fonts.google.com/) that you can use without paying any royalties. The easiest way to use Google fonts is to use a CSS import statement to reference the Google Font Service. This will automatically generate the CSS for importing the font.
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=Rubik Microbe&display=swap");
+
+p {
+  font-family: "Rubik Microbe";
+}
+```
+
+This [CodePen](https://codepen.io/leesjensen/pen/zYaLgVW) provides an example of importing fonts. Thanks Dr. Jensen!
+
+## CSS Animations
+
+> CSS animations allow you to animate the values of CSS properties over time. Animations are defined using the `@keyframes` rule. The `@keyframes` rule defines the values of the CSS properties at various points in time. You can then apply the animation to an element using the `animation` property.
+
+```css
+p {
+  text-align: center;
+  font-size: 20vh;
+
+  animation-name: demo;
+  animation-duration: 3s;
+}
+```
+
+> Now we are ready to create the keyframes. We don't have to define what happens at every millisecond of the animation. Instead we only need to define the key points, and CSS will generate a smooth transition to move from one keyframe to another. In our case we simply want to start with text that is invisible and have it zoom into the full final size. We can do this with two frames that are designated with the keywords `from` and `to`.
+
+```css
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  to {
+    font-size: 20vh;
+  }
+}
+```
+
+> That's everything we need to do. However, let's make one more addition. It would look better if towards the end, the paragraph bounced out a little bigger than its final size. We can accommodate that by adding another key frame that happens 95 percent through the animation.
+
+```css
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  95% {
+    font-size: 21vh;
+  }
+
+  to {
+    font-size: 20vh;
+  }
+}
+```
+
+> You can see this animation working with this [CodePen](https://codepen.io/leesjensen/pen/LYrJEwX).
+
+## Responsiveness
+
+### Display
+
+The CSS display property allows you to change how an HTML element is displayed by the browser. The common options for the display property include the following.
+
+| Value  | Meaning                                                                                                                      |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| none   | Don't display this element. The element still exists, but the browser will not render it.                                    |
+| block  | Display this element with a width that fills its parent element. A `p` or `div` element has block display by default.        |
+| inline | Display this element with a width that is only as big as its content. A `b` or `span` element has inline display by default. |
+| flex   | Display this element's children in a flexible orientation.                                                                   |
+| grid   | Display this element's children in a grid orientation.                                                                       |
+
+We can demonstrate the different CSS display property values with the following HTML that contains a bunch of `div` elements. By default `div` elements have a display property value of `block`.
+
+```html
+<div class="none">None</div>
+<div class="block">Block</div>
+<div class="inline">Inline1</div>
+<div class="inline">Inline2</div>
+<div class="flex">
+  <div>FlexA</div>
+  <div>FlexB</div>
+  <div>FlexC</div>
+  <div>FlexD</div>
+</div>
+<div class="grid">
+  <div>GridA</div>
+  <div>GridB</div>
+  <div>GridC</div>
+  <div>GridD</div>
+</div>
+```
+
+With the default of `block` this HTML would render like this.
+
+![CSS default div display](https://github.com/webprogramming260/.github/blob/main/profile/css/responsive/cssDisplayDefault.jpg)
+
+> If we modify the display property associated with each element with the following CSS, then we get a totally different rendering.
+
+```css
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+```
+
+![CSS display](https://github.com/webprogramming260/.github/blob/main/profile/css/responsive/cssDisplay.jpg)
+
+### Float
+
+> The float css property moves an element to the left or right of its container element and allows inline elements to wrap around it. For example, if we had an `aside` element followed by a large paragraph of text, we could create the following CSS rule in order to cause the text to wrap around the aside.
+
+```css
+aside {
+  float: right;
+  padding: 3em;
+  margin: 0.5em;
+  border: black solid thin;
+}
+```
+
+![CSS float](https://github.com/webprogramming260/.github/blob/main/profile/css/responsive/cssFloat.gif)
+
+### Media queries
+
+It is also possible to use media queries to change the CSS based upon the size of the viewport. [Professor Jensen's notes](https://github.com/webprogramming260/.github/blob/main/profile/css/responsive/responsive.md#media-queries) on this are very good, so I'll just copy them here.
+
+## [CSS GRID](https://github.com/webprogramming260/.github/blob/main/profile/css/grid/grid.md)
+
+As Dr Jensen says, grid is best . . .
+
+> " . . . when you want to display a group of child elements in a responsive grid. We start with a container element that has a bunch of child elements."
