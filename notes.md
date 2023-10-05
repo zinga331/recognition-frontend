@@ -19,6 +19,7 @@
 [Chris's frontend](https://zinga.click/)
 
 [HTML](/IndividualNotes/html.md)
+[CSS](/IndividualNotes/css.md)
 
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
 
