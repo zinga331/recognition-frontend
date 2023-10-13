@@ -16,25 +16,29 @@
     </header>
 
     <main>
-      <h1>Welcome</h1>
+      <h1 class="welcome">Welcome</h1>
 
-      <img src="./example.png" width="1000px"></img>
+      <div class="content">
 
-      <form method="post" action="index.html">
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Username" /> <br/>
+        <div class="image-wrapper">
+          <img src="./example.png"></img>
+        </div>
+        
+        <form method="post" action="index.html">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Username" /> <br/>
+          
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Password" /> <br/>
+          <button type="submit">Login</button><br/>
+          <button type="submit">Register</button><br/>
+        </form>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Password" /> <br/>
-        <button type="submit">Login</button><br/>
-        <button type="submit">Register</button><br/>
-      </form>
+      </div>
     </main>
 
     <footer>
-      <hr />
-      <span class="text-reset">Lawry Sorenson and Christian Hall</span>
-      <br />
+      <span class="authors">Lawry Sorenson and Christian Hall</span>
       <a href="https://github.com/zinga331/startup/tree/main">GitHub</a>
     </footer>
   </body>

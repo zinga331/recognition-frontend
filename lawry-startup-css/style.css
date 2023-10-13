@@ -6,25 +6,25 @@ body {
     
     font-family: Arial;
     font-size: 18px;
-  }
+}
 
-  header {
+header {
     flex: 0 40px;
 
     display: flex;
     flex-direction: row;
     align-items: center;
-  }
+}
 
-  header > h1 {
+header > h1 {
     flex: 1;
-  }
+}
 
-  header > * {
+header > * {
     padding: 0 1em;
-  }
+}
 
-  .notification {
+.notification {
     display: none;
     position: fixed;
     top: 10px;
@@ -34,8 +34,63 @@ body {
     text-align: center;
     padding: 1em;
     color: white;
-  }
+}
 
-  .toggle-popup {
+.toggle-popup {
     margin: 0 1em;
-  }
+}
+
+main {
+    flex: 1;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.welcome {
+    flex: 0 1em;
+
+    text-align: center;
+}
+
+.content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+}
+
+footer {
+    flex: 0 40px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.5em 1em;
+    /* background: ; */
+}
+
+.authors {
+    flex: 1;
+}
+
+.image-wrapper {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    padding: 1em;
+}
+
+.image-wrapper .image {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+
+form {
+    flex: 0 23em;
+}
