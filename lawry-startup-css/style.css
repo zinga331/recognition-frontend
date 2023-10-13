@@ -6,6 +6,9 @@ body {
     
     font-family: Arial;
     font-size: 18px;
+
+    /* background: grey;
+    color: white; */
 }
 
 header {
@@ -58,6 +61,7 @@ main {
 
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 footer {
@@ -75,7 +79,7 @@ footer {
 }
 
 .image-wrapper {
-    flex: 1;
+    flex: 1 66vw;
 
     display: flex;
     flex-direction: column;
@@ -91,6 +95,43 @@ footer {
 }
 
 
+.form-wrapper {
+    flex: 1 33vw;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em;
+}
+
 form {
-    flex: 0 23em;
+    max-width: 25em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0;
+}
+
+button {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+th {
+    font-size: 16px;
+}
+
+input {
+    height: 21px;
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+table {
+    margin: 20px 0;
+}
+
+select {
+    font-size: 18px;
+    /* height: 30px; */
 }

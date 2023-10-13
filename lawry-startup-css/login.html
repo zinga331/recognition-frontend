@@ -21,18 +21,17 @@
       <div class="content">
 
         <div class="image-wrapper">
-          <img src="./example.png"></img>
+          <img src="./example.png" class="image"></img>
         </div>
         
-        <form method="post" action="index.html">
-          <label for="username">Username</label>
-          <input type="text" id="username" placeholder="Username" /> <br/>
-          
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Password" /> <br/>
-          <button type="submit">Login</button><br/>
-          <button type="submit">Register</button><br/>
-        </form>
+        <div class="form-wrapper">
+          <form method="post" action="index.html">
+            <input type="text" id="username" placeholder="Username" />
+            <input type="password" id="password" placeholder="Password" />
+            <button type="submit">Login</button>
+            <button type="submit">Register</button>
+          </form>
+        </div>
 
       </div>
     </main>
