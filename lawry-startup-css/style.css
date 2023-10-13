@@ -7,6 +7,8 @@ body {
     font-family: Arial;
     font-size: 18px;
 
+    background: #EEE;
+
     /* background: grey;
     color: white; */
 }
@@ -17,6 +19,13 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    background: #006;
+    color: white;
+}
+
+a {
+    color: white;
 }
 
 header > h1 {
@@ -71,7 +80,9 @@ footer {
     flex-direction: row;
     align-items: center;
     padding: 0.5em 1em;
-    /* background: ; */
+
+    background: #006;
+    color: white;
 }
 
 .authors {
@@ -115,6 +126,9 @@ form {
 button {
     font-size: 18px;
     margin: 5px 0;
+
+    background: #060;
+    color: white;
 }
 
 th {
@@ -125,6 +139,9 @@ input {
     height: 21px;
     margin: 5px 0;
     font-size: 18px;
+
+    background: #EEE;
+
 }
 
 table {
@@ -134,4 +151,7 @@ table {
 select {
     font-size: 20px;
     padding: 5px;
+
+    background: #EEE;
+
 }
