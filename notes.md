@@ -2,6 +2,9 @@
 
 ## CSS ASSIGNMENT DELIVERABLES
 
+- _Header, Footer, and main content body_ - The header, footer, and main content body are styled with a background color, and the main content body has a border.
+- _Navigation elements_ - The navigation elements are styled with a background color, and the links are styled with a hover effect.
+
 ### Grading Criteria
 
 - **Simon CSS deployed to your production environment**

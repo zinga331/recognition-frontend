@@ -4,24 +4,32 @@
         <a href="home.html">Visit indexing home page (log in)</a>
     </header>
   <head>
+    <meta charset="UTF-8" /> 
+    <!-- I need to study meta tag above and learn why the simon example included it. -->
     <title>Landing Page</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
     <h1>Welcome!</h1>
   </head>
   <body>
-    <p>
+    <div id="login">
+      <p>
         <label for="username">Username: </label>
         <input type="username" id="username" name="varUsername" />
       </p>
-    <p>
+      <p>
         <label for="password">Password: </label>
         <input type="password" id="password" name="varPassword" />
       </p>
-      <button type="submit"onclick="window.location.href='home.html'">Submit</button>
-      <button type="register">Register</button>
+      <div class="button-container">
+        <button type="submit" onclick="window.location.href='home.html'">Submit</button>
+        <button type="register">Register</button>
+      </div>
+    </div>
       <img alt="Slideshow Placeholder" src="census_example.png" width="800px" />
   </body>
   <footer>
     <p>Project by Lawry Sorenson and Christian Hall:</p>
+    <!-- TODO update the link to point to your css-assignment-deliverables BEFORE turn-in. -->
     <a href="https://github.com/zinga331/startup/blob/main/notes.md#html-assignment-deliverables">Startup Repo</a>
   </footer>
 

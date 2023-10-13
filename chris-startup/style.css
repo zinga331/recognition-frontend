@@ -10,6 +10,8 @@ body {
   font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  color: #333;
+  background-color: #f2f2f2;
 }
 
 a {
@@ -19,6 +21,11 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+footer {
+  background: #009632;
+  color: #fff;
 }
 
 /* Index page styles */
@@ -39,6 +46,12 @@ form {
   flex-direction: column;
   align-items: center;
   margin-top: 2em;
+}
+
+#login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 label {
@@ -92,4 +105,23 @@ h2 {
 
 p {
   margin-bottom: 1em;
+}
+fieldset {
+  border-radius: 3px;
+  padding: 1em;
+  margin: 5vh 5vw;
+}
+/* Styles for notification radio group */
+.radioRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.radioRow label {
+  margin-right: 10vw;
+}
+
+.radioRow input[type="radio"] {
+  margin-left: 10vw;
+  margin-right: 1vw;
 }

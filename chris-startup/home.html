@@ -5,13 +5,16 @@
     </header>
   <head>
     <title>Full Page Indexing</title>
-    <h1>Welcome to indexing, Bob Ross</h1>
+    <link rel="stylesheet" href="style.css" />
+    <h1>Welcome to indexing, Kevin Bacon</h1>
     <fieldset>
         <legend>Notifications Settings</legend>
-        <input type="radio" id="opt-in1" name="notification" value="receive">
-        <label for="opt-in">Receive</label><br>
-        <input type="radio" id="opt-out" name="notification" value="receive-not" checked>
-        <label for="opt-out">Don't Receive</label><br>
+        <div class="radioRow">
+            <input type="radio" id="opt-in" name="notification" value="receive">
+            <label for="opt-in">Receive</label><br>
+            <input type="radio" id="opt-out" name="notification" value="receive-not" checked>
+            <label for="opt-out">Don't Receive</label><br>
+        </div>
         <p>Note: Site-wide notifications cannot be received if you are not opted in. You can opt in or out at any time.</p>
       </fieldset>
     <img alt="Slideshow Placeholder" src="dummy_example.png" />
@@ -52,7 +55,7 @@
             </tr>
             <tr>
               <th>Mother's Name</th>
-              <td contenteditable="true">Jane Doe</td>
+              <td contenteditable="true">Jane Dough</td>
             </tr>
             <tr>
               <th>Father's Name</th>
