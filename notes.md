@@ -1,5 +1,26 @@
 # Christian Hall's Notes and Deliverables
 
+## CSS ASSIGNMENT DELIVERABLES
+
+- _Header, Footer, and main content body_ - The header, footer, and main content body are styled with a background color, and the main content body has a border.
+- _Navigation elements_ - The navigation elements are styled with a background color, and the links are styled with a hover effect.
+
+### Grading Criteria
+
+- **Simon CSS deployed to your production environment**
+- **A link to your GitHub startup repository prominently displayed on your application's home page**
+- **Notes in your startup Git repository README.md file documenting what you modified and added with this deliverable.** The TAs will only grade things that have been clearly described as being completed. Review the [voter app](https://github.com/webprogramming260/startup-example/blob/main/README.md#css-deliverable) as an example.
+
+- Properly styled CSS
+  - 20% Header, footer, and main content body
+  - 20% Navigation elements
+  - 10% Responsive to window resizing
+  - 20% Application elements
+  - 10% Application text content
+  - 10% Application images
+- Multiple Git commits with meaningful comments.
+  - 10% 5+ commits
+
 ## HTML ASSIGNMENT DELIVERABLES
 
 - _HTML pages_ - Two HTML pages that represent the ability to log in and index records.
@@ -19,6 +40,7 @@
 [Chris's frontend](https://zinga.click/)
 
 [HTML](/IndividualNotes/html.md)
+
 [CSS](/IndividualNotes/css.md)
 
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)

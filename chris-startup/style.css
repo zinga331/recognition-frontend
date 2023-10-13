@@ -1,0 +1,127 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f2f2f2;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  background: #009632;
+  color: #fff;
+}
+
+/* Index page styles */
+header {
+  background-color: #f2f2f2;
+  padding: 1em;
+}
+
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2em;
+}
+
+#login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+input[type="username"],
+input[type="password"] {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 1em;
+  width: 100%;
+  max-width: 300px;
+}
+
+button[type="submit"],
+button[type="register"] {
+  padding: 0.5em 1em;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+button[type="submit"]:hover,
+button[type="register"]:hover {
+  background-color: darkblue;
+}
+
+img {
+  display: block;
+  margin: 2em auto;
+  max-width: 100%;
+}
+
+/* Home page styles */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+p {
+  margin-bottom: 1em;
+}
+fieldset {
+  border-radius: 3px;
+  padding: 1em;
+  margin: 5vh 5vw;
+}
+/* Styles for notification radio group */
+.radioRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.radioRow label {
+  margin-right: 10vw;
+}
+
+.radioRow input[type="radio"] {
+  margin-left: 10vw;
+  margin-right: 1vw;
+}
