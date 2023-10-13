@@ -1,0 +1,41 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    height: 100vh;
+    
+    font-family: Arial;
+    font-size: 18px;
+  }
+
+  header {
+    flex: 0 40px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  header > h1 {
+    flex: 1;
+  }
+
+  header > * {
+    padding: 0 1em;
+  }
+
+  .notification {
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #000A;
+    width: 15em;
+    text-align: center;
+    padding: 1em;
+    color: white;
+  }
+
+  .toggle-popup {
+    margin: 0 1em;
+  }

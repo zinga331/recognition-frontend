@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <!-- Tell browsers not to scale the viewport automatically -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Full Page Indexing</title>
     <!-- <link rel="icon" href="favicon.ico" /> -->
   </head>
@@ -12,56 +13,57 @@
     <!-- Use header, main, and footer elements to give semantic structure -->
     <header>
       <h1>Full Page Indexing</h1>
-      <hr />
 
       <span>Hello, Anon!</span>
-      <a href="login.html">Login / Logout</a></li> <br/><br/>
-
-      <button>Notifications</button> <br/>
-      <span>This is an example notification that can be toggled with the button above.</span>
+      <a href="login.html">Login / Logout</a>
+      <button class="toggle-popup">Notifications</button>
+      <div class="notification">This is an example notification that can be toggled with the button above.</div>
     </header>
     
     <main>
         <h1>Welcome</h1>
 
-        <img src="./example.png" width="1000px"></img>
+        <div>
 
-        
-      <form method="get" action="play.html">
-        <select name="dataset">
-            <option value="french">French 1820 Birth Records</option>
-            <option value="finnish">Finnish 1810 Birth Records</option>
-        </select><br/>
-
-        <table>
-            <tr>
-              <th>Person's Name</th>
-              <th><input type="text" id="name" placeholder="Jaako Ilkka"/></th>
-            </tr>
-            <tr>
-              <th>Person's Birth Date</th>
-              <th><input type="text" id="name" placeholder="December 5, 1810"/></th>
-            </tr>
-            <tr>
-              <th>Person's Birth Place</th>
-              <th><input type="text" id="name" placeholder="Hämeenlinna, Finland"/></th>
-            </tr>
-            <tr>
-              <th>Mother's Name</th>
+          <img src="./example.png" width="1000px"></img>
+          
+          
+          <form method="get" action="play.html">
+            <select name="dataset">
+              <option value="french">French 1820 Birth Records</option>
+              <option value="finnish">Finnish 1810 Birth Records</option>
+            </select><br/>
+            
+            <table>
+              <tr>
+                <th>Person's Name</th>
+                <th><input type="text" id="name" placeholder="Jaako Ilkka"/></th>
+              </tr>
+              <tr>
+                <th>Person's Birth Date</th>
+                <th><input type="text" id="name" placeholder="December 5, 1810"/></th>
+              </tr>
+              <tr>
+                <th>Person's Birth Place</th>
+                <th><input type="text" id="name" placeholder="Hämeenlinna, Finland"/></th>
+              </tr>
+              <tr>
+                <th>Mother's Name</th>
               <th><input type="text" id="name" placeholder="Riika Ilkka"/></th>
-            </tr>
-            <tr>
-              <th>Father's Name</th>
-              <th><input type="text" id="name" placeholder="Antti Ilkka"/></th>
-            </tr>
-            <tr>
+              </tr>
+              <tr>
+                <th>Father's Name</th>
+                <th><input type="text" id="name" placeholder="Antti Ilkka"/></th>
+              </tr>
+              <tr>
                 <td colspan="2"><button>Add field</button></td>
-            </tr>
-        </table>
-
-        <button type="submit">Submit</button><br/>
-      </form>
-    </main>
+              </tr>
+            </table>
+          
+            <button type="submit">Submit</button><br/>
+          </form>
+        </div>
+      </main>
 
     <footer>
       <hr />
