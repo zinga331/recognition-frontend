@@ -43,6 +43,8 @@
 
 [CSS](/IndividualNotes/css.md)
 
+[JavaScript](/IndividualNotes/javascript.md)
+
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
 
 ## When formatting your notes, use the docs explaining writing on github to make things look pretty
