@@ -487,3 +487,22 @@ a.push(4);
 console.log(a.length);
 // OUTPUT: 4
 ```
+
+### Assignment
+
+Our task was to implement result in both testAll and outside so that result would return if every element in the array was larger than size of three.
+
+```js
+function testAll(input, tester) {
+  // check every element in the array using anonymous function tester, then return the result.
+  const result = input.every(tester);
+  return result;
+}
+
+const result = testAll(
+  ["re", "weee", "stand", "along", "this", "road"],
+  (value) => value.length > 3
+);
+
+console.log(result);
+```
