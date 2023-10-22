@@ -7,13 +7,25 @@
 class Phone {
     constructor(regEx) {
       // Implement the constructor
+        this.regEx = regEx;
     }
   
     // Implement the Connected constant getter
+    get Connected() {
+        return 'connected';
+    }
   
     connect(...numberParts) {
-      // Return an object if the number matches the regEx
-      // Otherwise thrown an exception
+    // Implement the connect method
+    // Return an object if the number matches the regEx
+    // Otherwise thrown an exception
+    const joinedNumber = numberParts.join('-');
+    if(!this.regEx.test(joinedNumber)) {
+        throw new Error('Invalid number');
+    }
+    return {id: joinedNumber, result: Phone.Connected};
+
+
     }
   }
   
