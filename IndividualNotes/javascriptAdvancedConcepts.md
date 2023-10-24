@@ -485,3 +485,273 @@ const f = obj.make();
 f();
 // OUTPUT: object
 ```
+
+# JavaScript modules
+
+# JavaScript DOM
+
+[JavaScript Dom Diagram](/IndividualNotes/javascriptDom.png)
+
+## Accessing the DOM
+
+Every element in an HTML document implements the DOM Element interface, which is derived from the DOM Node interface. The DOM Node interface provides the means for iterating child elements, accessing the parent element, and manipulating the element's attributess.
+
+> From your JavaScript code, you can start with the document variable and walk through the every element in the tree.
+
+```js
+function displayElement(el) {
+  console.log(el.tagName);
+  for (const child of el.children) {
+    displayElement(child);
+  }
+}
+
+displayElement(document);
+```
+
+> You can provide a CSS selector to the `querySelectorAll` function in order to select elements from the document. The `textContent` property contains all of the element's text. You can even access a textual representation of an element's HTML content with the `innerHTML` property.
+
+```js
+const listElements = document.querySelectorAll("p");
+for (const el of listElements) {
+  console.log(el.textContent);
+}
+```
+
+The above code will print the text content of every paragraph element in the document.
+
+## Manipulating/Modifying the DOM
+
+The DOM supports the ability to insert, modify, or delete elements in the DOM. To create a new element in the tree, you first need to create the element on the DOM document. You can then insert the element into the tree by appending it to an exesting element in the tree. The following example demonstrates appendChild doing so on a parent element.
+
+```js
+function insertChild(parentSelector, text) {
+  const newChild = document.createElement("div");
+  newChild.textContent = text;
+
+  const parentElement = document.querySelector(parentSelector);
+  parentElement.appendChild(newChild);
+}
+
+insertChild("#courses", "new course");
+```
+
+> To delete elements call the `removeChild` function on the parent element.
+
+```js
+function deleteElement(elementSelector) {
+  const el = document.querySelector(elementSelector);
+  el.parentElement.removeChild(el);
+}
+
+deleteElement("#courses div");
+```
+
+## Injecting HTML
+
+The DOM allows you to inject entire blocks of HTML into an element too. The next example finds the first `div` element in the DOM and replacess its content with the HTML provided.
+
+```js
+const el = document.querySelector("div");
+el.innerHTML = '<div class="injected"><b>Hello</b>!</div>';
+```
+
+However, injecting HTML as a block of text is a common vulnerableility for hackers. See this example:
+
+```js
+<img src="bogus.png" onerror="console.log('All your base are belong to us')" />
+```
+
+> If you are injecting HTML, make sure that it cannot be manipulated by a user. Common injection paths include HTML input controls, URL parameters, and HTTP headers. Either sanitize any HTML that contains variables, or simply use DOM manipulation functions instead of using `innerHTML`.
+
+## Event Listeners
+
+All DOM elements support the ability to attach a function that gets called when an event occcurs on the element. These function sare called event `listeners`. This is a click listener:
+
+```js
+const submitDataEl = document.querySelector("#submitData");
+submitDataEl.addEventListener("click", function (event) {
+  console.log(event.type);
+});
+```
+
+There are lots of possible events that you can add a listener to. This includes things like mouse, keyboard, scrolling, animation, video, audio, WebSocket, and clipboard events. You can see the full list on [MDN](https://developer.mozilla.org/en-US/docs/Web/Events). Here are a few of the more commonly used events.
+
+| Event Category | Description           |
+| -------------- | --------------------- |
+| Clipboard      | Cut, copied, pasted   |
+| Focus          | An element gets focus |
+| Keyboard       | Keys are pressed      |
+| Mouse          | Click events          |
+| Text selection | When text is selected |
+
+You can also add event listeners directly in the HTML. For example, here is a `onclick` handler that is attached to a button.
+
+```html
+<button onclick='alert("clicked")'>click me</button>
+```
+
+## ☑ Assignment
+
+This [CodePen](https://codepen.io/leesjensen/pen/RwJJZBb) dynamically manipulates the DOM using JavaScript. Create a fork of the pen and take some time to experiment with it.
+
+I've forked the pen and it is found [here](https://codepen.io/zinga331/pen/JjxoqQr)
+
+Then complete the following:
+
+1. Add a new table that represents the seven peaks of Utah County.
+
+   - name: "Timpanogos", height: 11750, quality: 4.8
+   - name: "Santaquin", height: 10687, quality: 3.8
+   - name: "Lone Peak", height: 11253, quality: 5
+   - name: "Provo Peak", height: 11068, quality: 4.1
+   - name: "Cascade", height: 10908, quality: 3.2
+   - name: "Nebo", height: 11928, quality: 4.8
+   - name: "Spanish Fork", height: 10192, quality: 3.4
+
+1. Sort the table when a header is clicked on
+
+When you are done submit your CodePen URL to the Canvas assignment.
+
+Don't forget to update your GitHub startup repository notes.md with all of the things you learned and want to remember.
+
+### 🧧 Possible solution
+
+If you get stuck here is a [possible solution](https://codepen.io/leesjensen/pen/yLRgpej).
+
+### My Solution
+
+```js
+"use strict";
+
+const SevenSummits = [
+  { name: "Everest", height: 8848, place: "Nepal" },
+  { name: "Aconcagua", height: 6961, place: "Argentina" },
+  { name: "Denali", height: 6194, place: "United States" },
+  { name: "Kilimanjaro", height: 5895, place: "Tanzania" },
+  { name: "Elbrus", height: 5642, place: "Russia" },
+  { name: "Vinson", height: 4892, place: "Antarctica" },
+  { name: "Puncak Jaya", height: 4884, place: "Indonesia" },
+];
+
+const JazzMusic = [
+  { title: "Take Five", artist: "Dave Brubeck", stars: 4.8 },
+  { title: "So What", artist: "Miles Davis", stars: 3.8 },
+  { title: "Take The A Train", artist: "Duke Ellington", stars: 4.2 },
+  { title: "Round Midnight", artist: "Thelonious Monk", stars: 3.1 },
+  { title: "My Favorite Things", artist: "John Coltrane", stars: 3.0 },
+];
+
+const UtahSevenPeaks = [
+  { name: "Timpanogos", height: 11750, quality: 4.8 },
+  { name: "Santaquin", height: 10687, quality: 3.8 },
+  { name: "Lone Peak", height: 11253, quality: 5 },
+  { name: "Provo Peak", height: 11068, quality: 4.1 },
+  { name: "Cascade", height: 10908, quality: 3.2 },
+  { name: "Nebo", height: 11928, quality: 4.8 },
+  { name: "Spanish Fork", height: 10192, quality: 3.4 },
+];
+
+let currentData = SevenSummits;
+let sortWay = -1;
+
+function table(data = SevenSummits) {
+  if (!!data && data.length > 1) {
+    currentData = data;
+    const headers = parseHeader(data);
+    const tableElement = generateTable(headers, data);
+
+    const output = document.getElementById("output");
+
+    removeAllChildNodes(output);
+    output.appendChild(tableElement);
+  } else {
+    outputData("invalid input", data);
+  }
+}
+
+function parseHeader(data) {
+  let headers = [];
+  for (const [key, value] of Object.entries(data[0])) {
+    headers.push({ name: key, type: typeof value });
+  }
+  return headers;
+}
+
+function generateTable(headers, data) {
+  const tableElement = document.createElement("table");
+  tableElement.classList.add("a");
+
+  addTableStyles(headers);
+
+  generateHeader(headers, tableElement);
+  generateRows(data, tableElement);
+
+  return tableElement;
+}
+
+function generateHeader(headers, tableElement) {
+  const rowElement = document.createElement("tr");
+  tableElement.appendChild(rowElement);
+
+  headers.forEach((header) => {
+    const cellElement = document.createElement("th");
+    rowElement.appendChild(cellElement);
+    const textNode = document.createTextNode(header.name);
+    // Support sorting by adding a click listener to output.
+    cellElement.addEventListener("click", function (column) {
+      sortWay *= -1;
+      const sortBy = column.target.innerText;
+      const sortedData = currentData.sort(
+        (a, b) => sortWay * (a[sortBy] > b[sortBy] ? 1 : -1)
+      );
+      table(sortedData);
+    });
+    cellElement.appendChild(textNode);
+  });
+}
+
+function generateRows(data, tableElement) {
+  data.forEach((dataRow) => {
+    const rowElement = document.createElement("tr");
+    tableElement.appendChild(rowElement);
+    for (const [, value] of Object.entries(dataRow)) {
+      const cellElement = document.createElement("td");
+      rowElement.appendChild(cellElement);
+      const textNode = document.createTextNode(value);
+      cellElement.appendChild(textNode);
+    }
+  });
+}
+
+function addTableStyles(headers) {
+  insertRule("#output table {border-collapse: collapse;}");
+  insertRule("#output th,td {border: solid white thin;padding:.25em;}");
+  insertRule(".selected {background: white; color:black;}");
+  headers.forEach((header, index) => {
+    if (header.type === "number") {
+      insertRule(`#output tr td:nth-child(${index + 1}) {text-align:right;}`);
+    }
+  });
+}
+
+function insertRule(rule) {
+  var sheet = window.document.styleSheets[0];
+  sheet.insertRule(rule, sheet.cssRules.length);
+}
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
+function outputData(title, data) {
+  const output = document.getElementById("output");
+  output.innerHTML = `<h3>${title}</h3><pre>${JSON.stringify(
+    data,
+    null,
+    2
+  )}</pre>`;
+}
+```
