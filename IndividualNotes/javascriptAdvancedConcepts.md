@@ -883,3 +883,106 @@ Alice
 Notice that you are able to see the round trip journey of the local storage values in the console output. If you want to see what values are currently set for your application, then open the `Application` tab of the dev tools and select `Storage > Local Storage` and then your domain name. With the dev tools you can add, view, update, and delete any local storage values.
 
 # Promises
+
+JS supports asynchronous programming using promises even though it executes as a single threaded application. You can asynchronously execute code with the use of a JavaScript `Promise`. A promise is an object that represents the eventual completion of an asynchronous operation. A promise can be in one of three states:
+
+1. Pending - The asynchronous operation is still executing
+1. Fulfilled - The asynchronous operation completed successfully
+1. Rejected - The asynchronous operation failed to complete.
+
+> You create a promise by calling the Promise object constructor and passing it an executor function that runs the asynchronous operation. Executing asynchronously means that promise constructor may return before the promise executor function runs.
+
+> We can demonstrate asynchronous execution by using the standard JavaScript setTimeout function to create a delay in the execution of the code. The setTimeout function takes the number of milliseconds to wait and a function to call after that amount of time has expired. We call the delay function in a for loop in the promise executor and also a for loop outside the promise so that both code blocks are running in parallel.
+
+IN A NUTSHELL, THE BELOW CODE EXECUTES CODE INSIDE AND OUTSIDE THE PROMISE AT THE SAME TIME, BUT THE CODE INSIDE THE PROMISE IS DELAYED BY 1 SECOND.
+
+```js
+const delay = (msg, wait) => {
+  setTimeout(() => {
+    console.log(msg, wait);
+  }, 1000 * wait);
+};
+
+new Promise((resolve, reject) => {
+  // Code executing in the promise
+  for (let i = 0; i < 3; i++) {
+    delay("In promise", i);
+  }
+});
+
+// Code executing after the promise
+for (let i = 0; i < 3; i++) {
+  delay("After promise", i);
+}
+
+// OUTPUT:
+//   In promise 0
+//   After promise 0
+//   In promise 1
+//   After promise 1
+//   In promise 2
+//   After promise 2
+```
+
+## Resolving and rejecting
+
+The promise executor function takes two parameters, `resolve` and `reject`. We call either parameter to indicate the promise has been fulfilled, or that it has been rejected. Think of a coin toss where heads is `resolve` and tails is `reject.`
+
+```js
+const coinToss = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (Math.random() > 0.5) {
+      resolve("success");
+    } else {
+      reject("error");
+    }
+  }, 10000);
+});
+```
+
+Console logging in the first ten seconds would give a status of 'pending', while after that logging cointoss would show the promise as fulfilled or rejected.
+
+## Then, catch, finally
+
+> With the ability to asynchronously execute and set the resulting state, we now need a way to generically do something with the result of a promise after it resolves. This is done with functionality similar to exception handling. The promise object has three functions: `then`, `catch`, and `finally`. The `then` function is called if the promise is fulfilled, `catch` is called if the promise is `rejected`, and `finally` is always called after all the processing is completed.
+
+> We can rework our coinToss example and make it so 10 percent of the time the coin falls off the table and resolves to the rejected state. Otherwise the promise resolves to fulfilled with a result of either `heads` or `tails`.
+
+```js
+const coinToss = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (Math.random() > 0.1) {
+      resolve(Math.random() > 0.5 ? "heads" : "tails");
+    } else {
+      reject("fell off table");
+    }
+  }, 10000);
+});
+```
+
+> We then chain the `then`, `catch` and `finally` functions to the coinToss object in order to handle each of the possible results.
+
+```js
+coinToss
+  .then((result) => console.log(`Coin toss result: ${result}`))
+  .catch((err) => console.log(`Error: ${err}`))
+  .finally(() => console.log("Toss completed"));
+
+// OUTPUT:
+//    Coin toss result: tails
+//    Toss completed
+```
+
+[NOTE!] The observer pattern is also a populare wawy to do asynchronous programming. Look it up if yyou want.
+
+## ☑ Assignment
+
+This [CodePen](https://codepen.io/leesjensen/pen/RwJJKwj) uses promises to order pizzas. Create a fork of the pen and take some time to experiment with it. Modify the CodePen to include a new function that makes the pizza and include it in the promise chain.
+
+[Here](https://codepen.io/zinga331/pen/wvNavow) is my forked version.
+
+When you are done submit your CodePen URL to the Canvas assignment.
+
+### 🧧 Possible solution
+
+If you get stuck here is a [possible solution](https://codepen.io/leesjensen/pen/vYVgpyL).
