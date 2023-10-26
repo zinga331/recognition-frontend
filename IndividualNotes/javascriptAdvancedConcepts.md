@@ -986,3 +986,207 @@ When you are done submit your CodePen URL to the Canvas assignment.
 ### 🧧 Possible solution
 
 If you get stuck here is a [possible solution](https://codepen.io/leesjensen/pen/vYVgpyL).
+
+### Things I learned
+
+You can make a chain of .ethen prompts, and the next one will only run if the previous one is successful.
+
+#### Code Example
+
+```js
+function pickupPizza() {
+  const order = createOrder();
+
+  // Promise
+  placeOrder(order)
+    .then((order) => makePizza(order))
+    .then((order) => bakePizza(order))
+    .then((order) => serveOrder(order))
+    .catch((order) => {
+      orderFailure(order);
+    });
+}
+
+function createOrder() {
+  // Make the order and associate it with a new HTML element
+  const id = Math.floor(Math.random() * 10000);
+  const orderElement = document.createElement("li");
+  const order = { element: orderElement, id: id };
+
+  // Insert the order into the HTML list
+  orderElement.innerHTML = `<span>[${order.id}] &#128523; <i>Waiting</i> ...</span>`;
+  const orders = document.getElementById("orders");
+  orders.appendChild(orderElement);
+
+  return order;
+}
+
+function placeOrder(order) {
+  return new Promise((resolve, reject) => {
+    doWork(order, 1000, 3000, resolve, reject, `cashier too busy`);
+  });
+}
+// .then((order) => makePizza(order))
+function makePizza(order) {
+  return new Promise((resolve, reject) => {
+    doWork(order, 500, 10000, resolve, reject, "pepperoni isn't ready");
+  });
+}
+function bakePizza(order) {
+  return new Promise((resolve, reject) => {
+    doWork(
+      order,
+      10000,
+      11000,
+      resolve,
+      reject,
+      "the cook forgot your pizza and left it in the oven. It caught fire and burned the oven down."
+    );
+  });
+}
+// .then((order) => bakePizza(order))
+
+function doWork(order, min, max, resolve, reject, errMsg) {
+  let workTime = Math.random() * (max - min) + min;
+  setTimeout(() => {
+    workTime = Math.round(workTime);
+    if (workTime < max * 0.99) {
+      resolve(order);
+    } else {
+      order.error = errMsg;
+      reject(order);
+    }
+  }, workTime);
+}
+
+function serveOrder(order) {
+  order.element.innerHTML = `<span>[${order.id}] &#127829; <b>Served</b>!</span>`;
+}
+
+function orderFailure(order) {
+  order.element.innerHTML = `<span> [${order.id}] &#128544; <b class='failure'>Failure</b>! ${order.error}</span>`;
+}
+```
+
+# Async/await
+
+JavaScript Promise objects are great for asynchronous execution, but as developers began to build larger systems, they wanted a more concise way to do it. This resulted in `async/await` syntax. The `await` keyword wraps the execution of a promis and removed the need to chain functions.
+
+> The await expression will block until the promise state moves to fulfilled, or throws an exception if the state moves to rejected. For example, if we have a function that returns a coin toss promise.
+
+```js
+const coinToss = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.1) {
+        resolve(Math.random() > 0.5 ? "heads" : "tails");
+      } else {
+        reject("fell off table");
+      }
+    }, 1000);
+  });
+};
+```
+
+We can create two equivalent executions using the then/catch way like before, or the async, try/catch way.
+
+```js
+// then/catch
+coinToss()
+  .then((result) => console.log(`Toss result ${result}`))
+  .catch((err) => console.error(`Error: ${err}`))
+  .finally(() => console.log(`Toss completed`));
+```
+
+**_async, try/catch version_**
+
+```js
+async function tossCoin() {
+  try {
+    const result = await coinToss();
+    console.log(`Toss result ${result}`);
+  } catch (err) {
+    console.error(`Error: ${err}`);
+  } finally {
+    console.log(`Toss completed`);
+  }
+}
+```
+
+## async
+
+> The `async` keyword is used to define a function that returns a promise. The function can then use the `await` keyword to wait for the promise to resolve. The `await` keyword can only be used inside of an `async` function, or at the top level of the JavaScript module.
+
+The following log statement will not wait for `cow()` to resolve, and instead will say the promise is pending still.
+
+```js
+async function cow() {
+  return new Promise((resolve) => {
+    resolve("moo");
+  });
+}
+console.log(cow());
+// OUTPUT: Promise {<pending>}
+```
+
+### await
+
+However, if we use the `await` keyword, then the log statement will wait for the promise to resolve.
+
+```js
+console.log(cow());
+// OUTPUT: Promise {<pending>}
+
+console.log(await cow());
+// OUTPUT: moo
+```
+
+## Putting it all together **_by Dr. Lee Jensen_**
+
+You can see the benefit for `async`/`await` clearly by considering a case where multiple promises are required. For example, when calling the `fetch` web API on an endpoint that returns JSON, you would need to resolve two promises. One for the network call, and one for converting the result to JSON. A promise implementation would look like the following.
+
+```js
+const httpPromise = fetch("https://simon.cs260.click/api/user/me");
+const jsonPromise = httpPromise.then((r) => r.json());
+jsonPromise.then((j) => console.log(j));
+console.log("done");
+
+// OUTPUT: done
+// OUTPUT: {email: 'bud@mail.com', authenticated: true}
+```
+
+With async/await, you can clarify the code intent by hiding the promise syntax, and also make the execution block until the promise is resolved.
+
+```js
+const httpResponse = await fetch('https://simon.cs260.click/api/user/me');
+const jsonResponse = await httpResponse.json();
+console.log(jsonResponse));
+console.log('done');
+
+// OUTPUT: {email: 'bud@mail.com', authenticated: true}
+// OUTPUT: done
+```
+
+## ☑ Assignment
+
+Fork this [CodePen](https://codepen.io/leesjensen/pen/RwJJKwj) that uses promises and convert it to use `async`/`await`.
+
+When you are done submit your CodePen URL to the Canvas assignment.
+
+My version of it is [here](https://codepen.io/zinga331/pen/GRzJgmq).
+
+### 🧧 Possible solution
+
+If you get stuck here is a [possible solution](https://codepen.io/leesjensen/pen/KKeevVg)
+
+# Debugging JavaScript
+
+The professor says gain debugging skills
+
+## Console debugging
+
+Console log statements are a good place to start. Other than log statments, you may also open the browser debugger in order to change the value of different variables or find out what the variables are.
+
+## Browser debugging
+
+Open up the source view and then select the javascript file you want to debug. You can set a breakpoint by clicking to the left of the line number. Once you refresh the page and hit the break point, you'll have full access to look at variable values and step line by line.

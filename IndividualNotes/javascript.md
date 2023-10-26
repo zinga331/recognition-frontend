@@ -506,3 +506,5 @@ const result = testAll(
 
 console.log(result);
 ```
+
+# Lessons from simon-javascript

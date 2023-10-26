@@ -1,5 +1,17 @@
 # Christian Hall's Notes and Deliverables
 
+## JavaScript Deliverables
+
+### Personal notes on what to do for the deliverable:
+
+- Add functionality to simulate logging in, displaying the user's name, based on what they entered with register or login.
+
+- Add functionality to update the size of the table, by deleting or adding rows.
+
+- Simulate getting a random image from the server and displaying it, rather than the same image every time.
+
+- Show some way of doing notifications, like a popup or something.
+
 ## CSS ASSIGNMENT DELIVERABLES
 
 - _Header, Footer, and main content body_ - The header, footer, and main content body are styled with a background color, and the main content body has a border.
