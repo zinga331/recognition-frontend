@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Login</title>
+
+    <script src="login.js" defer></script>
     <!-- <link rel="icon" href="favicon.ico" /> -->
   </head>
   <body>
@@ -27,12 +29,12 @@
         </div>
         
         <div class="form-wrapper">
-          <form method="post" action="index.html">
+          <form action="javascript:void(0);">
             <input type="text" id="username" placeholder="Username" />
             <input type="password" id="password" placeholder="Password" />
             <div class="button-row">
-              <button type="submit">Login</button>
-              <button type="submit">Register</button>
+              <button id="loginButton">Login</button>
+              <button id="registerButton">Register</button>
             </div>
           </form>
         </div>
