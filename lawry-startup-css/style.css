@@ -147,6 +147,10 @@ td {
     font-weight: bold;
 }
 
+td.edit {
+    font-style: italic;
+}
+
 input {
     height: 21px;
     margin: 5px 0;

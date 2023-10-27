@@ -10,6 +10,8 @@ function init() {
 
     loadTypes().then(getRecord);
     document.getElementById("datasets").addEventListener("change",getRecord);
+
+    document.getElementById("addField").addEventListener("click",addField);
 }
 
 // API support
@@ -61,6 +63,28 @@ async function getRecord() {
         table.appendChild(row);
     });
     
+}
+
+// &#10006;
+async function addField() {
+    let table = document.getElementById("indexFields");
+
+    let row = document.createElement('tr');
+        
+    let labelCell = document.createElement('td');
+    labelCell.textContent = 'Click to Edit';
+    labelCell.contentEditable = true;
+    labelCell.className = 'edit';
+    row.appendChild(labelCell);
+
+    let inputCell = document.createElement('td');
+    let input = document.createElement('input');
+    input.type = "text";
+    inputCell.appendChild(input);
+    row.appendChild(inputCell);
+
+    table.appendChild(row);
+
 }
 
 async function submitRecord() {
