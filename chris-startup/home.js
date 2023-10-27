@@ -81,6 +81,8 @@ function revertTable() {
   inputs[2].value = 'New York, NY';
   inputs[3].value = 'Jane Dough';
   inputs[4].value = 'John Doe Sr.';
+  // Display a dialog message letting the user know the table has been submitted.
+  alert("Table Submitted!");
 }
 
   // create submitTable function, which removes all added rows and reverts the table to its original state, to simulate submitting the table.
@@ -95,71 +97,3 @@ function revertTable() {
 
   }
 
-  // LAWRY'S CODE
-  let types = [
-    {
-        id: "french",
-        display: "French 1820 Records"
-    },
-    {
-        id: "finnish",
-        display: "Finnish 1770 Records"
-    }
-];
-
-let records = ["example.png", "example2.png", "example3.png", "example4.png"];
-
-let fieldMock = [
-    {
-        field: "Person's Name",
-        value: "Example Name"
-    },
-    {
-        field: "Record Date",
-        value: "DD/MM/YYYY"
-    },
-    {
-        field: "Record Location",
-        value: "Commune Name"
-    },
-    {
-        field: "Mother's Name",
-        value: "Example Name"
-    },
-    {
-        field: "Father's Name",
-        value: "Example Name"
-    }
-]
-
-async function getTypes() {
-    return types;
-}
-
-async function getRecord(type) {
-    if (type != 'french') return null;
-    let ri = Math.floor(Math.random() * records.length);
-    let url = records[ri];
-    return {
-        id: 'abcdef',
-        imageURL: url,
-        fields: fieldMock
-    };
-}
-
-
-window.api = {
-    getTypes,
-    getTypes,
-    getRecord
-};
-
-// function getUsername() {
-//     const username = localStorage.getItem('username');
-//     const userNameElement = document.querySelector('.user-name');
-//     if (username) {
-//       userNameElement.textContent = username;
-//     } else {
-//       userNameElement.textContent = 'Guest';
-//     }
-//   }
