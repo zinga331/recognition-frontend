@@ -15,6 +15,7 @@ function init() {
 
   addButtonListener("addRow", addRow);
   addButtonListener("removeRow", removeRow);
+  addButtonListener("submitTable", submitTable);
 }
 
 function getUsername() {
@@ -43,7 +44,7 @@ function getUsername() {
     newCell.appendChild(cross);
     let edit = document.createElement("th");
     edit.textContent = "Edit:";
-    edit.isContentEditable = true;
+    edit.contentEditable = true;
     edit.className = "edit"; // UPDATE CLASS NAME
     newCell.appendChild(edit);
 
@@ -62,6 +63,26 @@ function getUsername() {
     let row = document.getElementById(fieldID);
     row.parentNode.removeChild(row);
 }
+function revertTable() {
+  const inputs = document.querySelectorAll('#documentForm input');
+  inputs[0].value = 'John Doe';
+  inputs[1].value = 'January 1, 2000';
+  inputs[2].value = 'New York, NY';
+  inputs[3].value = 'Jane Dough';
+  inputs[4].value = 'John Doe Sr.';
+}
+
+  // create submitTable function, which removes all added rows and reverts the table to its original state, to simulate submitting the table.
+  async function submitTable() {
+    console.log('submitTable() called');
+    let table = document.getElementById("documentForm");
+    let rowCount = table.rows.length;
+    for (let i = 5; i < rowCount; i++) {
+      table.deleteRow(5);
+    }
+    revertTable();
+
+  }
 
   // LAWRY'S CODE
   let types = [
