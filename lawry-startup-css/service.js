@@ -12,26 +12,51 @@ let types = [
 let records = ["example.png", "example2.png", "example3.png", "example4.png"];
 
 let fieldMock = [
-    {
-        field: "Person's Name",
-        value: "Example Name"
-    },
-    {
-        field: "Record Date",
-        value: "DD/MM/YYYY"
-    },
-    {
-        field: "Record Location",
-        value: "Commune Name"
-    },
-    {
-        field: "Mother's Name",
-        value: "Example Name"
-    },
-    {
-        field: "Father's Name",
-        value: "Example Name"
-    }
+    [
+        {
+            field: "Person's Name",
+            value: "Jean-Luc"
+        },
+        {
+            field: "Record Date",
+            value: "07/01/1819"
+        },
+        {
+            field: "Record Location",
+            value: "Bellefontaine-les-Champs"
+        },
+        {
+            field: "Mother's Name",
+            value: "Marie-Claire"
+        },
+        {
+            field: "Father's Name",
+            value: "Pierre Dupont"
+        }
+    ],
+    [
+
+        {
+            field: "Person's Name",
+            value: "Isabelle Dubois"
+        },
+        {
+            field: "Record Date",
+            value: "14/03/1821"
+        },
+        {
+            field: "Record Location",
+            value: "Saint-Étienne-sur-Mer"
+        },
+        {
+            field: "Mother's Name",
+            value: "Sophie Martin"
+        },
+        {
+            field: "Father's Name",
+            value: "François Leblanc"
+        }
+    ]
 ]
 
 async function getTypes() {
@@ -41,11 +66,11 @@ async function getTypes() {
 async function getRecord(type) {
     if (type != 'french') return null;
     let ri = Math.floor(Math.random() * records.length);
-    let url = records[ri];
+    let fi = Math.floor(Math.random() * fieldMock.length);
     return {
         id: 'abcdef',
-        imageURL: url,
-        fields: fieldMock
+        imageURL: records[ri],
+        fields: fieldMock[fi]
     };
 }
 
