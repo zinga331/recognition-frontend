@@ -20,8 +20,7 @@
         <p>Note: Site-wide notifications cannot be received if you are not opted in. You can opt in or out at any time.</p>
       </fieldset>
     <img alt="Slideshow Placeholder" src="dummy_example.png" />
-    <script src="home.js"></script>
-    <script>getUsername();</script>
+
 
   </head>
   <body>
@@ -70,13 +69,15 @@
 
               </table>
               <div>
-              <button class="menu" onclick="addRow()">+New Field</button> 
-                <button class="menu" onclick="deleteRow()">-Delete Field</button>
+              <button id="addRow" class="menu">+New Field</button> 
+                <button id="removeRow" class="menu">-Delete Field</button>
               </div>
               <button class="menu" type="submit" onclick="submitTable()">Submit</button>
             <p>Verify the accuracy of the generation, then submit.</p>
             </div>
     </div>
+    <script src="home.js"></script>
+    <script>init();</script>
   </body>
   <footer>
     <p>Project by Lawry Sorenson and Christian Hall:</p>
