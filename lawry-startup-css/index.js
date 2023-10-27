@@ -9,6 +9,7 @@ function init() {
     setupWebsocket();
 
     loadTypes().then(getRecord);
+    document.getElementById("datasets").addEventListener("change",getRecord);
 }
 
 // API support
@@ -25,11 +26,44 @@ async function loadTypes() {
     })
 }
 
+let curRecord = null;
 async function getRecord() {
+    let select = document.getElementById("datasets");
+    let type = select.value;
+    curRecord = await api.getRecord(type);
+
+    if (curRecord == null) {
+        window.alert("There are no records of that type available!");
+        return;
+    }
+    
+    document.getElementById("recordImage").src = curRecord.imageURL;
+
+    let table = document.getElementById("indexFields");
+
+    table.innerHTML = '';
+
+    curRecord.fields.forEach(field => {
+        let row = document.createElement('tr');
+        
+        let labelCell = document.createElement('td');
+        labelCell.textContent = field.field;
+        row.appendChild(labelCell);
+
+        let inputCell = document.createElement('td');
+        let input = document.createElement('input');
+        input.type = "text";
+        input.id = field.field;
+        input.value = field.value;
+        inputCell.appendChild(input);
+        row.appendChild(inputCell);
+
+        table.appendChild(row);
+    });
+    
 }
 
 async function submitRecord() {
-
 }
 
 // Login Support
