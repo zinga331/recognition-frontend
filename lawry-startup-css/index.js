@@ -12,6 +12,7 @@ function init() {
     document.getElementById("datasets").addEventListener("change",getRecord);
 
     document.getElementById("addField").addEventListener("click",addField);
+    document.getElementById("submit").addEventListener("click",submitRecord);
 }
 
 // API support
@@ -105,6 +106,25 @@ async function addField() {
 }
 
 async function submitRecord() {
+    if (!curRecord) return;
+    
+    let table = document.getElementById("indexFields");
+
+    let outputFields = [];
+
+    for (const row of table.children) {
+        let input = row.querySelector(":scope input");
+        let fieldName = row.id ? row.querySelector(":scope .edit").textContent : input.id;
+        outputFields.push({
+            field: fieldName,
+            value: input.value
+        });
+    }
+
+    curRecord.results = outputFields;
+    await api.submitRecord(curRecord);
+
+    getRecord();
 }
 
 // Login Support

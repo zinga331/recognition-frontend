@@ -81,5 +81,6 @@ async function submitRecord(record) {
 window.api = {
     getTypes,
     getTypes,
-    getRecord
+    getRecord,
+    submitRecord
 };
