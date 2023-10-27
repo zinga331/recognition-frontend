@@ -14,8 +14,19 @@ function init() {
   getUsername();
 
   addButtonListener("addRow", addRow);
-  addButtonListener("removeRow", removeRow);
   addButtonListener("submitTable", submitTable);
+
+  const optgroup = document.getElementById('optgroup');
+  const img = document.querySelector('img');
+
+  optgroup.addEventListener('change', () => {
+    console.log('change event fired');
+    const selectedOption = optgroup.options[optgroup.selectedIndex].parentNode.label;
+    console.log(selectedOption);
+
+    const imgSrc = `images/${selectedOption}.png`;
+    img.src = imgSrc;
+  });
 }
 
 function getUsername() {
@@ -136,9 +147,6 @@ async function getRecord(type) {
     };
 }
 
-async function submitRecord(record) {
-    console.log("Submitting record:", record);
-}
 
 window.api = {
     getTypes,
