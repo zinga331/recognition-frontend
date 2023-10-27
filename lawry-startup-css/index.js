@@ -1,17 +1,40 @@
-
-let loggedIn = false;
+let api = window.api;
 
 function init() {
     document.getElementById("loginLink").addEventListener("click", logout);
     renderLogin();
-
+    
     document.querySelector(".toggle-popup").addEventListener("click", showNotice);
     document.querySelector(".notification").addEventListener("focusout", hideNotice);
     setupWebsocket();
+
+    loadTypes().then(getRecord);
+}
+
+// API support
+
+async function loadTypes() {
+    let data = await api.getTypes();
+    let select = document.getElementById("datasets");
+    select.innerHTML = '';
+    data.forEach(type => {
+        let op = document.createElement('option');
+        op.value = type.id;
+        op.innerText = type.display;
+        select.appendChild(op);
+    })
+}
+
+async function getRecord() {
+}
+
+async function submitRecord() {
+
 }
 
 // Login Support
 
+let loggedIn = false;
 function renderLogin() {
     let username = localStorage.getItem("username");
     
