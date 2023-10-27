@@ -29,6 +29,7 @@ async function loadTypes() {
 }
 
 let curRecord = null;
+let addedFields = 0;
 async function getRecord() {
     let select = document.getElementById("datasets");
     let type = select.value;
@@ -62,19 +63,35 @@ async function getRecord() {
 
         table.appendChild(row);
     });
-    
+
+    addedFields = 0;
 }
 
-// &#10006;
+async function removeField(fieldID) {
+    let row = document.getElementById(fieldID);
+    row.parentNode.removeChild(row);
+}
+
 async function addField() {
+    let fieldID = 'addedField' + (++addedFields);
     let table = document.getElementById("indexFields");
 
     let row = document.createElement('tr');
-        
+    row.id = fieldID;
+    
     let labelCell = document.createElement('td');
-    labelCell.textContent = 'Click to Edit';
-    labelCell.contentEditable = true;
-    labelCell.className = 'edit';
+
+    let del = document.createElement('span');
+    del.innerHTML = '&#10006; ';
+    del.addEventListener("click",() => removeField(fieldID));
+    labelCell.appendChild(del);
+
+    let editable = document.createElement('span');
+    editable.textContent = 'Click to Edit';
+    editable.contentEditable = true;
+    editable.className = 'edit';
+    labelCell.appendChild(editable);
+
     row.appendChild(labelCell);
 
     let inputCell = document.createElement('td');
