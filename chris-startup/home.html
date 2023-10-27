@@ -6,7 +6,9 @@
   <head>
     <title>Full Page Indexing</title>
     <link rel="stylesheet" href="style.css" />
-    <h1>Welcome to indexing, Mr. Rogers</h1>
+    <h1>Welcome to indexing, <span class="user-name"></span></h1>
+   
+
     <fieldset>
         <legend>Notifications Settings</legend>
         <div class="radioRow">
@@ -18,6 +20,9 @@
         <p>Note: Site-wide notifications cannot be received if you are not opted in. You can opt in or out at any time.</p>
       </fieldset>
     <img alt="Slideshow Placeholder" src="dummy_example.png" />
+    <script src="home.js"></script>
+    <script>getUsername();</script>
+
   </head>
   <body>
     <div id="recordForm">
