@@ -26,11 +26,21 @@ a:hover {
 footer {
   background: #009632;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+footer p {
+  margin: 1em;
+  font-size: xx-large;
+}
+footer a {
+  font-size: large;
 }
 
 /* Index page styles */
 header {
-  background-color: #f2f2f2;
+  background-color: white;
   padding: 1em;
 }
 
@@ -70,7 +80,8 @@ input[type="password"] {
 }
 
 button[type="submit"],
-button[type="register"] {
+button[type="register"],
+.menu {
   padding: 0.5em 1em;
   background-color: blue;
   color: white;
@@ -81,7 +92,8 @@ button[type="register"] {
 }
 
 button[type="submit"]:hover,
-button[type="register"]:hover {
+button[type="register"]:hover,
+.menu:hover {
   background-color: darkblue;
 }
 
@@ -89,6 +101,7 @@ img {
   display: block;
   margin: 2em auto;
   max-width: 100%;
+  border: 5px solid blue;
 }
 #slideshow:hover {
   animation: bounce 3s infinite;
@@ -139,4 +152,49 @@ fieldset {
 .radioRow input[type="radio"] {
   margin-left: 10vw;
   margin-right: 1vw;
+}
+optgroup {
+  font-size: larger;
+}
+
+/* Styles for document form */
+#recordForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5vh 5vw;
+}
+#recordForm tr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 3px solid black;
+  width: 100%;
+}
+#documentForm th {
+  font-weight: bold;
+  padding-right: 1em;
+  font-size: 2vw;
+  border-right: #333;
+}
+#documentForm td {
+  display: flex;
+  font-size: 1.5vw;
+  align-items: end;
+}
+#documentForm th,
+#documentForm td {
+  padding: 0.5em;
+}
+
+#documentForm {
+  width: 100%;
+}
+
+p.warning {
+  background-color: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 1em;
 }

@@ -6,7 +6,7 @@
   <head>
     <title>Full Page Indexing</title>
     <link rel="stylesheet" href="style.css" />
-    <h1>Welcome to indexing, Kevin Bacon</h1>
+    <h1>Welcome to indexing, Mr. Rogers</h1>
     <fieldset>
         <legend>Notifications Settings</legend>
         <div class="radioRow">
@@ -42,39 +42,39 @@
         <table id="documentForm">
             <legend>Indexing Entry</legend>
             <tr>
-              <th>Name</th>
+              <th>Name:</th>
               <td contenteditable="true">John Doe</td>
             </tr>
             <tr>
-              <th>Birthdate</th>
+              <th>Birthdate:</th>
               <td contenteditable="true">January 1, 2000</td>
             </tr>
             <tr>
-              <th>Birthplace</th>
+              <th>Birthplace:</th>
               <td contenteditable="true">New York, NY</td>
             </tr>
             <tr>
-              <th>Mother's Name</th>
+              <th>Mother's Name:</th>
               <td contenteditable="true">Jane Dough</td>
             </tr>
             <tr>
-              <th>Father's Name</th>
+              <th>Father's Name:</th>
               <td contenteditable="true">John Doe Sr.</td>
             </tr>
 
           </table>
           <div>
-          <button onclick="addRow()">+New Field</button> 
-            <button onclick="deleteRow()">-Delete Field</button>
+          <button class="menu" onclick="addRow()">+New Field</button> 
+            <button class="menu" onclick="deleteRow()">-Delete Field</button>
           </div>
-          <button onclick="resetTable()">Submit</button>
-        <p>Verify the accuracy of the generation, then submit.</p>
+          <button class="menu" type="submit" onclick="submitTable()">Submit</button>
+        <p class="warning">Verify the accuracy of the generation, then submit.</p>
         </div>
 
   </body>
   <footer>
     <p>Project by Lawry Sorenson and Christian Hall:</p>
-    <a href="https://github.com/zinga331/startup/blob/html/notes.md#html-assignment-deliverables">Startup Repo</a>
+    <a href="https://github.com/zinga331/startup/blob/main/notes.md#css-assignment-deliverables">Startup Repo</a>
   </footer>
 
 </html>
