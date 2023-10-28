@@ -1,6 +1,6 @@
 # Christian Hall's Notes and Deliverables
 
-## JavaScript Deliverables
+## JAVASCRIPT DELIVERABLES
 
 ### Personal notes on what to do for the deliverable:
 

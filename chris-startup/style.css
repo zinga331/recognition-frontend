@@ -81,6 +81,8 @@ input[type="password"] {
 
 button[type="submit"],
 button[type="register"],
+button[type="logout"],
+button[type="notification"],
 .menu {
   padding: 0.5em 1em;
   background-color: blue;
@@ -93,6 +95,8 @@ button[type="register"],
 
 button[type="submit"]:hover,
 button[type="register"]:hover,
+button[type="logout"]:hover,
+button[type="notification"]:hover,
 .menu:hover {
   background-color: darkblue;
 }
@@ -124,6 +128,10 @@ main {
   max-width: 800px;
   margin: 0 auto;
   padding: 2em;
+}
+
+#notification-button {
+  margin-right: 1vw;
 }
 
 h2 {
@@ -158,6 +166,14 @@ optgroup {
 }
 
 /* Styles for document form */
+.form-wrapper {
+  flex: 1 33vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+}
 #recordForm {
   display: flex;
   flex-direction: column;
@@ -175,10 +191,15 @@ optgroup {
 #documentForm th {
   font-weight: bold;
   padding-right: 1em;
+  display: flex;
+  align-items: baseline;
   font-size: 2vw;
   border-right: #333;
+  white-space: nowrap;
+  width: 20%;
 }
 #documentForm td {
+  width: 80%;
   display: flex;
   font-size: 1.5vw;
   align-items: end;
@@ -191,6 +212,28 @@ optgroup {
 #documentForm {
   width: 100%;
 }
+#documentForm input[type="text"] {
+  font-size: 1.5vw;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-left: 1em;
+}
+.crossButton:hover {
+  cursor: pointer;
+}
+.notification {
+  display: none;
+  position: fixed;
+  top: 10vh;
+  right: 40vw;
+  background: #000a;
+  width: 15em;
+  text-align: center;
+  padding: 1em;
+  color: white;
 
 p.warning {
   background-color: #ffe6e6;

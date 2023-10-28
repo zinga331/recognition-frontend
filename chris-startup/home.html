@@ -2,79 +2,93 @@
 <html>
     <header>
         <a href="index.html">Return to Landing Page</a>
+        <!-- Add Notification button and logout button to the far right of the header -->
+        
+        <div style="display: flex; justify-content: flex-end; margin-right: 20px;">
+          <button id="notification-button" type="notification">Notifications</button>
+          <button id="logout-button" type="logout">Logout</button>
+        </div>
     </header>
   <head>
     <title>Full Page Indexing</title>
     <link rel="stylesheet" href="style.css" />
-    <h1>Welcome to indexing, Mr. Rogers</h1>
+    <h1>Welcome to indexing, <span class="user-name"></span></h1>
+    <div class="notification" tabindex="0">No notifications yet</div>
+   
+
     <fieldset>
         <legend>Notifications Settings</legend>
         <div class="radioRow">
             <input type="radio" id="opt-in" name="notification" value="receive">
             <label for="opt-in">Receive</label><br>
-            <input type="radio" id="opt-out" name="notification" value="receive-not" checked>
+            <input type="radio" id="opt-out" name="notification" value="receive-not">
             <label for="opt-out">Don't Receive</label><br>
         </div>
         <p>Note: Site-wide notifications cannot be received if you are not opted in. You can opt in or out at any time.</p>
       </fieldset>
-    <img alt="Slideshow Placeholder" src="dummy_example.png" />
+    <img alt="Slideshow Placeholder" src="images/dummy_example.png" width="800px" />
+
+
   </head>
   <body>
-    <div id="recordForm">
-        <p>
-            <label for="optgroup">Record Type: </label>
-            <select id="optgroup" name="varOptGroup">
-              <optgroup label="French">
-                <option>1900 Census</option>
-                <option selected>1900 Obituary</option>
-              </optgroup>
-              <optgroup label="Spanish">
-                <option>1950 Baptism</option>
-                <option>1960 Census</option>
-              </optgroup>
-              <optgroup label="English">
-                <option>2000 Census</option>
-                <option>1950 Marriage Records</option>
-              </optgroup>
-            </select>
-        </p>
+    <div class="form-wrapper">
+        <div id="recordForm">
+            <p>
+                <label for="optgroup">Record Type: </label>
+                <select id="optgroup" name="varOptGroup">
+                  <optgroup label="French">
+                    <option>1900 Census</option>
+                    <option selected>1900 Obituary</option>
+                  </optgroup>
+                  <optgroup label="Spanish">
+                    <option>1950 Baptism</option>
+                    <option>1960 Census</option>
+                  </optgroup>
+                  <optgroup label="English">
+                    <option>2000 Census</option>
+                    <option>1950 Marriage Records</option>
+                  </optgroup>
+                </select>
+            </p>
 
-        <table id="documentForm">
-            <legend>Indexing Entry</legend>
-            <tr>
-              <th>Name:</th>
-              <td contenteditable="true">John Doe</td>
-            </tr>
-            <tr>
-              <th>Birthdate:</th>
-              <td contenteditable="true">January 1, 2000</td>
-            </tr>
-            <tr>
-              <th>Birthplace:</th>
-              <td contenteditable="true">New York, NY</td>
-            </tr>
-            <tr>
-              <th>Mother's Name:</th>
-              <td contenteditable="true">Jane Dough</td>
-            </tr>
-            <tr>
-              <th>Father's Name:</th>
-              <td contenteditable="true">John Doe Sr.</td>
-            </tr>
+            <table id="documentForm">
+                <legend>Indexing Entry</legend>
+                <tr>
+                  <th>Name:</th>
+                  <td><input type="text" id="name" placeholder="John Doe" /></td>
+                </tr>
+                <tr>
+                  <th>Birthdate:</th>
+                  <td><input type="text" id="name" placeholder="January 1, 2000"/></td>
+                </tr>
+                <tr>
+                  <th>Birthplace:</th>
+                  <td><input type="text" id="name" placeholder="New York, NY"/></td>
+                </tr>
+                <tr>
+                  <th>Mother's Name:</th>
+                  <td><input type="text" id="name" placeholder="Jane Dough"/></td>
+                </tr>
+                <tr>
+                  <th>Father's Name:</th>
+                  <td><input type="text" id="name" placeholder="John Doe Sr."/></td>
+                </tr>
 
-          </table>
-          <div>
-          <button class="menu" onclick="addRow()">+New Field</button> 
-            <button class="menu" onclick="deleteRow()">-Delete Field</button>
-          </div>
-          <button class="menu" type="submit" onclick="submitTable()">Submit</button>
-        <p class="warning">Verify the accuracy of the generation, then submit.</p>
-        </div>
 
+              </table>
+              <div>
+              <button id="addRow" class="menu">+New Field</button> 
+              </div>
+              <button id="submitTable" class="menu" type="submit">Submit</button>
+            <p>Verify the accuracy of the generation, then submit.</p>
+            </div>
+    </div>
+    <script src="home.js"></script>
+    <script>init();</script>
   </body>
   <footer>
     <p>Project by Lawry Sorenson and Christian Hall:</p>
-    <a href="https://github.com/zinga331/startup/blob/main/notes.md#css-assignment-deliverables">Startup Repo</a>
+    <a href="https://github.com/zinga331/startup/blob/main/notes.md#javascript-deliverables">Startup Repo</a>
   </footer>
 
 </html>
