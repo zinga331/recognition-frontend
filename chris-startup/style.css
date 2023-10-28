@@ -133,6 +133,11 @@ main {
 #notification-button {
   margin-right: 1vw;
 }
+.header-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
 
 h2 {
   font-size: 1.5em;
@@ -188,6 +193,10 @@ optgroup {
   border: 3px solid black;
   width: 100%;
 }
+
+#documentForm {
+  margin: 5vh;
+}
 #documentForm th {
   font-weight: bold;
   padding-right: 1em;
@@ -234,6 +243,7 @@ optgroup {
   text-align: center;
   padding: 1em;
   color: white;
+}
 
 p.warning {
   background-color: #ffe6e6;

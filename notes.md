@@ -2,7 +2,12 @@
 
 ## JAVASCRIPT DELIVERABLES
 
-### Personal notes on what to do for the deliverable:
+The following elements were added for the JavaScript assignment.
+
+- **JavaScript support for future login.** - The login and register buttons read in the username and save it to local storage. This name is read back and displayed on the home page. The logout button clears this data from local storage.
+- **JavaScript support for future database data.** - Storage of username in database is simulated by local storage. The document image on the homepage corresponds to the language selected by the user. The page supports adding and deleting rows from the table, and simulates submitting the data to the database.
+- **JavaScript support for future WebSocket.** - On login, user is prompted to opt-in or opt-out of notifications. If opted-in, notifications periodically appear for about thirty seconds. The latest notification can be viewed by clicking the notification button.
+- **JavaScript support application's interaction logic.** - Users can add and remove new fields from the table while indexing. The table populates on page load based on the results from the database queries.
 
 - Add functionality to simulate logging in, displaying the user's name, based on what they entered with register or login.
 
@@ -48,6 +53,8 @@
 - _Database_ - database will serve the indexing images on the home.html page, i.e. indexing page.
 - _WebSocket_ - While logged in, users can receive server wide notifications if they are opted in.
 
+## Links to notes and pages by topic
+
 [Go back to main README](/notes.md)
 
 [Notes about dev versus prod](/IndividualNotes/devProd.md)
@@ -65,11 +72,11 @@
 
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
 
-## When formatting your notes, use the docs explaining writing on github to make things look pretty
+### When formatting your notes, use the docs explaining writing on github to make things look pretty
 
 [Here](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#headings)
 
-## Code can be edited directly through github, or on one of the related repository branches.
+### Code can be edited directly through github, or on one of the related repository branches.
 
 You'll notice the different levels that are used in this. The main heading used a single pound symbol, and the next used two of them.
 Some basic Git commands are:

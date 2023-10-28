@@ -83,7 +83,13 @@ function getUsername() {
     let row = document.getElementById(fieldID);
     row.parentNode.removeChild(row);
 }
-function revertTable() {
+function revertTable() {    let table = document.getElementById("documentForm");
+
+  let rowCount = table.rows.length;
+  for (let i = 5; i < rowCount; i++) {
+    table.deleteRow(5);
+  }
+  
   const inputs = document.querySelectorAll('#documentForm input');
   inputs[0].value = 'John Doe';
   inputs[1].value = 'January 1, 2000';
@@ -94,15 +100,15 @@ function revertTable() {
   alert("Table Submitted!");
 }
 
-  // create submitTable function, which removes all added rows and reverts the table to its original state, to simulate submitting the table.
+  // Confirm submission of table, thenn revert table to default state
   async function submitTable() {
     console.log('submitTable() called');
-    let table = document.getElementById("documentForm");
-    let rowCount = table.rows.length;
-    for (let i = 5; i < rowCount; i++) {
-      table.deleteRow(5);
+    const confirm = window.confirm("Are you sure you want to submit the table?");
+
+    if (confirm) {
+      console.log('Table submitted');
+      revertTable();
     }
-    revertTable();
 
   }
 
