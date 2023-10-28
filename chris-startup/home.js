@@ -1,6 +1,3 @@
-// TODO next: create services.js and implement notifications there.
-let api = window.api;
-
 // Creates a button listener given the function name, and the button id
 function addButtonListener(buttonId, listenerFunction) {
   const button = document.getElementById(buttonId);
@@ -11,13 +8,15 @@ function addButtonListener(buttonId, listenerFunction) {
   }
 }
 
-function init() {
+async function init() {
   console.log('init() called');
   getUsername();
 
   addButtonListener("addRow", addRow);
   addButtonListener("submitTable", submitTable);
   addButtonListener("logout-button", logout);
+
+
 
   const optgroup = document.getElementById('optgroup');
   const img = document.querySelector('img');
@@ -30,6 +29,12 @@ function init() {
     const imgSrc = `images/${selectedOption}.png`;
     img.src = imgSrc;
   });
+    await showDialog();
+
+    //Set up websocket notifications
+    addButtonListener("notification-button", showNotice);
+    document.querySelector(".notification").addEventListener("focusout", hideNotice);
+    setupWebsocket();
 }
 
 function getUsername() {
@@ -41,6 +46,7 @@ function getUsername() {
     } else {
       userNameElement.textContent = 'Guest';
     }
+    return userNameElement.textContent;
   }
   // Target table documentForm and add a new row
   async function addRow(){
@@ -108,7 +114,46 @@ function revertTable() {
 
   // Interface WebSocket Notifications
   let hideNoticeTimer;
-  // let notification = document.getElementById('notification');
+  function setupWebsocket() {
+    setTimeout(() => notify("You've got to do the thing, " + getUsername() + "!"), 1000);
+    setTimeout(() => notify("Goodness, you're doing well " + getUsername() + "!"), 10000);
+    setTimeout(() => notify("I can hardly believe how amazing you are, " + getUsername() + "!"), 20000);
+    setTimeout(() => notify("You've done the thing, " + getUsername() + "!"), 30000);
+    // Fill out real websocket code here
+}
+
+function notify(text) {
+    // Check if the notifications settings radio group is set to "receive". If not, return.
+    let radio = document.querySelector('input[name="notification"]:checked');
+    if (!radio || radio.value != "receive") return;
+
+    let notice = document.querySelector(".notification");
+    notice.textContent = text;
+    notice.style.display = 'block';
+    
+    if (hideNoticeTimer) clearTimeout(hideNoticeTimer),hideNoticeTimer=null;
+    hideNoticeTimer = setTimeout(hideNotice, 2000);
+}
+async function showDialog() {
+  const result = window.confirm('Opt-in to receive notifications?');
+  if (result) {
+    document.getElementById('opt-in').click();
+  } else {
+    document.getElementById('opt-out').click();
+  }
+}
+
+function showNotice() {
+    let notice = document.querySelector(".notification");
+    notice.style.display = 'block';
+    notice.focus();
+}
+
+function hideNotice() {
+    if (hideNoticeTimer) clearTimeout(hideNoticeTimer),hideNoticeTimer=null;
+    let notice = document.querySelector(".notification");
+    notice.style.display = 'none';
+}
 
 
 

@@ -224,3 +224,14 @@ optgroup {
 .crossButton:hover {
   cursor: pointer;
 }
+.notification {
+  display: none;
+  position: fixed;
+  top: 10vh;
+  right: 40vw;
+  background: #000a;
+  width: 15em;
+  text-align: center;
+  padding: 1em;
+  color: white;
+}
