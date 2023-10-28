@@ -133,6 +133,11 @@ main {
 #notification-button {
   margin-right: 1vw;
 }
+.header-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
 
 h2 {
   font-size: 1.5em;
