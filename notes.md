@@ -9,14 +9,6 @@ The following elements were added for the JavaScript assignment.
 - **JavaScript support for future WebSocket.** - On login, user is prompted to opt-in or opt-out of notifications. If opted-in, notifications periodically appear for about thirty seconds. The latest notification can be viewed by clicking the notification button.
 - **JavaScript support application's interaction logic.** - Users can add and remove new fields from the table while indexing. The table populates on page load based on the results from the database queries.
 
-- Add functionality to simulate logging in, displaying the user's name, based on what they entered with register or login.
-
-- Add functionality to update the size of the table, by deleting or adding rows.
-
-- Simulate getting a random image from the server and displaying it, rather than the same image every time.
-
-- Show some way of doing notifications, like a popup or something.
-
 ## CSS ASSIGNMENT DELIVERABLES
 
 - _Header, Footer, and main content body_ - The header, footer, and main content body are styled with a background color, and the main content body is centered.
