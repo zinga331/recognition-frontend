@@ -1,4 +1,6 @@
+// TODO next: create services.js and implement notifications there.
 let api = window.api;
+
 // Creates a button listener given the function name, and the button id
 function addButtonListener(buttonId, listenerFunction) {
   const button = document.getElementById(buttonId);
@@ -15,6 +17,7 @@ function init() {
 
   addButtonListener("addRow", addRow);
   addButtonListener("submitTable", submitTable);
+  addButtonListener("logout-button", logout);
 
   const optgroup = document.getElementById('optgroup');
   const img = document.querySelector('img');
@@ -46,17 +49,17 @@ function getUsername() {
     let row = document.createElement("tr");
     row.id = "row" + table.rows.length;
 
-    let newCell = document.createElement("td");
+    let newCell = document.createElement("th");
     let cross = document.createElement("span");
-    cross.innerHTML = '&#10006;'; // ADD a cross symbol to be used to remove the row later.
+    cross.innerHTML = '&#10006;';
+    cross.className = "crossButton"; // Set the class name to "crossButton"
     cross.addEventListener("click",() => removeRow(row.id));
 
-
     newCell.appendChild(cross);
-    let edit = document.createElement("th");
+    let edit = document.createElement("td");
     edit.textContent = "Edit:";
     edit.contentEditable = true;
-    edit.className = "edit"; // UPDATE CLASS NAME
+    edit.className = "edit";
     newCell.appendChild(edit);
 
     row.appendChild(newCell);
@@ -96,4 +99,16 @@ function revertTable() {
     revertTable();
 
   }
+
+  async function logout() {
+    console.log('logout() called');
+    localStorage.setItem('username', '');
+    window.location.href = 'index.html';
+  }
+
+  // Interface WebSocket Notifications
+  let hideNoticeTimer;
+  // let notification = document.getElementById('notification');
+
+
 

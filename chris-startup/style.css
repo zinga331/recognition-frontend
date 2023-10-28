@@ -82,6 +82,8 @@ input[type="password"] {
 
 button[type="submit"],
 button[type="register"],
+button[type="logout"],
+button[type="notification"],
 .menu {
   padding: 0.5em 1em;
   background-color: blue;
@@ -94,6 +96,8 @@ button[type="register"],
 
 button[type="submit"]:hover,
 button[type="register"]:hover,
+button[type="logout"]:hover,
+button[type="notification"]:hover,
 .menu:hover {
   background-color: darkblue;
 }
@@ -124,6 +128,10 @@ main {
   max-width: 800px;
   margin: 0 auto;
   padding: 2em;
+}
+
+#notification-button {
+  margin-right: 1vw;
 }
 
 h2 {
@@ -211,5 +219,8 @@ optgroup {
   padding: 0.5em;
   border: 1px solid #ccc;
   border-radius: 3px;
-  margin-bottom: 1em;
+  margin-left: 1em;
+}
+.crossButton:hover {
+  cursor: pointer;
 }
