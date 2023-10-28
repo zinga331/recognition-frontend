@@ -14,8 +14,13 @@
 
 ## CSS ASSIGNMENT DELIVERABLES
 
-- _Header, Footer, and main content body_ - The header, footer, and main content body are styled with a background color, and the main content body has a border.
-- _Navigation elements_ - The navigation elements are styled with a background color, and the links are styled with a hover effect.
+- _Header, Footer, and main content body_ - The header, footer, and main content body are styled with a background color, and the main content body is centered.
+- _Navigation elements_ - The navigation elements are appropriately sized, and the links are styled with an underline upon hover. all buttons, including navigation buttons, also feature a background color change upon hover.
+- _Responsive to window resizing_ - Padding and element sizes respond to window resizing.
+- _Application elements_ - Index entry table and login are styled to be centered and look better. The buttons and index page slideshow placeholder are styled with a hover effect. Notification Settings box is styled with a border and radio buttons mapped near their text.
+- _Application text content_ - The text content is styled with a font group, and font color appropriate to each element.
+- _Application images_ - The images are styled with a border and the index page image has a hover animation.
+- _Git Commits_ - periodic commits to display progress.
 
 ### Grading Criteria
 

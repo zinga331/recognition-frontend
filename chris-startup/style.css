@@ -36,7 +36,6 @@ footer p {
 }
 footer a {
   font-size: large;
-  text-decoration: underline;
 }
 
 /* Index page styles */
@@ -106,6 +105,7 @@ img {
   display: block;
   margin: 2em auto;
   max-width: 100%;
+  border: 5px solid blue;
 }
 #slideshow:hover {
   animation: bounce 3s infinite;
@@ -234,4 +234,10 @@ optgroup {
   text-align: center;
   padding: 1em;
   color: white;
+
+p.warning {
+  background-color: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 1em;
 }
