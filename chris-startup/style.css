@@ -188,6 +188,10 @@ optgroup {
   border: 3px solid black;
   width: 100%;
 }
+
+#documentForm {
+  margin: 5vh;
+}
 #documentForm th {
   font-weight: bold;
   padding-right: 1em;
