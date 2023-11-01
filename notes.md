@@ -62,6 +62,8 @@ The following elements were added for the JavaScript assignment.
 [JavaScript](/IndividualNotes/javascript.md)
 [JavaScript Advanced Concepts](/IndividualNotes/javascriptAdvancedConcepts.md)
 
+[Midterm1 StudyGuide](/IndividualNotes/midterm1StudyGuide.md)
+
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
 
 ### When formatting your notes, use the docs explaining writing on github to make things look pretty
