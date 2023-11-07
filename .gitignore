@@ -2,3 +2,10 @@
 
 # System Files
 260-indexing.pem
+
+# Node modules in npm test folder
+IndividualNotes/npmtest/node_modules
+IndividualNotes/testExpress/node_modules
+IndividualNotes/debugging/node_modules
+IndividualNotes/debugging/package.json
+
