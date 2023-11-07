@@ -42,9 +42,35 @@ The following elements were added for the JavaScript assignment.
 
 # Service Deliverable
 
-- **30% - Create an HTTP service using Node.js and Express**
-- **10% - Frontend served up using express static middleware**
-- **10% - Your frontend calls third party service endpoints**
-- **20% - Your backend provides service endpoints**
-- **20% - Your frontend calls your service endpoints**
-  - **10% - Multiple Git commits with meaningful comments.**
+- (Required) Simon Service deployed to your production environment
+- (Required) A link to your GitHub startup repository prominently displayed on your application's home page
+- (Required) Notes in your startup Git repository README.md file documenting what you modified and added with this deliverable. The TAs will only grade things that have been clearly described as being completed. Review the [voter app](https://github.com/webprogramming260/startup-example) as an example.
+- Backend web service support and interaction
+
+1. **30% - Create an HTTP service using Node.js and Express**
+1. **10% - Frontend served up using express static middleware**
+1. **10% - Your frontend calls third party service endpoints**
+1. **20% - Your backend provides service endpoints**
+1. **20% - Your frontend calls your service endpoints**
+
+   1. **10% - Multiple Git commits with meaningful comments.**
+
+1. Review and deploy Simon Service
+   1. Clone the Simon Service repository to your development environment.
+   1. Run `npm install` in the root of the project.
+   1. Open the project in VS Code and examine the application's use of Node.js, Express, and JavaScript to create service endpoints.
+   1. Execute in your development environment by debugging the application using VS Code's Node.js debugger (press F5 while viewing `index.js`). Set breakpoints in VS Code and step through the backend JavaScript.
+   1. Open your browser to https://localhost:3000 and use the browser's dev tools to step through the frontend JavaScript using the Source tab.
+   1. Deploy to your production environment using the deployment script so that it is available with your domain's `simon` subdomain.
+1. Convert your startup application into a web service using Node.js and Express.
+1. Serve up your frontend code using the Express static middleware.
+1. Provide endpoints for your service.
+1. Call your endpoints from your frontend code.
+1. Call third party endpoints from your frontend code. This can be as simple as displaying a quote like Simon does.
+1. Debug your application using VS Code's Node debugger and the browser's dev tools, in your development environment, to verify it is working correctly.
+1. Periodically commit and push your code to GitHub.
+1. Periodically update your startup repository's notes.md file to reflect what you have learned and want to remember.
+1. Push your final version of your project to GitHub.
+1. Deploy your startup application to your production environment (your server).
+1. Make sure your application is available from your production environment.
+1. Upload the URL to your startup application to the Canvas assignment.
