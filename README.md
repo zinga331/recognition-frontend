@@ -1,6 +1,7 @@
 # recognition-frontend
 
 # Startup Specs:
+
 [Specs](startupSpec.md)
 
 # Links to Christian's personal notes
@@ -38,3 +39,12 @@ The following elements were added for the JavaScript assignment.
 - **JavaScript support for future database data.** - service.js provides a mock of potential database return values. Notice that the image on the home page and the fields randomly changes when reloading the page or submitting data. These mocks will be replaced with calls to the database.
 - **JavaScript support for future WebSocket.** - The home page provides a function that makes a notification pop up on the screen. For demonstration, this function gets called by a timeout once the user has been on the page for 10 seconds. Clicking the notification button shows the last notification. This will be replaced by notification sent through the WebSocket.
 - **JavaScript support for your application's interaction logic.** - Users can add and remove new fields from the table while indexing. The tables dynamically populated based on the results from the database queries.
+
+# Service Deliverable
+
+- **30% - Create an HTTP service using Node.js and Express**
+- **10% - Frontend served up using express static middleware**
+- **10% - Your frontend calls third party service endpoints**
+- **20% - Your backend provides service endpoints**
+- **20% - Your frontend calls your service endpoints**
+- 10% - Multiple Git commits with meaningful comments.
