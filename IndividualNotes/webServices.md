@@ -275,3 +275,53 @@ This may seem like a lot of work but after you do it a few times it will begin t
 1. Add `require('<package name here>')` to your application's JavaScript
 1. Use the code the package provides in your JavaScript
 1. Run your code with `node index.js`
+
+# Debugging Node.js
+
+I learned how to set up node.js, and nodemon. look at (package lock)[individualNotes/debugging/package-lock.json] and (package.json)[individualNotes/debugging/package.json] to see how to set up node.js and nodemon. (maybe).
+
+# Service daemons
+
+In order to keep our backened running after shutdown of the computer, looks like weel need to register the program as a `daemon`. The term daemon seems like it comes from computer systems, of an ophaned child process.
+
+We want our web services to keep running as a daemon, and an easy way to start and stop them. We would also like an easy way to start and stop our services. That is what [Process Manager 2](https://pm2.keymetrics.io/docs/usage/quick-start/) (PM2) does.
+
+> PM2 is already installed on your production server as part of the AWS AMI that you selected when you launched your server. Additionally, the deployment scripts found with the Simon projects automatically modify PM2 to register and restart your web services. That means you should not need to do anything with PM2. However, if you run into problems such as your services not running, then here are some commands that you might find useful.
+
+> You can SSH into your server and see PM2 in action by running the following command.
+
+```sh
+pm2 ls
+```
+
+This should print out the two services, simon and startup, that are configured to run on your web server.
+
+You can try some of the other commands, but only if you understand what they are doing. Using them incorrectly could cause your web services to stop working.
+
+| Command                                                    | Purpose                                                                          |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **pm2 ls**                                                 | List all of the hosted node processes                                            |
+| **pm2 monit**                                              | Visual monitor                                                                   |
+| **pm2 start index.js -n simon**                            | Add a new process with an explicit name                                          |
+| **pm2 start index.js -n startup -- 4000**                  | Add a new process with an explicit name and port parameter                       |
+| **pm2 stop simon**                                         | Stop a process                                                                   |
+| **pm2 restart simon**                                      | Restart a process                                                                |
+| **pm2 delete simon**                                       | Delete a process from being hosted                                               |
+| **pm2 delete all**                                         | Delete all processes                                                             |
+| **pm2 save**                                               | Save the current processes across reboot                                         |
+| **pm2 restart all**                                        | Reload all of the processes                                                      |
+| **pm2 restart simon --update-env**                         | Reload process and update the node version to the current environment definition |
+| **pm2 update**                                             | Reload pm2                                                                       |
+| **pm2 start env.js --watch --ignore-watch="node_modules"** | Automatically reload service when index.js changes                               |
+| **pm2 describe simon**                                     | Describe detailed process information                                            |
+| **pm2 startup**                                            | Displays the command to run to keep PM2 running after a reboot.                  |
+| **pm2 logs simon**                                         | Display process logs                                                             |
+| **pm2 env 0**                                              | Display environment variables for process. Use `pm2 ls` to get the process ID    |
+
+## Registering a new web service
+
+If you want to setup another subdomain that accesses a different web service on your web server, you need to follow these steps.
+
+1. Add the rule to the Caddyfile to tell it how to direct requests for the domain.
+2. Create a directory and add the files for the web service.
+3. Configure PM2 to host the web service.
