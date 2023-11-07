@@ -47,4 +47,4 @@ The following elements were added for the JavaScript assignment.
 - **10% - Your frontend calls third party service endpoints**
 - **20% - Your backend provides service endpoints**
 - **20% - Your frontend calls your service endpoints**
-- 10% - Multiple Git commits with meaningful comments.
+  - **10% - Multiple Git commits with meaningful comments.**

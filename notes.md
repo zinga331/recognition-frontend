@@ -2,7 +2,7 @@
 
 ## SERVICE DELIVERABLES
 
-[Link to service deliverables](./README.md/#service-deliverable)
+[Link to service deliverables](./README.md/#service-deliverable).
 
 ## JAVASCRIPT DELIVERABLES
 
