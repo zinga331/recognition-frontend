@@ -21,9 +21,16 @@ async function submitRecord(record) {
     console.log("Submitting record:", record);
 }
 
+async function getQuote() {
+    let data = await fetch("https://api.quotable.io/random");
+    let {content, author} = await data.json();
+    return `${content} - ${author}`;
+}
+
 window.api = {
     getTypes,
     getTypes,
     getRecord,
-    submitRecord
+    submitRecord,
+    getQuote
 };

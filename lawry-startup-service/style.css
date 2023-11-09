@@ -65,6 +65,11 @@ main {
     text-align: center;
 }
 
+.quote {
+    text-align: center;
+    font-style: italic
+}
+
 .content {
     flex: 1;
 

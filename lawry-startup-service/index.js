@@ -13,6 +13,12 @@ function init() {
 
     document.getElementById("addField").addEventListener("click",addField);
     document.getElementById("submit").addEventListener("click",submitRecord);
+    addQuote();
+}
+
+async function addQuote() {
+    let quote = await api.getQuote();
+    document.querySelector(".quote").textContent = quote;
 }
 
 // API support
