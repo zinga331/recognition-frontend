@@ -13,3 +13,15 @@ app.use(express.static('public'));
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+// Create a new endpoint under the /api path for the service to handle requests to /api/login. Print the received username and password to the console.
+var apiRouter = express.Router();
+app.use(`/api`, apiRouter);
+
+apiRouter.post('/login', (req, res) => {
+    console.log(req.body);
+    let username = req.body.username;
+    let password = req.body.password;
+    let data = req.body.data;
+    console.log(`Username: ${username}, Password: ${password} Data: ${data}`);
+    res.send(req.body);
+});
