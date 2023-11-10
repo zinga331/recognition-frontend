@@ -163,11 +163,10 @@ async function revertTable() {
   // Interface WebSocket Notifications
   let hideNoticeTimer;
   function setupWebsocket() {
-    setTimeout(() => notify("You've got to do the thing, " + getUsername() + "!"), 1000);
-    setTimeout(() => notify("Goodness, you're doing well " + getUsername() + "!"), 10000);
-    setTimeout(() => notify("I can hardly believe how amazing you are, " + getUsername() + "!"), 20000);
-    setTimeout(() => notify("You've done the thing, " + getUsername() + "!"), 30000);
-    // Fill out real websocket code here
+    setTimeout(async () => notify("You've got to stay motivated, " + getUsername() + "! \"" + await getQuote() + "\""), 1000);
+    setTimeout(async () => notify("Remember what that one person said, " + getUsername() + "! \"" + await getQuote() + "\""), 10000);
+    setTimeout(async () => notify("I can hardly believe how amazing you are, " + getUsername()  + "! \"" +await getQuote() + "\""), 20000);
+    setTimeout(async () => notify("You're done it, " + getUsername() + "! Here's a quote to celebrate: \"" + await getQuote() + "\""), 30000);
 }
 
 function notify(text) {
