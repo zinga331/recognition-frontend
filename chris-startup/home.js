@@ -34,12 +34,14 @@ export async function init() {
     const imgSrc = `images/${selectedOption}.png`;
     img.src = imgSrc;
   });
+    loadIndexDocument();
     await showDialog();
 
     //Set up websocket notifications
     addButtonListener("notification-button", showNotice);
     document.querySelector(".notification").addEventListener("focusout", hideNotice);
     setupWebsocket();
+
 }
 
 function getUsername() {
