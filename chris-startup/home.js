@@ -92,8 +92,6 @@ function getUsername() {
 async function revertTable() {   
   console.log('revertTable() called'); 
 
-  // let table = document.getElementById("documentForm");
-
   await loadIndexDocument();
   alert("Table Submitted!");
 }
@@ -101,18 +99,35 @@ async function revertTable() {
   // Confirm submission of table, thenn revert table to default state
   async function submitTable() {
     console.log('submitTable() called');
+    if (!curRecord)
+      return;
     const confirm = window.confirm("Are you sure you want to submit the table?");
 
     if (confirm) {
+      let table = document.getElementById("documentForm");
+
+      let outputFields = [];
+    
+      for (const row of table.children) {
+        let input = row.querySelector("input");;
+        let fieldName = row.id ? row.querySelector("th").textContent : row.querySelector("td").textContent;
+        outputFields.push({
+          field: fieldName,
+          value: input.value
+        });
+      }
+      curRecord.result = outputFields;
+      console.log("curRecord being submitted", curRecord);
+      await submitRecord(curRecord);
       console.log('Table submitted');
+      
       revertTable();
     }
-
   }
 
   async function logout() {
     console.log('logout() called');
-    localStorage.setItem('username', '');
+    localStorage.removeItem('username');
     window.location.href = 'index.html';
   }
 
@@ -164,7 +179,7 @@ async function revertTable() {
   let hideNoticeTimer;
   function setupWebsocket() {
     setTimeout(async () => notify("You've got to stay motivated, " + getUsername() + "! \"" + await getQuote() + "\""), 1000);
-    setTimeout(async () => notify("Remember what that one person said, " + getUsername() + "! \"" + await getQuote() + "\""), 10000);
+    setTimeout(async () => notify("Remember what that one person said, " + getUsername() + ": \"" + await getQuote() + "\""), 10000);
     setTimeout(async () => notify("I can hardly believe how amazing you are, " + getUsername()  + "! \"" +await getQuote() + "\""), 20000);
     setTimeout(async () => notify("You're done it, " + getUsername() + "! Here's a quote to celebrate: \"" + await getQuote() + "\""), 30000);
 }

@@ -46,6 +46,6 @@ The following elements were added for the JavaScript assignment.
 
 - **Create an HTTP service using Node.js and Express** - This service in contained in full-page-backend.
 - **Frontend served up using express static middleware** - Express is set up to statically host the files in the folder public. Since we both developed independent frontends for practice, we replace the public folder with a symbolic link to the desired frontend.
-- **Your frontend calls third party service endpoints** - The frontend calls quotable random api and displays the quote on the main page.
-- **Your backend provides service endpoints** -  The backend provides enpoints to support the following actions: loging in, registering, geting types of records, geting record for a type, and submiting a record. Since we have not added a database yet, these endpoints provide mocked values to the frontend that can later be replaced with calls to the database.
+- **Your frontend calls third party service endpoints** - The frontend calls quotable random api and displays the quote on the main page, or in Chris' case, the periodic notifications.
+- **Your backend provides service endpoints** - The backend provides enpoints to support the following actions: loging in, registering, geting types of records, geting record for a type, and submiting a record. Since we have not added a database yet, these endpoints provide mocked values to the frontend that can later be replaced with calls to the database.
 - **Your frontend calls your service endpoints** - The frontend calls the endpoints listed above and uses them in the data that it displays.

@@ -1,11 +1,3 @@
-
-// function login() {
-//     // Get the username and password from the form
-//     console.log('login() called');
-//     const username = document.getElementById('username').value;
-//     const password = document.getElementById('password').value;
-// }
-
 // Get the submit and register buttons from the DOM
 const submitButton = document.getElementById('submit-button');
 const registerButton = document.getElementById('register-button');
@@ -28,17 +20,12 @@ function handleRegister(event) {
     console.log('handleRegister() called');
 
     event.preventDefault();
-    login();
-    // Sleep for a second
-    // setTimeout(() => {
+    register();
     window.location.href = "home.html";
-    // }, 100);
-    // window.location.href = "home.html";
-
-
 }
 
 async function login() {
+    console.log('login() called');
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
     
@@ -52,6 +39,24 @@ async function login() {
     
     res = await res.json();
 
+    if (res.username) {
+        localStorage.setItem("username", username);
+        window.location.href = "home.html";
+    }
+}
+async function register() {
+    // TODO DISTINQUISH THIS FUNCTION FROM login()
+    console.log('register() called');
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    let res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: username, password: password })
+    });
+    res = await res.json();
     if (res.username) {
         localStorage.setItem("username", username);
         window.location.href = "home.html";
