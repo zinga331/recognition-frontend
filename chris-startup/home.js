@@ -30,9 +30,8 @@ export async function init() {
     console.log('change event fired');
     const selectedOption = optgroup.options[optgroup.selectedIndex].parentNode.label;
     console.log(selectedOption);
+    loadIndexDocument();
 
-    const imgSrc = `images/${selectedOption}.png`;
-    img.src = imgSrc;
   });
     loadIndexDocument();
     await showDialog();

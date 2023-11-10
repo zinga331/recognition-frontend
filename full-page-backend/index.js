@@ -109,7 +109,7 @@ let fieldMock = [
 ];
 apiRouter.get('/record', (req, res) => {
     let type = req.query.type;
-    if (type != 'french') return res.send({error: "No records available"});
+    if (type != 'french' && type != 'spanish') return res.send({error: "No records available"});
     let ri = Math.floor(Math.random() * records.length);
     let fi = Math.floor(Math.random() * fieldMock.length);
     let ans = {
