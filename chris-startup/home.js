@@ -1,3 +1,8 @@
+import { getTypes, getRecord, submitRecord, getQuote } from './service.js';
+
+window.onload = init;
+
+
 // Creates a button listener given the function name, and the button id
 function addButtonListener(buttonId, listenerFunction) {
   const button = document.getElementById(buttonId);
@@ -8,7 +13,7 @@ function addButtonListener(buttonId, listenerFunction) {
   }
 }
 
-async function init() {
+export async function init() {
   console.log('init() called');
   getUsername();
 
@@ -83,20 +88,12 @@ function getUsername() {
     let row = document.getElementById(fieldID);
     row.parentNode.removeChild(row);
 }
-function revertTable() {    let table = document.getElementById("documentForm");
+async function revertTable() {   
+  console.log('revertTable() called'); 
 
-  let rowCount = table.rows.length;
-  for (let i = 5; i < rowCount; i++) {
-    table.deleteRow(5);
-  }
-  
-  const inputs = document.querySelectorAll('#documentForm input');
-  inputs[0].value = 'John Doe';
-  inputs[1].value = 'January 1, 2000';
-  inputs[2].value = 'New York, NY';
-  inputs[3].value = 'Jane Dough';
-  inputs[4].value = 'John Doe Sr.';
-  // Display a dialog message letting the user know the table has been submitted.
+  // let table = document.getElementById("documentForm");
+
+  await loadIndexDocument();
   alert("Table Submitted!");
 }
 
@@ -117,6 +114,50 @@ function revertTable() {    let table = document.getElementById("documentForm");
     localStorage.setItem('username', '');
     window.location.href = 'index.html';
   }
+
+  // Get the record from the server and display it
+  let curRecord = null;
+  let addedFields = 0;
+
+  async function loadIndexDocument() {
+    let select = document.getElementById("optgroup");
+    let type = select.options[optgroup.selectedIndex].parentNode.label;
+    // set the text of select to be lowercase
+    type = type.toLowerCase();
+    console.log(type);
+    curRecord = await getRecord(type);
+
+    if (curRecord == null) {
+        window.alert("There are no records of that type available!");
+        return;
+    }
+    
+    document.getElementById("recordImage").src = curRecord.imageURL;
+
+    let table = document.getElementById("documentForm");
+
+    table.innerHTML = '';
+
+    curRecord.fields.forEach(field => {
+        let row = document.createElement('tr');
+        
+        let labelCell = document.createElement('td');
+        labelCell.textContent = field.field;
+        row.appendChild(labelCell);
+
+        let inputCell = document.createElement('td');
+        let input = document.createElement('input');
+        input.type = "text";
+        input.id = field.field;
+        input.value = field.value;
+        inputCell.appendChild(input);
+        row.appendChild(inputCell);
+
+        table.appendChild(row);
+    });
+
+    addedFields = 0;
+}
 
   // Interface WebSocket Notifications
   let hideNoticeTimer;
