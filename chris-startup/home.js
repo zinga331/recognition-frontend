@@ -13,9 +13,9 @@ function addButtonListener(buttonId, listenerFunction) {
   }
 }
 
-export async function init() {
+async function init() {
+  
   console.log('init() called');
-  getUsername();
 
   addButtonListener("addRow", addRow);
   addButtonListener("submitTable", submitTable);
@@ -33,8 +33,14 @@ export async function init() {
     loadIndexDocument();
 
   });
-    loadIndexDocument();
-    await showDialog();
+    const initialize = async () => {
+      getUsername();
+      await showDialog();
+      await loadTypes();
+      await loadIndexDocument();
+    }
+
+    initialize();
 
     //Set up websocket notifications
     addButtonListener("notification-button", showNotice);
@@ -130,6 +136,29 @@ async function revertTable() {
     localStorage.removeItem('username');
     window.location.href = 'index.html';
   }
+  // getTypes and populate the optgroup with the grabbed types
+  async function loadTypes() {
+    let types = await getTypes();
+    let select = document.getElementById("optgroup");
+    select.innerHTML = '';
+
+    let languages = [...new Set(types.map(type => type.language))];
+
+    languages.forEach(language => {
+      let optgroup = document.createElement("optgroup");
+      optgroup.label = language;
+
+      types.filter(type => type.language === language).forEach(type => {
+        let option = document.createElement("option");
+        option.value = type.id;
+        option.textContent = type.display;
+        optgroup.appendChild(option);
+      });
+
+      select.appendChild(optgroup);
+    });
+  }
+    
 
   // Get the record from the server and display it
   let curRecord = null;

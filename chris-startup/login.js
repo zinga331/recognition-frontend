@@ -12,7 +12,7 @@ function handleSubmit(event) {
     login();
     window.location.href = "home.html";
 
-    // TODO: Add form validation aresnd submission logic
+    // TODO: Add form validation and submission logic
 }
 
 // Function to handle registration
