@@ -17,6 +17,9 @@ registerButton.addEventListener('click', handleRegister);
 // Function to handle form submission
 function handleSubmit(event) {
     event.preventDefault();
+    login();
+    window.location.href = "home.html";
+
     // TODO: Add form validation aresnd submission logic
 }
 
@@ -25,15 +28,32 @@ function handleRegister(event) {
     console.log('handleRegister() called');
 
     event.preventDefault();
-    const username = document.getElementById('username').value;
-    localStorage.setItem('username', username);
-    console.log(`Registered username: ${username}`);
+    login();
     // Sleep for a second
-    setTimeout(() => {
-        window.location.href = "home.html";
-    }, 1000);
+    // setTimeout(() => {
+    window.location.href = "home.html";
+    // }, 100);
     // window.location.href = "home.html";
 
 
-    // TODO: Add registration logic
+}
+
+async function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    
+    let res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: username, password: password })
+    });
+    
+    res = await res.json();
+
+    if (res.username) {
+        localStorage.setItem("username", username);
+        window.location.href = "home.html";
+    }
 }
