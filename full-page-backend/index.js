@@ -1,4 +1,5 @@
 const express = require('express');
+const db = require('./database.js');
 const app = express();
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
@@ -36,50 +37,8 @@ apiRouter.post('/register', (req, res) => {
 });
 
 // get types
-let types = [
-    {
-        id: "french",
-        language: "French",
-        display: "French 1820 Records"
-    },
-    {
-        id: "french2",
-        language: "French",
-        display: "1900 Obituary"
-    },
-    {
-        id: "french3",
-        language: "French",
-        display: "1900 Census"
-    },
-    {
-        id: "spanish1",
-        language: "Spanish",
-        display: "1950 Baptism"
-    },
-    {
-        id: "spanish2",
-        language: "Spanish",
-        display: "1960 Census"
-    },
-    {
-        id: "english1",
-        language: "English",
-        display: "2000 Census"
-    },
-    {
-        id: "english2",
-        language: "English",
-        display: "1950 Marriage Records"
-    },
-    {
-        id: "finnish",
-        language: "Finnish",
-        display: "Finnish 1770 Records"
-    }
-];
-apiRouter.get('/types', (_req, res) => {
-    res.send(types);
+apiRouter.get('/types', async (_req, res) => {
+    res.send(await db.get_types());
 });
 
 // get image

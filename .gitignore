@@ -8,4 +8,4 @@ IndividualNotes/debugging/package.json
 
 **/node_modules
 **/public
-IndividualNotes/mongoTest/dbConfig.json
+**/dbConfig.json
