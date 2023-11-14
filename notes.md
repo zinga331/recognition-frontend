@@ -69,6 +69,7 @@ The following elements were added for the JavaScript assignment.
 [Midterm1 StudyGuide](/IndividualNotes/midterm1StudyGuide.md)
 
 [Web Services](/IndividualNotes/webServices.md)
+[Database and Login](/IndividualNotes/databaseAndLogin.md)
 
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
 
