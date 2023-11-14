@@ -46,7 +46,10 @@ async function add_record() {
 }
 
 async function clear() {
-
+    await Promise.all([
+        typeCollection.deleteMany({}),
+        recordCollection.deleteMany({})
+    ]);
 }
 
 module.exports = {
