@@ -19,7 +19,7 @@ let types = [
         display: "1900 Census"
     },
     {
-        id: "spanish1",
+        id: "spanish",
         language: "Spanish",
         display: "1950 Baptism"
     },
@@ -29,7 +29,7 @@ let types = [
         display: "1960 Census"
     },
     {
-        id: "english1",
+        id: "english",
         language: "English",
         display: "2000 Census"
     },
@@ -47,6 +47,8 @@ let types = [
 
 
 let records = ["images/example.png", "images/example2.png", "images/example3.png", "images/example4.png"];
+
+let langs = ['french', 'finnish', 'spanish', 'english'];
 
 let fieldMock = [
     [
@@ -74,31 +76,84 @@ let fieldMock = [
     [
         {
             field: "Person's Name",
-            value: "Isabelle Dubois"
+            value: "Matti Virtanen"
         },
         {
             field: "Record Date",
-            value: "14/03/1821"
+            value: "23/05/1805"
         },
         {
             field: "Record Location",
-            value: "Saint-Étienne-sur-Mer"
+            value: "Helsinki"
         },
         {
             field: "Mother's Name",
-            value: "Sophie Martin"
+            value: "Anna Kallio"
         },
         {
             field: "Father's Name",
-            value: "François Leblanc"
+            value: "Juhani Virtanen"
+        }
+    ],
+    [
+        {
+            field: "Person's Name",
+            value: "Elena García"
+        },
+        {
+            field: "Record Date",
+            value: "10/11/1798"
+        },
+        {
+            field: "Record Location",
+            value: "Barcelona"
+        },
+        {
+            field: "Mother's Name",
+            value: "Carmen Rodríguez"
+        },
+        {
+            field: "Father's Name",
+            value: "Luis García"
+        }
+    ],
+    [
+        {
+            field: "Person's Name",
+            value: "James Smith"
+        },
+        {
+            field: "Record Date",
+            value: "02/04/1780"
+        },
+        {
+            field: "Record Location",
+            value: "London"
+        },
+        {
+            field: "Mother's Name",
+            value: "Elizabeth Johnson"
+        },
+        {
+            field: "Father's Name",
+            value: "John Smith"
         }
     ]
 ];
 
-db.clear();
+async function init() {
+    await db.clear();
 
-types.map(t => db.add_type(t));
+    await Promise.all(types.map(t => db.add_type(t)));
+    
+    for (let i=0;i<4;++i) {
+        let record = {
+            type: langs[i],
+            imageURL: records[i],
+            fields: fieldMock[i]
+        };
+        await db.add_record(record);
+    }
+}
 
-records.forEach(rec => {
-    // fieldMock
-});
+init();

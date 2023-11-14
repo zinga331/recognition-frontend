@@ -42,7 +42,9 @@ async function add_type(type) {
     await typeCollection.insertOne(type);
 }
 
-async function add_record() {
+async function add_record(record) {
+    console.log(record);
+    await recordCollection.insertOne(record);
 }
 
 async function clear() {
