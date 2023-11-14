@@ -28,8 +28,15 @@ async function get_types() {
     return cursor.toArray();
 }
 
-async function get_record(type) {
-
+async function get_record(type = null) {
+    const query = type ? { type: type } : {};
+    const options = {
+      limit: 1,
+    };
+    const cursor = recordCollection.find(query, options);
+    let ans = await cursor.toArray();
+    return ans.length ? ans[0] : null;
+  
 }
 
 async function update_record(record) {

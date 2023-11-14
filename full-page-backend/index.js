@@ -42,66 +42,9 @@ apiRouter.get('/types', async (_req, res) => {
 });
 
 // get image
-let records = ["images/example.png", "images/example2.png", "images/example3.png", "images/example4.png"];
-
-let fieldMock = [
-    [
-        {
-            field: "Person's Name",
-            value: "Jean-Luc"
-        },
-        {
-            field: "Record Date",
-            value: "07/01/1819"
-        },
-        {
-            field: "Record Location",
-            value: "Bellefontaine-les-Champs"
-        },
-        {
-            field: "Mother's Name",
-            value: "Marie-Claire"
-        },
-        {
-            field: "Father's Name",
-            value: "Pierre Dupont"
-        }
-    ],
-    [
-
-        {
-            field: "Person's Name",
-            value: "Isabelle Dubois"
-        },
-        {
-            field: "Record Date",
-            value: "14/03/1821"
-        },
-        {
-            field: "Record Location",
-            value: "Saint-Étienne-sur-Mer"
-        },
-        {
-            field: "Mother's Name",
-            value: "Sophie Martin"
-        },
-        {
-            field: "Father's Name",
-            value: "François Leblanc"
-        }
-    ]
-];
-apiRouter.get('/record', (req, res) => {
+apiRouter.get('/record', async (req, res) => {
     let type = req.query.type;
-    if (type != 'french' && type != 'spanish') return res.send({error: "No records available"});
-    let ri = Math.floor(Math.random() * records.length);
-    let fi = Math.floor(Math.random() * fieldMock.length);
-    let ans = {
-        id: 'abcdef',
-        imageURL: records[ri],
-        fields: fieldMock[fi]
-    };
-    res.send(ans);
+    res.send(await db.get_record(type));
 });
 
 // submit form
