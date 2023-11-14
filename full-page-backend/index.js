@@ -44,12 +44,14 @@ apiRouter.get('/types', async (_req, res) => {
 // get image
 apiRouter.get('/record', async (req, res) => {
     let type = req.query.type;
-    res.send(await db.get_record(type));
+    let ans = await db.get_record(type);
+    res.send(ans);
 });
 
 // submit form
-apiRouter.put('/record', (req, res) => {
+apiRouter.put('/record', async (req, res) => {
     let record = req.body;
-    console.log(record);
+    let user = 'anon';
+    await db.update_record(user, record);
     res.send(200);
 });

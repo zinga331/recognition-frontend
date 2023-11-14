@@ -150,7 +150,8 @@ async function init() {
         let record = {
             type: langs[i],
             imageURL: records[i],
-            fields: fieldMock[i]
+            fields: fieldMock[i],
+            resultsList: []
         };
         await db.add_record(record);
     }

@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
@@ -36,11 +36,22 @@ async function get_record(type = null) {
     const cursor = recordCollection.find(query, options);
     let ans = await cursor.toArray();
     return ans.length ? ans[0] : null;
-  
 }
 
-async function update_record(record) {
-
+async function update_record(user, record) {
+    let item = {
+        user: user,
+        results: record.results
+    };
+    let query = { _id: new ObjectId(record._id) };
+    await recordCollection.updateOne(
+        query,
+        {
+            $push: {
+                resultsList: item
+            }
+        }
+    );
 }
 
 // Admin functions not called by the frontend:
