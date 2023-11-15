@@ -54,7 +54,12 @@ The following elements were added for the Service assignment.
 
 The following elements were added for the Database assignment.
 
-- **Add code for connecting to the database** -
+- **Add code for connecting to the database** - Added database.js to host the connection to the database.
 - **Provide endpoints for adding, updating, and deleting your application data in the database** -
-- **Persist data in MongoDB.** -
-- **Display the user data in the frontend by manipulating the DOM.** -
+  - **Add a record** - Added an endpoint to add a record to the database. This endpoint is called when initializing the database within init() in initialize.js.
+  - **Update a record** - Added an endpoint to update a record in the database. This endpoint is called when the user submits a record, and the user's entry form is submitted to the database. The entry form is associated with the record id, and the user who submitted the form.
+  - **Delete a record** - Added an endpoint to clear all indexed records from the database. This is apart of an admin function not called by the front end.
+- **Persist data in MongoDB.** - Data is stored in a MongoDB database and retrieved when needed.
+- **Provide endpoints for retrieving your application data from the database** -
+  - **Get Types** - On page load the types of records are retrieved from the database and displayed in the dropdown menu.
+- **Display the user data in the frontend by manipulating the DOM.** - Unchanged from previous deliverables. The user's name is displayed after logging in, and the user's name is cleared after logging out.
