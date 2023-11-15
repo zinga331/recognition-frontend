@@ -19,7 +19,6 @@ export async function submitRecord(record) {
     },
     body: JSON.stringify(record),
   });
-  console.log("Submitting record:", record);
 }
 
 export async function getQuote() {

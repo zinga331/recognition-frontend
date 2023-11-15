@@ -120,7 +120,7 @@ async function submitTable() {
         value: input.value,
       });
     }
-    curRecord.result = outputFields;
+    curRecord.results = outputFields;
     console.log("curRecord being submitted", curRecord);
     await submitRecord(curRecord);
     console.log("Table submitted");
