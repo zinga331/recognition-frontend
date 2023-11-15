@@ -64,24 +64,27 @@ async function addRow() {
   let row = document.createElement("tr");
   row.id = "row" + table.rows.length;
 
-  let newCell = document.createElement("th");
+  // Create a new cell for the cross button
+  let crossCell = document.createElement("th");
   let cross = document.createElement("span");
   cross.innerHTML = "&#10006;";
   cross.className = "crossButton"; // Set the class name to "crossButton"
   cross.addEventListener("click", () => removeRow(row.id));
+  crossCell.appendChild(cross);
+  row.appendChild(crossCell); // Append the cross cell to the row
 
-  newCell.appendChild(cross);
+  // Create another new cell for the editable content
+  let newCell = document.createElement("th");
   let edit = document.createElement("td");
   edit.textContent = "Edit:";
   edit.contentEditable = true;
   edit.className = "edit";
   newCell.appendChild(edit);
+  row.appendChild(newCell); // Append the new cell to the row
 
-  row.appendChild(newCell);
   let inputCell = document.createElement("td");
   let input = document.createElement("input");
   input.type = "text";
-
   inputCell.appendChild(input);
   row.appendChild(inputCell);
 
