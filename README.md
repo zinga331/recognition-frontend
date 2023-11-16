@@ -63,3 +63,12 @@ The following elements were added for the Database assignment.
 - **Provide endpoints for retrieving your application data from the database** -
   - **Get Types** - On page load the types of records are retrieved from the database and displayed in the dropdown menu.
 - **Display the user data in the frontend by manipulating the DOM.** - Unchanged from previous deliverables. The user's name is displayed after logging in, and the user's name is cleared after logging out.
+
+# Login Deliverable
+
+The following elements were added for the Login assignment.
+
+- **Allow new users to create accounts by providing credentials** -
+- **Store Encrypted credentials in your database** -
+- **Authenticate users by comparing provided credentials against those stored in the database** -
+- **Restrict access to parts of the application that require authorization** -
