@@ -78,9 +78,7 @@ async function whoami(req) {
 // get types
 apiRouter.get("/types", async (req, res) => {
   let user = await whoami(req);
-  console.log(user);
   if (!user) {
-    console.log('not a user');
     res.status(401).send({ msg: 'Unauthorized' });
     return;
   }
@@ -90,9 +88,7 @@ apiRouter.get("/types", async (req, res) => {
 // get image
 apiRouter.get("/record", async (req, res) => {
   let user = await whoami(req);
-  console.log(user);
   if (!user) {
-    console.log('not a user');
     res.status(401).send({ msg: 'Unauthorized' });
     return;
   }
@@ -105,13 +101,20 @@ apiRouter.get("/record", async (req, res) => {
 apiRouter.put("/record", async (req, res) => {
   let record = req.body;
   let user = await whoami(req);
-  console.log(user);
   if (!user) {
-    console.log('not a user');
     res.status(401).send({ msg: 'Unauthorized' });
     return;
   }
-  console.log(user);
   await db.update_record(user, record);
   res.status(200).end();
+});
+
+// whoami
+apiRouter.get("/whoami", async (req, res) => {
+  let user = await whoami(req);
+  if (!user) {
+    res.status(401).send({ msg: 'Unauthorized' });
+    return;
+  }
+  res.status(200).send({ username: user});
 });
