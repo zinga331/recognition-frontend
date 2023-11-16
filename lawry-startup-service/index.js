@@ -150,9 +150,15 @@ function renderLogin() {
     document.getElementById("loginLink").textContent = loggedIn ? "Logout" : "Login";
 }
 
-function logout() {
+async function logout() {
     if (loggedIn) {
         localStorage.removeItem("username");
+        await fetch("/api/logout", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
         init();
     } else {
         window.location.href = "login.html";

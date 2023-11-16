@@ -1,5 +1,7 @@
 const express = require("express");
 const db = require("./database.js");
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
 const app = express();
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
@@ -7,6 +9,9 @@ const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
+
+// add cookie parser
+app.use(cookieParser());
 
 // Serve up the front-end static content hosting
 app.use(express.static("public"));
@@ -18,31 +23,80 @@ app.listen(port, () => {
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+const authCookieName = 'token';
+
+function setAuthCookie(res, authToken) {
+  res.cookie(authCookieName, authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
+
 // login
-apiRouter.post("/login", (req, res) => {
-  console.log(req.body);
-  let username = req.body.username;
-  let password = req.body.password;
-  console.log(`Username: ${username}, Password: ${password}`);
-  res.send(req.body);
+apiRouter.post("/login", async (req, res) => {
+  const user = await db.get_user_by_username(req.body.username);
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ username: user.username });
+      return;
+    }
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+
+apiRouter.delete('/logout', (_req, res) => {
+  console.log("logging out");
+  res.clearCookie(authCookieName);
+  res.status(204).end();
 });
 
 // register
-apiRouter.post("/register", (req, res) => {
-  console.log(req.body);
-  let username = req.body.username;
-  let password = req.body.password;
-  console.log(`Username: ${username}, Password: ${password}`);
-  res.send(req.body);
+apiRouter.post("/register", async (req, res) => {
+  if (await db.get_user_by_username(req.body.username)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = await db.add_user(req.body.username, req.body.password);
+
+    // Set the cookie
+    setAuthCookie(res, user.token);
+
+    res.send({
+      username: user.username,
+    });
+  }
 });
 
+async function whoami(req) {
+  console.log(req.cookie);
+  if (!req.cookie) return null;
+  let authToken = req.cookies[authCookieName];
+  const user = await db.get_user_by_token(authToken);
+  return user?.username;
+}
+
 // get types
-apiRouter.get("/types", async (_req, res) => {
+apiRouter.get("/types", async (req, res) => {
+  let user = await whoami(req);
+  console.log(user);
+  if (!user) {
+    console.log('not a user');
+    res.status(401).send({ msg: 'Unauthorized' });
+    return;
+  }
   res.send(await db.get_types());
 });
 
 // get image
 apiRouter.get("/record", async (req, res) => {
+  let user = await whoami(req);
+  console.log(user);
+  if (!user) {
+    console.log('not a user');
+    res.status(401).send({ msg: 'Unauthorized' });
+    return;
+  }
   let type = req.query.type;
   let ans = await db.get_record(type);
   res.send(ans);
@@ -51,82 +105,14 @@ apiRouter.get("/record", async (req, res) => {
 // submit form
 apiRouter.put("/record", async (req, res) => {
   let record = req.body;
-  let user = "anon";
+  let user = await whoami(req);
+  console.log(user);
+  if (!user) {
+    console.log('not a user');
+    res.status(401).send({ msg: 'Unauthorized' });
+    return;
+  }
+  console.log(user);
   await db.update_record(user, record);
-  res.send(200);
+  res.status(200).end();
 });
-// Sample code from simon-login
-/*
-(async () => {
-  const userName = localStorage.getItem('userName');
-  if (userName) {
-    document.querySelector('#playerName').textContent = userName;
-    setDisplay('loginControls', 'none');
-    setDisplay('playControls', 'block');
-  } else {
-    setDisplay('loginControls', 'block');
-    setDisplay('playControls', 'none');
-  }
-})();
-
-async function loginUser() {
-  loginOrCreate(`/api/auth/login`);
-}
-
-async function createUser() {
-  loginOrCreate(`/api/auth/create`);
-}
-
-async function loginOrCreate(endpoint) {
-  const userName = document.querySelector('#userName')?.value;
-  const password = document.querySelector('#userPassword')?.value;
-  const response = await fetch(endpoint, {
-    method: 'post',
-    body: JSON.stringify({ email: userName, password: password }),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  });
-
-  if (response.ok) {
-    localStorage.setItem('userName', userName);
-    window.location.href = 'play.html';
-  } else {
-    const body = await response.json();
-    const modalEl = document.querySelector('#msgModal');
-    modalEl.querySelector('.modal-body').textContent = `⚠ Error: ${body.msg}`;
-    const msgModal = new bootstrap.Modal(modalEl, {});
-    msgModal.show();
-  }
-}
-
-function play() {
-  window.location.href = 'play.html';
-}
-
-function logout() {
-  localStorage.removeItem('userName');
-  fetch(`/api/auth/logout`, {
-    method: 'delete',
-  }).then(() => (window.location.href = '/'));
-}
-
-async function getUser(email) {
-  let scores = [];
-  // See if we have a user with the given email.
-  const response = await fetch(`/api/user/${email}`);
-  if (response.status === 200) {
-    return response.json();
-  }
-
-  return null;
-}
-
-function setDisplay(controlId, display) {
-  const playControlEl = document.querySelector(`#${controlId}`);
-  if (playControlEl) {
-    playControlEl.style.display = display;
-  }
-}
-
-*/

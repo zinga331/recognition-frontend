@@ -19,8 +19,24 @@ async function login() {
     }
 }
 
-function register() {
-    login(); // TODO: replace
+async function register() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    
+    let res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: username, password: password })
+    });
+    
+    res = await res.json();
+
+    if (res.username) {
+        localStorage.setItem("username", username);
+        window.location.href = "index.html";
+    }
 }
 
 document.getElementById("loginButton").addEventListener("click", login);
