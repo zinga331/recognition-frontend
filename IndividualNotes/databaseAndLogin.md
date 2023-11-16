@@ -32,3 +32,25 @@ In this course we will not be using any storage services for the Simon project. 
 1. Using the [SDK](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-creating-buckets.html) to write, list, read, and delete files from the bucket.
 
 ⚠ Make sure that you do not include your credentials in your code. If you check your credentials into your GitHub repository they will immediately be stolen and used by hackers to take over your AWS account. This may result in significant monetary damage to you.
+
+# Authorization services
+
+If your application is going to remember a user's data, then you will need a way to uniquely associate the data with a particular credential. That means you will `athenticate` a user by asking for their login information. We'll remember the user has authenticated by storing an `authorization token` on their local device. Often that token is stored in a cookie that is passed to your web service on each request.
+
+![authentication](notesImages/authServiceAuthentication.jpg)
+
+> Determining what a user is `authorized` to do in your application is also important. For example, you might have different roles in your application such as Administrators, Editors, and Customers. Once you have the ability to authenticate a user and store information about that user, you can also store the authorization for the user. A simple application might have a single field that represents the role of the user. The service code would then use that role to allow, limit, or prevent what a service endpoint does. A complex web application will usually have very powerful authorization representation that controls the user's access to every part of the application. For example, an Editor role might have authorization only to work on content that they created or were invited to.
+
+![authorize](notesImages/authServiceAuthorize.jpg)
+
+> As you might imagine, authentication and authorization can become very complex, very quickly. It is also a primary target for a hacker. If they can bypass the authentication or escalate what they are authorized to do, then they can gain control of your application. Additionally, constantly forcing users to authenticate in a secure way causes users to not want to use an application. This creates opposing priorities: keep the system secure or make it easy to use.
+
+> In an attempt to remove the complexity of authentication and authorization from your application, many service providers and package developers have created solutions that you can use. Assuming that you are using a trusted, well-tested service this is an attractive option because it removes the cost of building, testing, and managing that critical infrastructure yourself.
+
+> Authorization services often use standard protocols for authenticating and authorizing. These include standards such as OAuth, SAML, and OIDC. Additionally, they usually support concepts like Single Sign On (SSO) and Federated Login. Single sign on allows a user to use the same credentials for multiple web applications. For example, you can log in to GitHub using your Google credentials. Federated login allows a user to log in once, and then the authentication token is reused to automatically log the user in to multiple websites. For example, logging in to Gmail allows you to also use Google Docs and YouTube without logging in again.
+
+# Account creation and login
+
+The first step towwards supporting authentication in your web application is providing a way for ussers to uniquely identify themselves. This usually requires two service endpoints: one to `create` an authentication credential, and the other to authenticate or `login` a user on future visites. Once a user is authenticated we can control access to other endpoints.
+
+> For example, web services often have a getMe endpoint that gives information about the currently authenticated user. We will implement this endpoint to demonstrate that authentication is actually working correctly
