@@ -69,8 +69,7 @@ apiRouter.post("/register", async (req, res) => {
 });
 
 async function whoami(req) {
-  console.log(req.cookie);
-  if (!req.cookie) return null;
+  if (!req.cookies) return null;
   let authToken = req.cookies[authCookieName];
   const user = await db.get_user_by_token(authToken);
   return user?.username;
