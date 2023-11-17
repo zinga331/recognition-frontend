@@ -30,13 +30,13 @@ async function init() {
     loadIndexDocument();
   });
   const initialize = async () => {
-    getUsername();
     await showDialog();
     await loadTypes();
     await loadIndexDocument();
   };
 
   initialize();
+  renderLogin();
 
   //Set up websocket notifications
   addButtonListener("notification-button", showNotice);
@@ -46,18 +46,22 @@ async function init() {
   setupWebsocket();
 }
 
-function getUsername() {
-  console.log("getUsername() called");
-  const username = localStorage.getItem("username");
-  const userNameElement = document.querySelector(".user-name");
-  if (username != null && username != "") {
-    userNameElement.textContent = username;
+let loggedIn = false;
+
+function renderLogin() {
+  let username = localStorage.getItem("username");
+
+  if (username) {
+    loggedIn = true;
   } else {
-    userNameElement.textContent = "Guest";
+    username = "Guest";
+    loggedIn = false;
   }
-  return userNameElement.textContent;
+
+  const userNameElement = document.querySelector(".user-name");
+  userNameElement.textContent = username;
 }
-// Target table documentForm and add a new row
+
 async function addRow() {
   console.log("addRow() called");
   let table = document.getElementById("documentForm");
@@ -134,7 +138,15 @@ async function submitTable() {
 
 async function logout() {
   console.log("logout() called");
-  localStorage.removeItem("username");
+  if (loggedIn) {
+    localStorage.removeItem("username");
+    await fetch("/api/logout", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
   window.location.href = "index.html";
 }
 // getTypes and populate the optgroup with the grabbed types
@@ -209,11 +221,12 @@ async function loadIndexDocument() {
 // Interface WebSocket Notifications
 let hideNoticeTimer;
 function setupWebsocket() {
+  let username = localStorage.getItem("username");
   setTimeout(
     async () =>
       notify(
         "You've got to stay motivated, " +
-          getUsername() +
+          username +
           '! "' +
           (await getQuote()) +
           '"'
@@ -224,7 +237,7 @@ function setupWebsocket() {
     async () =>
       notify(
         "Remember what that one person said, " +
-          getUsername() +
+          username +
           ': "' +
           (await getQuote()) +
           '"'
@@ -235,7 +248,7 @@ function setupWebsocket() {
     async () =>
       notify(
         "I can hardly believe how amazing you are, " +
-          getUsername() +
+          username +
           '! "' +
           (await getQuote()) +
           '"'
@@ -246,7 +259,7 @@ function setupWebsocket() {
     async () =>
       notify(
         "You're done it, " +
-          getUsername() +
+          username +
           "! Here's a quote to celebrate: \"" +
           (await getQuote()) +
           '"'

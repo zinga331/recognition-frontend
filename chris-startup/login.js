@@ -3,29 +3,24 @@ const submitButton = document.getElementById("submit-button");
 const registerButton = document.getElementById("register-button");
 
 // Add event listeners to the buttons
-submitButton.addEventListener("click", handleSubmit);
+submitButton.addEventListener("click", handleLogin);
 registerButton.addEventListener("click", handleRegister);
 
 // Function to handle form submission
-function handleSubmit(event) {
+function handleLogin(event) {
   event.preventDefault();
   login();
-  window.location.href = "home.html";
-
-  // TODO: Add form validation and submission logic
 }
 
 // Function to handle registration
-function handleRegister(event) {
+async function handleRegister(event) {
   console.log("handleRegister() called");
 
   event.preventDefault();
-  register();
-  window.location.href = "home.html";
+  await register();
 }
 
 async function login() {
-  console.log("login() called");
   let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
 
@@ -46,7 +41,9 @@ async function login() {
 }
 async function register() {
   // TODO DISTINQUISH THIS FUNCTION FROM login()
+
   console.log("register() called");
+
   let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
   let res = await fetch("/api/register", {
@@ -57,8 +54,11 @@ async function register() {
     body: JSON.stringify({ username: username, password: password }),
   });
   res = await res.json();
+  console.log(res);
+  console.log(res.username);
   if (res.username) {
     localStorage.setItem("username", username);
     window.location.href = "home.html";
   }
+  await new Promise((r) => setTimeout(r, 5000));
 }
