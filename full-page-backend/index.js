@@ -94,7 +94,7 @@ apiRouter.get("/record", async (req, res) => {
   }
   let type = req.query.type;
   let ans = await db.get_record(type);
-  res.send(ans);
+  res.send(ans ? ans : { error: "No records of that type are available." });
 });
 
 // submit form
