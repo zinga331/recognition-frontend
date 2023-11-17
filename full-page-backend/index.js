@@ -43,7 +43,7 @@ apiRouter.post("/login", async (req, res) => {
       return;
     }
   }
-  res.status(401).send({ msg: 'Unauthorized' });
+  res.status(401).send({ msg: 'Incorrect username or password' });
 });
 
 apiRouter.delete('/logout', (_req, res) => {
@@ -55,7 +55,7 @@ apiRouter.delete('/logout', (_req, res) => {
 // register
 apiRouter.post("/register", async (req, res) => {
   if (await db.get_user_by_username(req.body.username)) {
-    res.status(409).send({ msg: 'Existing user' });
+    res.status(409).send({ msg: 'Username already exists' });
   } else {
     const user = await db.add_user(req.body.username, req.body.password);
 
