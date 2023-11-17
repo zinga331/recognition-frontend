@@ -37,6 +37,8 @@ async function login() {
   if (res.username) {
     localStorage.setItem("username", username);
     window.location.href = "home.html";
+  } else {
+    alert("Invalid username or password");
   }
 }
 async function register() {

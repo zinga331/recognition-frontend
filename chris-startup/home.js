@@ -30,8 +30,8 @@ async function init() {
     loadIndexDocument();
   });
   const initialize = async () => {
-    await showDialog();
     await loadTypes();
+    await showDialog();
     await loadIndexDocument();
   };
 
