@@ -1,9 +1,17 @@
-
-async function login() {
+async function _login_or_register_helper(path) {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
+
+    if (!username) {
+        alert("Username cannot be blank!");
+        return;
+    }
+    if (!password) {
+        alert("Password cannot be blank!");
+        return;
+    }
     
-    let res = await fetch("/api/login", {
+    let res = await fetch(path, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -16,27 +24,17 @@ async function login() {
     if (res.username) {
         localStorage.setItem("username", username);
         window.location.href = "index.html";
+    } else if (res.msg) {
+        alert(res.msg);
     }
 }
 
-async function register() {
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
-    
-    let res = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: username, password: password })
-    });
-    
-    res = await res.json();
+async function login() {
+    _login_or_register_helper("/api/login");
+}
 
-    if (res.username) {
-        localStorage.setItem("username", username);
-        window.location.href = "index.html";
-    }
+async function register() {
+    _login_or_register_helper("/api/register");
 }
 
 document.getElementById("loginButton").addEventListener("click", login);

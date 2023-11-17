@@ -2,7 +2,7 @@ let api = window.api;
 
 function init() {
     document.getElementById("loginLink").addEventListener("click", logout);
-    renderLogin();
+    renderLogin().catch(console.error);
     
     document.querySelector(".toggle-popup").addEventListener("click", showNotice);
     document.querySelector(".notification").addEventListener("focusout", hideNotice);
@@ -135,34 +135,27 @@ async function submitRecord() {
 
 // Login Support
 
-let loggedIn = false;
-function renderLogin() {
-    let username = localStorage.getItem("username");
+async function renderLogin() {
+    let username = await fetch("/api/whoami");
+    username = await username.json();
+    username = username.username;
     
-    if (username) {
-        loggedIn = true;
-    } else {
-        username = "Anon";
-        loggedIn = false;
+    if (!username) {
+        window.location.href = "login.html";
     }
     
     document.getElementById("userDisplay").textContent = `Hello, ${username}!`;
-    document.getElementById("loginLink").textContent = loggedIn ? "Logout" : "Login";
+    document.getElementById("loginLink").textContent = true ? "Logout" : "Login";
 }
 
 async function logout() {
-    if (loggedIn) {
-        localStorage.removeItem("username");
-        await fetch("/api/logout", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        init();
-    } else {
-        window.location.href = "login.html";
-    }
+    await fetch("/api/logout", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    window.location.href = "login.html";
 }
 
 // WebSocket Notifications

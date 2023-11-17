@@ -68,7 +68,8 @@ The following elements were added for the Database assignment.
 
 The following elements were added for the Login assignment.
 
-- **Allow new users to create accounts by providing credentials** -
-- **Store Encrypted credentials in your database** -
-- **Authenticate users by comparing provided credentials against those stored in the database** -
-- **Restrict access to parts of the application that require authorization** -
+- **Allow new users to create accounts by providing credentials** - This is done by entering a new username and password on the login screen and clicking the register button. The backend will send back an error message if the username already exists.
+- **Store Encrypted credentials in your database** - The password is hashed with bcrypt before being stored in the database along with the username and a session token.
+- **Authenticate users by comparing provided credentials against those stored in the database** - When users attempt to login, it looks up the username in the database and compares password hashes. If the username does not exist or the password is incorrect it says that one of them is incorrect. 
+- **Restrict access to parts of the application that require authorization** - Users can only index when they are logged in. The index page will call the whoami route in the backend to check if the user is authenticated. If they are not, it redirects to the login page. Additionally, the backend limits all indexing-related routes to users that are authenticated.
+
