@@ -40,12 +40,22 @@ async function login() {
   }
 }
 async function register() {
-  // TODO DISTINQUISH THIS FUNCTION FROM login()
-
-  console.log("register() called");
-
   let username = document.getElementById("username").value;
   let password = document.getElementById("password").value;
+  let errorMessage = "";
+
+  if (username.length < 3) {
+    errorMessage += "Username must be at least 3 characters.\n";
+  }
+
+  if (password.length < 3) {
+    errorMessage += "Password must be at least 3 characters.\n";
+  }
+
+  if (errorMessage) {
+    alert(errorMessage);
+    return;
+  }
   let res = await fetch("/api/register", {
     method: "POST",
     headers: {
@@ -59,6 +69,7 @@ async function register() {
   if (res.username) {
     localStorage.setItem("username", username);
     window.location.href = "home.html";
+  } else {
+    alert("That username is unavailable");
   }
-  await new Promise((r) => setTimeout(r, 5000));
 }
