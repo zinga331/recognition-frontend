@@ -73,3 +73,12 @@ The following elements were added for the Login assignment.
 - **Authenticate users by comparing provided credentials against those stored in the database** - When users attempt to login, it looks up the username in the database and compares password hashes. If the username does not exist or the password is incorrect it says that one of them is incorrect. 
 - **Restrict access to parts of the application that require authorization** - Users can only index when they are logged in. The index page will call the whoami route in the backend to check if the user is authenticated. If they are not, it redirects to the login page. Additionally, the backend limits all indexing-related routes to users that are authenticated.
 
+# WebSocket Deliverable
+
+The following elements were added for the WebSocket assignment.
+
+- **WebSocket support for data pushed from the backend** -
+-  **Backend listens for WebSocket connection** -
+-  **Frontend makes WebSocket connection** -
+-  **Data sent over WebSocket connection** -
+-  **WebSocket data displayed in the application interface** -
