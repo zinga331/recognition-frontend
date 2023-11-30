@@ -77,8 +77,8 @@ The following elements were added for the Login assignment.
 
 The following elements were added for the WebSocket assignment.
 
-- **WebSocket support for data pushed from the backend** -
--  **Backend listens for WebSocket connection** -
--  **Frontend makes WebSocket connection** -
--  **Data sent over WebSocket connection** -
--  **WebSocket data displayed in the application interface** -
+- **WebSocket support for data pushed from the backend** - The notifications in the frontend are supported by a websocket connection. This allows the backend to send a message to all active users.
+- **Backend listens for WebSocket connection** - This is contained in peerProxy.js.
+- **Frontend makes WebSocket connection** - The indexing page connects to the web socket in the backend when the page is loaded.
+- **Data sent over WebSocket connection** - Whenever a user submits a record, a taunt is sent to all users telling them that the other user is indexing more than they are.
+- **WebSocket data displayed in the application interface** - The notifications received from the backend are displayed as temporary popups on the frontend.
