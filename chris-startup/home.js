@@ -2,6 +2,8 @@ import { getTypes, getRecord, submitRecord, getQuote } from "./service.js";
 
 window.onload = init;
 
+let username = null;
+
 // Creates a button listener given the function name, and the button id
 function addButtonListener(buttonId, listenerFunction) {
   const button = document.getElementById(buttonId);
@@ -49,7 +51,7 @@ async function init() {
 let loggedIn = false;
 
 function renderLogin() {
-  let username = localStorage.getItem("username");
+  username = localStorage.getItem("username");
 
   if (username) {
     loggedIn = true;
@@ -100,7 +102,6 @@ async function removeRow(fieldID) {
   row.parentNode.removeChild(row);
 }
 async function revertTable() {
-
   await loadIndexDocument();
   alert("Table Submitted!");
 }
@@ -229,7 +230,11 @@ function setupWebsocket() {
     const msg = JSON.parse(await event.data);
     const msgText = msg.msg;
     console.log("Received web socket socket message", msgText);
-    notify(msgText);
+
+    // Check if the message contains the username. If not, ignore message and do not notify.
+    if (!msgText.includes(username)) {
+      notify(msgText);
+    }
   };
 }
 
