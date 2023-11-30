@@ -221,51 +221,20 @@ async function loadIndexDocument() {
 // Interface WebSocket Notifications
 let hideNoticeTimer;
 function setupWebsocket() {
-  let username = localStorage.getItem("username");
-  setTimeout(
-    async () =>
-      notify(
-        "You've got to stay motivated, " +
-          username +
-          '! "' +
-          (await getQuote()) +
-          '"'
-      ),
-    1000
-  );
-  setTimeout(
-    async () =>
-      notify(
-        "Remember what that one person said, " +
-          username +
-          ': "' +
-          (await getQuote()) +
-          '"'
-      ),
-    10000
-  );
-  setTimeout(
-    async () =>
-      notify(
-        "I can hardly believe how amazing you are, " +
-          username +
-          '! "' +
-          (await getQuote()) +
-          '"'
-      ),
-    20000
-  );
-  setTimeout(
-    async () =>
-      notify(
-        "You're done it, " +
-          username +
-          "! Here's a quote to celebrate: \"" +
-          (await getQuote()) +
-          '"'
-      ),
-    30000
-  );
+  const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+  let socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+  socket.onopen = (event) => {
+    console.log("Connected web socket");
+  };
+  socket.onclose = (event) => {
+    console.log("Disconnected web socket");
+  };
+  socket.onmessage = async (event) => {
+    const msg = JSON.parse(await event.data);
+    const msgText = msg.msg;
+    console.log("Received web socket socket message", msgText);
+    notify(msgText);
+  };
 }
 
 function notify(text) {
