@@ -3,6 +3,7 @@ const db = require("./database.js");
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const app = express();
+const { peerProxy, sendNotice } = require('./peerProxy.js');
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -16,9 +17,12 @@ app.use(cookieParser());
 // Serve up the front-end static content hosting
 app.use(express.static("public"));
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService);
+
 // Create a new endpoint under the /api path for the service to handle requests to /api/login. Print the received username and password to the console.
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
@@ -107,6 +111,7 @@ apiRouter.put("/record", async (req, res) => {
   }
   await db.update_record(user, record);
   res.status(200).end();
+  sendNotice(`${user} just indexed something! Get on their level!`);
 });
 
 // whoami
