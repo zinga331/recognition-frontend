@@ -229,7 +229,8 @@ function setupWebsocket() {
   socket.onmessage = async (event) => {
     const msg = JSON.parse(await event.data);
     const msgText = msg.msg;
-    console.log("Received web socket socket message", msgText);
+    // console.log("Received web socket socket message", msgText);
+    
 
     // Check if the message contains the username. If not, ignore message and do not notify.
     if (!msgText.includes(username)) {
