@@ -166,24 +166,17 @@ function setupWebsocket() {
     // setTimeout(() => notify("You've been on the page for ten seconds"), 10000);
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     let socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-    console.log(socket);
     socket.onopen = (event) => {
-        console.log("Connected");
-        //   this.displayMsg('system', 'game', 'connected');
+        console.log("Connected web socket");
     };
     socket.onclose = (event) => {
-        console.log("Disconnected");
-        //   this.displayMsg('system', 'game', 'disconnected');
+        console.log("Disconnected web socket");
     };
     socket.onmessage = async (event) => {
-        console.log("Message");
-        const msg = JSON.parse(await event.data.text());
-        console.log(msg);
-    //   if (msg.type === GameEndEvent) {
-    //     this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
-    //   } else if (msg.type === GameStartEvent) {
-    //     this.displayMsg('player', msg.from, `started a new game`);
-    //   }
+        const msg = JSON.parse(await event.data);
+        const msgText = msg.msg;
+        console.log('Received web socket socket message', msgText);
+        notify(msgText);
     };
 }
 
