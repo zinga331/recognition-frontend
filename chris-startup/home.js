@@ -100,7 +100,6 @@ async function removeRow(fieldID) {
   row.parentNode.removeChild(row);
 }
 async function revertTable() {
-  console.log("revertTable() called");
 
   await loadIndexDocument();
   alert("Table Submitted!");
@@ -108,7 +107,6 @@ async function revertTable() {
 
 // Confirm submission of table, thenn revert table to default state
 async function submitTable() {
-  console.log("submitTable() called");
   if (!curRecord) return;
   const confirm = window.confirm("Are you sure you want to submit the table?");
 
@@ -128,9 +126,7 @@ async function submitTable() {
       });
     }
     curRecord.results = outputFields;
-    console.log("curRecord being submitted", curRecord);
     await submitRecord(curRecord);
-    console.log("Table submitted");
 
     revertTable();
   }
