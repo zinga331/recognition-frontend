@@ -181,3 +181,20 @@ In the following instruction we will show you how to use Vite to create a simple
 # Tic Tac Toe Code Sandbox
 
 [link](https://codesandbox.io/s/dazzling-morning-wgcq2x?file=/App.js)
+
+# Reactivity
+
+> Making the UI react to changes in user input or data, is one of the architectural foundations of React. React enables reactivity with three major pieces of a React component: `props`, `state`, and `render`.
+
+> Reactivity is the ability of a component to react to changes in its state or properties. Reactivity is what makes React so powerful. Reactivity is implemented by monitoring the state and properties of a component and then calling the `render` function whenever a change is detected. The `render` function then updates the user interface to reflect the new state or properties.
+
+## ☑ Assignment
+
+Create a fork of this [CodePen](https://codepen.io/leesjensen/pen/NWzYzXE) and experiment. Try changing the input from using the color and radio button, to using an edit box that reactively displays the text as you type.
+
+Mah fork: [link](https://codepen.io/zinga331/pen/YzBdvoz)
+
+When you are done submit your CodePen URL to the Canvas assignment.
+
+Don't forget to update your GitHub startup repository `notes.md` with all of the things you learned and want to remember.
+
