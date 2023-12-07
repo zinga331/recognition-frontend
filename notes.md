@@ -71,6 +71,7 @@ The following elements were added for the JavaScript assignment.
 [Web Services](/IndividualNotes/webServices.md)
 [Database and Login](/IndividualNotes/databaseAndLogin.md)
 [WebSockets](/IndividualNotes/WebSocket.md)
+[React](/IndividualNotes/react.md)
 
 [Consider forking a repository that you want to experiment with](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md#forks)
 
