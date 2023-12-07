@@ -286,3 +286,47 @@ Note that hooks can only be used in function style components and must be called
 1. Make sure that you run npm install in both the service directory and the root, as both the backend and the vite frontend need to install packages properly.
 1. I didn't have the dbConfig.json file in the proper directory, so I needed to move it to service.
 1. Dependencies are an issue sometimes.
+
+# Router
+
+React doess not haaave a standard router package, and there are many to choose from. Be sure not to confuse the React router with the React Router DOM, especially with versions pre version 6. We will be using the React Router DOM version 6.
+
+
+A basic implementation of the router consists of a `BrowserRouter` component that encapsulates the entire application and controls the routing action. The `Link`, or `NavLink`, component captures user navigation events and modifies what is rendered by the `Routes` component by matching up the `to` and `path` attributes.
+
+```jsx
+// Inject the router into the application root DOM element
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  // BrowserRouter component that controls what is rendered
+  // NavLink component captures user navigation requests
+  // Routes component defines what component is routed to
+  <BrowserRouter>
+    <div className='app'>
+      <nav>
+        <NavLink to='/'>Home</Link>
+        <NavLink to='/about'>About</Link>
+        <NavLink to='/users'>Users</Link>
+      </nav>
+
+      <main>
+        <Routes>
+          <Route path='/' element={<Home />} exact />
+          <Route path='/about' element={<About />} />
+          <Route path='/users' element={<Users />} />
+          <Route path='*' element={<Navigate to='/' replace />} />
+        </Routes>
+      </main>
+    </div>
+  </BrowserRouter>
+);
+```
+
+## ☑ Assignment
+
+Create a fork of this [CodePen](https://codepen.io/leesjensen/pen/poKLKaX) and add another component for the path of `/scores`.
+
+[My Fork](https://codepen.io/zinga331/pen/dyawgpg)
+
+
+Don't forget to update your GitHub startup repository `notes.md` with all of the things you learned and want to remember.
