@@ -1,4 +1,5 @@
 import React from 'react';
+import '../app.css'; // TODO: local elements
 
 export function Index() {
   return (
@@ -10,7 +11,7 @@ export function Index() {
       <div className="content">
 
         <div className="image-wrapper">
-          <img src="./images/example.png" className="image" id="recordImage"></img>
+          <img src={"./images/example.png"} className="image" id="recordImage"></img>
         </div>
         
         <div className="form-wrapper">

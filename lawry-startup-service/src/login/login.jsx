@@ -9,7 +9,7 @@ export function Login() {
       <div className="content">
 
         <div className="image-wrapper">
-          <img src="./images/example.png" className="image"></img>
+          <img src={"./images/example.png"} className="image"></img>
         </div>
         
         <div className="form-wrapper">
