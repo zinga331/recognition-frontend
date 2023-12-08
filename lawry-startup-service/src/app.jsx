@@ -6,16 +6,23 @@ import { Login } from './login/login';
 import { Index } from './index/index';
 
 export default function App() {
+  const [username, setUsername] = React.useState('');
+
   return (
     <BrowserRouter>
         <div className='body'>
             <header>
                 <h1>Full Page Indexing</h1>
 
-                <span id="userDisplay">Hello, Anon!</span>
-                <NavLink id="loginLink" to='login'>Logout</NavLink> {/* if logged in */}
-                <button className="toggle-popup">Notifications</button>
-                <div className="notification" tabindex="0">No notifications yet</div>
+                {
+                    username ?
+                    <><span id="userDisplay">Hello, {username}!</span>
+                    <NavLink id="loginLink" to='login'>Logout</NavLink>
+                    <button className="toggle-popup">Notifications</button>
+                    <div className="notification" tabIndex="0">No notifications yet</div>
+                    </> : <></>
+                }
+                
             </header>
 
             <Routes>
@@ -25,13 +32,13 @@ export default function App() {
                     exact/>
                 <Route 
                     path='/login'
-                    element={<Login/>}
+                    element={<Login setGlobalUsername={setUsername}/>}
                     exact/>
                 <Route path='*' element={<NotFound />} />
             </Routes>      
 
             <footer>
-                <span class="authors">Lawry Sorenson and Christian Hall</span>
+                <span className="authors">Lawry Sorenson and Christian Hall</span>
                 <a href="https://github.com/zinga331/startup/tree/main">GitHub</a>
             </footer>
         </div>
