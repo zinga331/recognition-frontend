@@ -8,6 +8,14 @@ import { Index } from './index/index';
 export default function App() {
   const [username, setUsername] = React.useState('');
 
+  React.useEffect(async () => {
+    // get initial username
+    let username = await fetch("/api/whoami");
+    username = await username.json();
+    username = username.username;
+    if (username) setUsername(username);
+  }, []);
+
   async function logout() {
     setUsername('');
     await fetch("/api/logout", {
