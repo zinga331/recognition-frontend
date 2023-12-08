@@ -4,6 +4,7 @@ import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Index } from './index/index';
+import { Navigate } from 'react-router-dom';
 
 export default function App() {
   const [username, setUsername] = React.useState('');
@@ -46,11 +47,11 @@ export default function App() {
             <Routes>
                 <Route 
                     path='/'
-                    element={<Index/>}
+                    element={username ? <Index/> : <Navigate to="/login"/>}
                     exact/>
                 <Route 
                     path='/login'
-                    element={<Login setGlobalUsername={setUsername}/>}
+                    element={username ? <Navigate to="/"/> : <Login setGlobalUsername={setUsername}/>}
                     exact/>
                 <Route path='*' element={<NotFound />} />
             </Routes>      

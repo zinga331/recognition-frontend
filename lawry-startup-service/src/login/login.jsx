@@ -1,11 +1,9 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
 import '../app.css'; // TODO: local elements
 
 export function Login({ setGlobalUsername }) {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [isAuth, setAuth] = React.useState(false);
 
   async function _login_or_register_helper(path) {
     if (!username) {
@@ -29,13 +27,10 @@ export function Login({ setGlobalUsername }) {
 
     if (res.username) {
         setGlobalUsername(res.username);
-        setAuth(true);
     } else if (res.msg) {
         alert(res.msg);
     }
   }
-
-  if (isAuth) return <Navigate to="/"></Navigate>
 
   return (
     <main>
