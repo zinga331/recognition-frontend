@@ -8,6 +8,16 @@ import { Index } from './index/index';
 export default function App() {
   const [username, setUsername] = React.useState('');
 
+  async function logout() {
+    setUsername('');
+    await fetch("/api/logout", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+  }
+
   return (
     <BrowserRouter>
         <div className='body'>
@@ -17,7 +27,7 @@ export default function App() {
                 {
                     username ?
                     <><span id="userDisplay">Hello, {username}!</span>
-                    <NavLink id="loginLink" to='login'>Logout</NavLink>
+                    <NavLink id="loginLink" to='login' onClick={logout}>Logout</NavLink>
                     <button className="toggle-popup">Notifications</button>
                     <div className="notification" tabIndex="0">No notifications yet</div>
                     </> : <></>
