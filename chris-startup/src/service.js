@@ -2,7 +2,7 @@ export async function getTypes() {
   let ans = await fetch("/api/types");
   if (ans.status >= 400) {
     alert("You are not logged in!");
-    window.location.href = "index.html";
+    window.location.href = "/"; // Redirect to login page
   }
   return ans.json();
 }

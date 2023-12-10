@@ -9,12 +9,12 @@ function App() {
   return (
     <BrowserRouter>
       <html>
-        <header>
+        {/* <header>
           <NavLink className="nav-link" to="home">
             {" "}
             Visit indexing home page (log in)
           </NavLink>
-        </header>
+        </header> */}
         <Routes>
           <Route path="/" element={<Login />} exact />
           <Route path="/home" element={<Home />} />

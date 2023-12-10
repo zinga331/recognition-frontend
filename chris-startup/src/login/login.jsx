@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from 'react-router-dom';
 
 export function Login() {
   const [username, setUsername] = useState("");
@@ -61,7 +62,14 @@ export function Login() {
 
   return (
     <main className="container-fluid bg-secondary text-center">
+        <header>
+          <NavLink className="nav-link" to="home">
+            {" "}
+            Visit indexing home page (log in)
+          </NavLink>
+        </header>
       <div id="login">
+
         <p>
           <label htmlFor="username">Username: </label>
           <input

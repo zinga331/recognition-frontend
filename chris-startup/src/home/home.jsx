@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getTypes, getRecord, submitRecord, getQuote } from "../service.js";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Home() {
   const [username, setUsername] = useState(null);
@@ -12,6 +13,7 @@ function Home() {
   const notify = (msgText) => {
     // Add your notification logic here
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
     const init = async () => {
@@ -33,6 +35,15 @@ function Home() {
       useWebSocket(username, notify);
     };
     init();
+    const storedUsername = localStorage.getItem("username");
+
+    if (storedUsername) {
+      setUsername(storedUsername);
+      setLoggedIn(true);
+    } else {
+      setUsername("Guest");
+      setLoggedIn(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -65,11 +76,42 @@ function Home() {
   // };
 
   const submitTable = async () => {
-    // ... similar to addRow and removeRow
+    if (!curRecord) return;
+    const confirm = window.confirm(
+      "Are you sure you want to submit the table?"
+    );
+
+    if (confirm) {
+      curRecord.results = fields;
+      await submitRecord(curRecord);
+
+      // Clear the fields
+      setFields([]);
+    }
   };
 
   const logout = async () => {
-    // ... similar to addRow and removeRow
+    console.log("logout() called");
+    if (loggedIn) {
+      localStorage.removeItem("username");
+      try {
+        const response = await fetch("/api/logout", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Logout failed: ${response.statusText}`);
+        }
+
+        // If the logout was successful, redirect to the landing page
+        navigate("/");
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   const useWebSocket = (username) => {
@@ -104,6 +146,20 @@ function Home() {
 
   return (
     <main className="container-fluid bg-secondary text-center">
+      <header>
+        <NavLink className="nav-link" to="/">
+          {" "}
+          Return to Landing Page
+        </NavLink>
+        <div class="header-buttons">
+          <button id="notification-button" type="notification">
+            Notifications
+          </button>
+          <button id="logout-button" type="logout" onClick={logout}>
+            Logout
+          </button>
+        </div>
+      </header>
       <head>
         <title>Full Page Indexing</title>
         <link rel="stylesheet" href="style.css" />
@@ -178,7 +234,12 @@ function Home() {
                 </div>
               ))}{" "}
             </div>
-            <button id="submitTable" className="menu" type="submit">
+            <button
+              id="submitTable"
+              className="menu"
+              type="submit"
+              onClick={submitTable}
+            >
               Submit
             </button>
             <p className="warning">
