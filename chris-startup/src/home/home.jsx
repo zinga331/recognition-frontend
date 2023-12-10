@@ -9,10 +9,25 @@ function Home() {
   const [selectedType, setSelectedType] = useState(null);
   const [curRecord, setCurRecord] = useState(null);
   const [fields, setFields] = useState([]);
+  const [notification, setNotification] = useState(null);
+  const [receiveNotifications, setReceiveNotifications] = useState(false);
 
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => {
+        setNotification(null);
+      }, 2000);
+  
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
+  
   const notify = (msgText) => {
-    // Add your notification logic here
+    if (receiveNotifications) {
+      setNotification(msgText);
+    }
   };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,12 +42,14 @@ function Home() {
       setUsername(username);
       setLoggedIn(!!username);
 
-      // Call your other async functions here
-      await showDialog();
-      await loadIndexDocument();
 
       // Set up websocket notifications
       useWebSocket(username, notify);
+      const initialize = async () => {
+        await loadTypes();
+        await showDialog();
+        await loadIndexDocument();
+      };
     };
     init();
     const storedUsername = localStorage.getItem("username");
@@ -89,6 +106,15 @@ function Home() {
       setFields([]);
     }
   };
+  // Todo handle the opt-in and opt-out buttons differently
+  async function showDialog() {
+    const result = window.confirm("Opt-in to receive notifications?");
+    if (result) {
+      document.getElementById("opt-in").click();
+    } else {
+      document.getElementById("opt-out").click();
+    }
+  }
 
   const logout = async () => {
     console.log("logout() called");
@@ -159,8 +185,14 @@ function Home() {
             Logout
           </button>
         </div>
+        <div
+          className="notification"
+          style={{ display: notification ? "block" : "none" }}
+        >
+          {notification}
+        </div>
       </header>
-      <head>
+      <div>
         <title>Full Page Indexing</title>
         <link rel="stylesheet" href="style.css" />
         <h1>
@@ -201,7 +233,7 @@ function Home() {
           id="recordImage"
           width="800px"
         />
-      </head>
+      </div>
       <body>
         <div className="form-wrapper">
           <div id="recordForm">

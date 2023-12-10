@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -28,20 +31,20 @@ export function Login() {
   async function handleRegister(event) {
     event.preventDefault();
     let errorMessage = "";
-
+  
     if (username.length < 3) {
       errorMessage += "Username must be at least 3 characters.\n";
     }
-
+  
     if (password.length < 3) {
       errorMessage += "Password must be at least 3 characters.\n";
     }
-
+  
     if (errorMessage) {
       alert(errorMessage);
       return;
     }
-
+  
     let res = await fetch("/api/register", {
       method: "POST",
       headers: {
@@ -49,12 +52,12 @@ export function Login() {
       },
       body: JSON.stringify({ username, password }),
     });
-
+  
     res = await res.json();
-
+  
     if (res.username) {
       localStorage.setItem("username", username);
-      window.location.href = "home.html";
+      navigate("/home");
     } else {
       alert("That username is unavailable");
     }
