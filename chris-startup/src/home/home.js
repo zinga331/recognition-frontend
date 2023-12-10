@@ -1,4 +1,4 @@
-import { getTypes, getRecord, submitRecord, getQuote } from "./service.js";
+import { getTypes, getRecord, submitRecord, getQuote } from "../service.js";
 
 window.onload = init;
 
