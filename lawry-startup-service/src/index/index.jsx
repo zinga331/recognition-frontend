@@ -2,11 +2,27 @@ import React from 'react';
 import '../app.css'; // TODO: local elements
 
 export function Index() {
+  const [ quote, setQuote ] = React.useState('');
+
+  async function getQuote() {
+    let data = await fetch("https://api.quotable.io/random");
+    let {content, author} = await data.json();
+    return `${content} - ${author}`;
+  }
+
+  React.useEffect(() => {
+    async function init() {
+      // console.log('point a');
+      // setQuote(await getQuote());
+    }
+    init();
+  }, []);
+
   return (
     <main>
       <h1 className="welcome">Welcome</h1>
 
-      <div className="quote"></div>
+      { quote ? <div className="quote"> { quote } </div> : <></>}
 
       <div className="content">
 
