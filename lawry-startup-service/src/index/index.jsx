@@ -4,6 +4,7 @@ import '../app.css'; // TODO: local elements
 export function Index() {
   const [ quote, setQuote ] = React.useState('');
   const [ recordType, setRecordType ] = React.useState('');
+  const [ typeList, setTypeList ] = React.useState([]);
 
   async function getQuote() {
     let data = await fetch("https://api.quotable.io/random");
@@ -11,15 +12,36 @@ export function Index() {
     return `${content} - ${author}`;
   }
 
-  // async function load
+  async function loadTypes() {
+    // let data = await fetch("/api/types");
+    // data = await ans.json();
+    let data = [ // temp mock for offline dev
+      {
+        id: "french",
+        language: "French",
+        display: "French 1820 Records",
+      },
+      {
+        id: "french2",
+        language: "French",
+        display: "1900 Obituary",
+      }
+    ];
+    setTypeList(data);
+    if (data?.length) setRecordType(data[0]?.id);
+}
+
+  async function getRecord() {
+    console.log(recordType);
+  }
 
   React.useEffect(() => {
-    console.log(recordType);
+    if (recordType) getRecord();
   }, [recordType]);
 
   React.useEffect(() => {
     async function init() {
-      // console.log('point a');
+      loadTypes();
       // setQuote(await getQuote());
     }
     init();
@@ -40,9 +62,8 @@ export function Index() {
         <div className="form-wrapper">
         
           <form>
-            <select id="datasets" onChange={event => console.log(event.target.value)}>
-              <option value="french">French 1820 Birth Records</option>
-              <option value="finnish">Finnish 1810 Birth Records</option>
+            <select id="datasets" onChange={event => setRecordType(event.target.value)}>
+              { typeList.map(t => <option value={t.id}>{ t.display }</option>) }
             </select><br/>
             
             <table id="indexFields">
