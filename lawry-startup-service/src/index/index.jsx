@@ -3,12 +3,19 @@ import '../app.css'; // TODO: local elements
 
 export function Index() {
   const [ quote, setQuote ] = React.useState('');
+  const [ recordType, setRecordType ] = React.useState('');
 
   async function getQuote() {
     let data = await fetch("https://api.quotable.io/random");
     let {content, author} = await data.json();
     return `${content} - ${author}`;
   }
+
+  // async function load
+
+  React.useEffect(() => {
+    console.log(recordType);
+  }, [recordType]);
 
   React.useEffect(() => {
     async function init() {
@@ -32,8 +39,8 @@ export function Index() {
         
         <div className="form-wrapper">
         
-          <form action="javascript:void(0);">
-            <select id="datasets">
+          <form>
+            <select id="datasets" onChange={event => console.log(event.target.value)}>
               <option value="french">French 1820 Birth Records</option>
               <option value="finnish">Finnish 1810 Birth Records</option>
             </select><br/>
