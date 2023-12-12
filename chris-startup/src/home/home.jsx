@@ -11,17 +11,19 @@ function Home() {
   const [fields, setFields] = useState([]);
   const [notification, setNotification] = useState(null);
   const [receiveNotifications, setReceiveNotifications] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+  const [optIn, setOptIn] = useState(false);
 
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => {
         setNotification(null);
       }, 2000);
-  
+
       return () => clearTimeout(timer);
     }
   }, [notification]);
-  
+
   const notify = (msgText) => {
     if (receiveNotifications) {
       setNotification(msgText);
@@ -42,16 +44,21 @@ function Home() {
       setUsername(username);
       setLoggedIn(!!username);
 
-
       // Set up websocket notifications
       useWebSocket(username, notify);
-      const initialize = async () => {
-        await loadTypes();
-        await showDialog();
-        await loadIndexDocument();
-      };
     };
+
+    const initialize = async () => {
+      await loadTypes();
+    //   await showDialog();
+      await loadIndexDocument();
+    };
+
     init();
+    initialize();
+    setShowDialog(true);
+
+
     const storedUsername = localStorage.getItem("username");
 
     if (storedUsername) {
@@ -88,6 +95,16 @@ function Home() {
     setFields(fields.filter((_, i) => i !== index));
   };
 
+  const handleDialogConfirm = () => {
+    setOptIn(true);
+    setShowDialog(false);
+  };
+  
+  const handleDialogCancel = () => {
+    setOptIn(false);
+    setShowDialog(false);
+  };
+
   // const loadIndexDocument = async () => {
   //     // ... similar to addRow and removeRow
   // };
@@ -107,14 +124,14 @@ function Home() {
     }
   };
   // Todo handle the opt-in and opt-out buttons differently
-  async function showDialog() {
-    const result = window.confirm("Opt-in to receive notifications?");
-    if (result) {
-      document.getElementById("opt-in").click();
-    } else {
-      document.getElementById("opt-out").click();
-    }
-  }
+//   async function showDialog() {
+//     const result = window.confirm("Opt-in to receive notifications?");
+//     if (result) {
+//       document.getElementById("opt-in").click();
+//     } else {
+//       document.getElementById("opt-out").click();
+//     }
+//   }
 
   const logout = async () => {
     console.log("logout() called");
@@ -173,11 +190,11 @@ function Home() {
   return (
     <main className="container-fluid bg-secondary text-center">
       <header>
-        <NavLink className="nav-link" to="/">
+        {/* <NavLink className="nav-link" to="/">
           {" "}
           Return to Landing Page
-        </NavLink>
-        <div class="header-buttons">
+        </NavLink> */}
+        <div className="header-buttons">
           <button id="notification-button" type="notification">
             Notifications
           </button>
@@ -210,6 +227,8 @@ function Home() {
               id="opt-in"
               name="notification"
               value="receive"
+              checked={optIn}
+              onChange={() => setOptIn(true)}
             />
             <label htmlFor="opt-in">Receive</label>
             <br />
@@ -218,6 +237,8 @@ function Home() {
               id="opt-out"
               name="notification"
               value="receive-not"
+              checked={!optIn}
+              onChange={() => setOptIn(false)}
             />
             <label htmlFor="opt-out">Don't Receive</label>
             <br />
@@ -282,6 +303,34 @@ function Home() {
       </body>
 
       {/* ... rest of the JSX code */}
+      {showDialog && (
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 9999,
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "10px",
+          }}
+        >
+          <p>Opt-in to receive notifications?</p>
+          <button onClick={handleDialogConfirm}>Yes</button>
+          <button onClick={handleDialogCancel}>No</button>
+        </div>
+      </div>
+    )}
     </main>
   );
 }
