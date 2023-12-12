@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getTypes, getRecord, submitRecord, getQuote } from "../service.js";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -6,13 +6,16 @@ function Home() {
   const [username, setUsername] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [types, setTypes] = useState([]);
-  const [selectedType, setSelectedType] = useState(null);
+  const [recordImage, setRecordImage] = useState("");
+  const [selectedType, setSelectedType] = useState("");
   const [curRecord, setCurRecord] = useState(null);
   const [fields, setFields] = useState([]);
   const [notification, setNotification] = useState(null);
   const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [optIn, setOptIn] = useState(false);
+
+  const selectRef = useRef();
 
   useEffect(() => {
     if (notification) {
@@ -32,6 +35,22 @@ function Home() {
 
   const navigate = useNavigate();
 
+  const loadIndexDocument = async () => {
+    console.log("loadIndexDocument() called" + selectedType);
+    if (!selectedType) return;
+    const record = await getRecord(selectedType.toLowerCase());
+    if (!record) {
+      alert("There are no records of that type available!");
+      return;
+    }
+    console.log(record);
+    setCurRecord(record);
+    setRecordImage(record.imageURL);
+    setFields(
+      record.fields.map((field) => ({ id: field.field, value: field.value }))
+    );
+  };
+
   useEffect(() => {
     const init = async () => {
       console.log("init() called");
@@ -50,14 +69,13 @@ function Home() {
 
     const initialize = async () => {
       await loadTypes();
-    //   await showDialog();
-      await loadIndexDocument();
+      setShowDialog(true);
+
+      //   await showDialog();
     };
 
     init();
     initialize();
-    setShowDialog(true);
-
 
     const storedUsername = localStorage.getItem("username");
 
@@ -71,19 +89,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    const loadIndexDocument = async () => {
-      if (!selectedType) return;
-      const record = await getRecord(selectedType.toLowerCase());
-      if (!record) {
-        alert("There are no records of that type available!");
-        return;
-      }
-      setCurRecord(record);
-      setRecordImage(record.imageURL);
-      setFields(
-        record.fields.map((field) => ({ id: field.field, value: field.value }))
-      );
-    };
+
     loadIndexDocument();
   }, [selectedType]);
 
@@ -98,23 +104,33 @@ function Home() {
   const handleDialogConfirm = () => {
     setOptIn(true);
     setShowDialog(false);
+    setReceiveNotifications(true);
   };
-  
+
   const handleDialogCancel = () => {
     setOptIn(false);
     setShowDialog(false);
+    setReceiveNotifications(false);
   };
+
+  const handleSelectChange = () => {
+    const type =
+      selectRef.current.options[selectRef.current.selectedIndex].parentNode
+        .label;
+    setSelectedType(type.toLowerCase());
+  };
+
   async function loadTypes() {
     let types = await getTypes();
     let select = document.getElementById("optgroup");
     select.innerHTML = "";
-  
+
     let languages = [...new Set(types.map((type) => type.language))];
-  
+
     languages.forEach((language) => {
       let optgroup = document.createElement("optgroup");
       optgroup.label = language;
-  
+
       types
         .filter((type) => type.language === language)
         .forEach((type) => {
@@ -123,18 +139,60 @@ function Home() {
           option.textContent = type.display;
           optgroup.appendChild(option);
         });
-  
+
       select.appendChild(optgroup);
     });
   }
 
-  
+  // Get the record from the server and display it
+  let addedFields = 0;
+
+  // async function loadIndexDocument() {
+  //   let select = document.getElementById("optgroup");
+  //   let type = select.options[optgroup.selectedIndex].parentNode.label;
+  //   // set the text of select to be lowercase, to match what the server expects
+  //   type = type.toLowerCase();
+  //   console.log(type);
+  //   curRecord = await getRecord(type);
+
+  //   if (curRecord == null) {
+  //     window.alert("There are no records of that type available!");
+  //     return;
+  //   }
+
+  //   document.getElementById("recordImage").src = curRecord.imageURL;
+
+  //   let table = document.getElementById("documentForm");
+
+  //   table.innerHTML = "";
+
+  //   curRecord.fields.forEach((field) => {
+  //     let row = document.createElement("tr");
+
+  //     let labelCell = document.createElement("td");
+  //     labelCell.textContent = field.field;
+  //     row.appendChild(labelCell);
+
+  //     let inputCell = document.createElement("td");
+  //     let input = document.createElement("input");
+  //     input.type = "text";
+  //     input.id = field.field;
+  //     input.value = field.value;
+  //     inputCell.appendChild(input);
+  //     row.appendChild(inputCell);
+
+  //     table.appendChild(row);
+  //   });
+
+  //   addedFields = 0;
+  // }
 
   // const loadIndexDocument = async () => {
   //     // ... similar to addRow and removeRow
   // };
 
   const submitTable = async () => {
+    console.log("submitTable() called");
     if (!curRecord) return;
     const confirm = window.confirm(
       "Are you sure you want to submit the table?"
@@ -229,7 +287,7 @@ function Home() {
         <title>Full Page Indexing</title>
         <link rel="stylesheet" href="style.css" />
         <h1>
-          Welcome to indexing, <span className="user-name"></span>
+          Welcome to indexing, { username}!
         </h1>
         <div className="notification" tabIndex="0">
           No notifications yet
@@ -276,33 +334,39 @@ function Home() {
           <div id="recordForm">
             <p>
               <label htmlFor="optgroup">Record Type: </label>
-              <select id="optgroup" name="varOptGroup"></select>
+              <select
+                id="optgroup"
+                name="varOptGroup"
+                ref={selectRef}
+                onChange={handleSelectChange}
+              ></select>
             </p>
 
             <table id="documentForm">
               <legend>Indexing Entry</legend>
             </table>
             <div>
-              <button id="addRow" className="menu" onClick={addRow}>
-                +New Field
-              </button>
               {fields.map((field, index) => (
                 <div key={index}>
-                  <input
-                    type="text"
-                    value={field.value}
-                    onChange={(e) =>
-                      setFields(
-                        fields.map((f, i) =>
-                          i === index ? { ...f, value: e.target.value } : f
-                        )
-                      )
-                    }
-                  />
-                  <button onClick={() => removeRow(index)}>Remove</button>
+                    <label>{field.field}</label>
+                    <input
+                        type="text"
+                        value={field.value}
+                        onChange={(e) =>
+                            setFields(
+                                fields.map((f, i) =>
+                                    i === index ? { ...f, value: e.target.value } : f
+                                )
+                            )
+                        }
+                    />
+                    <button onClick={() => removeRow(index)}>Remove</button>
                 </div>
               ))}{" "}
             </div>
+            <button id="addRow" className="menu" onClick={addRow}>
+                +New Field
+              </button>
             <button
               id="submitTable"
               className="menu"
@@ -320,33 +384,33 @@ function Home() {
 
       {/* ... rest of the JSX code */}
       {showDialog && (
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          zIndex: 9999,
-        }}
-      >
         <div
           style={{
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "10px",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
           }}
         >
-          <p>Opt-in to receive notifications?</p>
-          <button onClick={handleDialogConfirm}>Yes</button>
-          <button onClick={handleDialogCancel}>No</button>
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "20px",
+              borderRadius: "10px",
+            }}
+          >
+            <p>Opt-in to receive notifications?</p>
+            <button onClick={handleDialogConfirm}>Yes</button>
+            <button onClick={handleDialogCancel}>No</button>
+          </div>
         </div>
-      </div>
-    )}
+      )}
     </main>
   );
 }
