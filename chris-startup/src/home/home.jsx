@@ -104,6 +104,31 @@ function Home() {
     setOptIn(false);
     setShowDialog(false);
   };
+  async function loadTypes() {
+    let types = await getTypes();
+    let select = document.getElementById("optgroup");
+    select.innerHTML = "";
+  
+    let languages = [...new Set(types.map((type) => type.language))];
+  
+    languages.forEach((language) => {
+      let optgroup = document.createElement("optgroup");
+      optgroup.label = language;
+  
+      types
+        .filter((type) => type.language === language)
+        .forEach((type) => {
+          let option = document.createElement("option");
+          option.value = type.id;
+          option.textContent = type.display;
+          optgroup.appendChild(option);
+        });
+  
+      select.appendChild(optgroup);
+    });
+  }
+
+  
 
   // const loadIndexDocument = async () => {
   //     // ... similar to addRow and removeRow
@@ -123,15 +148,6 @@ function Home() {
       setFields([]);
     }
   };
-  // Todo handle the opt-in and opt-out buttons differently
-//   async function showDialog() {
-//     const result = window.confirm("Opt-in to receive notifications?");
-//     if (result) {
-//       document.getElementById("opt-in").click();
-//     } else {
-//       document.getElementById("opt-out").click();
-//     }
-//   }
 
   const logout = async () => {
     console.log("logout() called");
