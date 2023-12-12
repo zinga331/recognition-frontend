@@ -8,9 +8,9 @@ export function Index() {
   const [ curRecord, setCurRecord ] = React.useState(null);
 
   async function getQuote() {
-    let data = await fetch("https://api.quotable.io/random");
-    let {content, author} = await data.json();
-    setQuote(`${content} - ${author}`);
+    // let data = await fetch("https://api.quotable.io/random");
+    // let {content, author} = await data.json();
+    // setQuote(`${content} - ${author}`);
   }
 
   async function loadTypes() {
@@ -65,7 +65,36 @@ export function Index() {
           },
         ],
     };
+    ans.addedFields = [];
     setCurRecord(ans);
+  }
+
+  function addField() {
+    let upd = {...curRecord};
+    upd?.addedFields?.push({
+      field: 'Click to Edit',
+      value: ''
+    });
+    setCurRecord(upd);
+  }
+
+  function updateExistingField(e, i) {
+    let upd = {...curRecord};
+    upd.fields[i].value = e.target.value;
+    setCurRecord(upd);
+    e.stopPro
+  }
+  
+  function updateNewField(e, i) {
+    let upd = {...curRecord};
+    upd.addedFields[i].value = e.target.value;
+    setCurRecord(upd);
+  }
+
+  function deleteField(i) {
+    let upd = {...curRecord};
+    upd.addedFields.splice(i, 1);
+    setCurRecord(upd);
   }
 
   React.useEffect(() => {
@@ -94,24 +123,32 @@ export function Index() {
         
         <div className="form-wrapper">
         
-          <form>
+          <form action="javascript:void(0);">
             <select id="datasets" onChange={event => setRecordType(event.target.value)}>
               { typeList.map(t => <option value={t.id}>{ t.display }</option>) }
             </select><br/>
             
             <table id="indexFields">
                 {
-                  curRecord?.fields.map(f => {
+                  curRecord?.fields.map((f,i) => {
                     return (<tr>
                       <td>{f.field}</td>
-                      <td><input type="text" id={f.field} value={f.value}/></td>
+                      <td><input type="text" id={f.field} value={f.value} onChange={(e) => updateExistingField(e, i)}/></td>
+                      </tr>);
+                  })
+                }
+                {
+                  curRecord?.addedFields.map((f,i) => {
+                    return (<tr>
+                      <td><span onClick={() => deleteField(i)}>&#10006; </span><span className="edit" contentEditable="true">{f.field}</span></td>
+                      <td><input type="text" id={f.field} value={f.value} onChange={(e) => updateNewField(e, i)}/></td>
                       </tr>);
                   })
                 }
             </table>
             
             <div className="button-row">
-              <button id="addField">Add field</button>
+              <button onClick={addField}>Add field</button>
               <button type="submit" id="submit">Submit</button><br/>
             </div>
           </form>
