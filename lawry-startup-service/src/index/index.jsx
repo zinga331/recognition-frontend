@@ -5,6 +5,7 @@ export function Index() {
   const [ quote, setQuote ] = React.useState('');
   const [ recordType, setRecordType ] = React.useState('');
   const [ typeList, setTypeList ] = React.useState([]);
+  const [ curRecord, setCurRecord ] = React.useState(null);
 
   async function getQuote() {
     let data = await fetch("https://api.quotable.io/random");
@@ -32,7 +33,39 @@ export function Index() {
 }
 
   async function getRecord() {
-    console.log(recordType);
+    // let ans = await fetch(`/api/record?type=${encodeURIComponent(recordType)}`);
+    // ans = await ans.json();
+    // if (ans.error) {
+    //     window.alert("There are no records of that type available!");
+    //     return;
+    // }
+    let ans = {
+        type: 'french',
+        imageURL: "images/example3.png",
+        fields: [
+          {
+            field: "Person's Name",
+            value: "James Smith",
+          },
+          {
+            field: "Record Date",
+            value: "02/04/1780",
+          },
+          {
+            field: "Record Location",
+            value: "London",
+          },
+          {
+            field: "Mother's Name",
+            value: "Elizabeth Johnson",
+          },
+          {
+            field: "Father's Name",
+            value: "John Smith",
+          },
+        ],
+    };
+    setCurRecord(ans);
   }
 
   React.useEffect(() => {
@@ -56,7 +89,7 @@ export function Index() {
       <div className="content">
 
         <div className="image-wrapper">
-          <img src={"./images/example.png"} className="image" id="recordImage"></img>
+          {curRecord?.imageURL ? <img src={curRecord.imageURL} className="image" id="recordImage"></img> : <></>}
         </div>
         
         <div className="form-wrapper">
