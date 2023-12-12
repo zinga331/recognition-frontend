@@ -11,16 +11,36 @@ export default function App() {
   const [ notice, setNotice ] = React.useState('');
   const [ displayNotice, setDisplayNotice ] = React.useState(false);
 
+  let hideNoticeTimer = 0;
   async function notify(msg) {
     setNotice(msg);
     setDisplayNotice(true);
-    setTimeout(() => {setDisplayNotice(false);console.log('X')}, 10000);
+    if (hideNoticeTimer) clearTimeout(hideNoticeTimer),hideNoticeTimer=null;
+    hideNoticeTimer = setTimeout(() => {setDisplayNotice(false);hideNoticeTimer=null}, 10000);
   }
+
+  function setupWebsocket() {
+    setTimeout(() => notify("You've been on the page for ten seconds"), 10000);
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    let socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    socket.onopen = (event) => {
+        console.log("Connected web socket");
+    };
+    socket.onclose = (event) => {
+        console.log("Disconnected web socket");
+    };
+    socket.onmessage = async (event) => {
+        const msg = JSON.parse(await event.data);
+        const msgText = msg.msg;
+        console.log('Received web socket socket message', msgText);
+        notify(msgText);
+    };
+}
 
   React.useEffect(() => {
     async function init() {
         setUsername('pipoika'); // REMOVE THIS
-        notify('testiing 123');
+        setupWebsocket();
 
         // get initial username
         // let username = await fetch("/api/whoami");
