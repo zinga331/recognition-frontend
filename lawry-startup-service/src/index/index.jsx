@@ -97,6 +97,22 @@ export function Index() {
     setCurRecord(upd);
   }
 
+  async function submitRecord() {
+    let data = {...curRecord};
+    getRecord();
+    // data.results = data.fields
+    // data.results.extend(data.addedFields);
+    // TODO: submit results as expected
+    console.log(data);
+  //   await fetch("/api/record", {
+  //     method: "PUT",
+  //     headers: {
+  //         "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data)
+  // });
+  }
+
   React.useEffect(() => {
     if (recordType) getRecord();
   }, [recordType]);
@@ -137,10 +153,11 @@ export function Index() {
                       </tr>);
                   })
                 }
+                {/* TODO: content editable complaining */}
                 {
                   curRecord?.addedFields.map((f,i) => {
-                    return (<tr>
-                      <td><span onClick={() => deleteField(i)}>&#10006; </span><span className="edit" contentEditable="true">{f.field}</span></td>
+                    return (<tr> 
+                      <td><span onClick={() => deleteField(i)}>&#10006; </span><span className="edit" contentEditable="true" onChange={console.log}>{f.field}</span></td>
                       <td><input type="text" id={f.field} value={f.value} onChange={(e) => updateNewField(e, i)}/></td>
                       </tr>);
                   })
@@ -149,7 +166,7 @@ export function Index() {
             
             <div className="button-row">
               <button onClick={addField}>Add field</button>
-              <button type="submit" id="submit">Submit</button><br/>
+              <button type="submit" id="submit" onClick={submitRecord}>Submit</button><br/>
             </div>
           </form>
         </div>
