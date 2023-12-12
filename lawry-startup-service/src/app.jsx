@@ -8,13 +8,27 @@ import { Navigate } from 'react-router-dom';
 
 export default function App() {
   const [username, setUsername] = React.useState('');
+  const [ notice, setNotice ] = React.useState('');
+  const [ displayNotice, setDisplayNotice ] = React.useState(false);
 
-  React.useEffect(async () => {
-    // get initial username
-    let username = await fetch("/api/whoami");
-    username = await username.json();
-    username = username.username;
-    if (username) setUsername(username);
+  async function notify(msg) {
+    setNotice(msg);
+    setDisplayNotice(true);
+    setTimeout(() => {setDisplayNotice(false);console.log('X')}, 10000);
+  }
+
+  React.useEffect(() => {
+    async function init() {
+        setUsername('pipoika'); // REMOVE THIS
+        notify('testiing 123');
+
+        // get initial username
+        // let username = await fetch("/api/whoami");
+        // username = await username.json();
+        // username = username.username;
+        // if (username) setUsername(username);
+    }
+    init();
   }, []);
 
   async function logout() {
@@ -34,11 +48,11 @@ export default function App() {
                 <h1>Full Page Indexing</h1>
 
                 {
-                    username ?
+                    {username} ?
                     <><span id="userDisplay">Hello, {username}!</span>
                     <NavLink id="loginLink" to='login' onClick={logout}>Logout</NavLink>
-                    <button className="toggle-popup">Notifications</button>
-                    <div className="notification" tabIndex="0">No notifications yet</div>
+                    <button className="toggle-popup" onClick={() => setDisplayNotice(true)}>Notifications</button>
+                    {displayNotice ? <div className="notification" tabIndex="0">{ notice }</div> : <></>}
                     </> : <></>
                 }
                 
