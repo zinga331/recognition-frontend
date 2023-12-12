@@ -10,7 +10,7 @@ export function Index() {
   async function getQuote() {
     let data = await fetch("https://api.quotable.io/random");
     let {content, author} = await data.json();
-    return `${content} - ${author}`;
+    setQuote(`${content} - ${author}`);
   }
 
   async function loadTypes() {
@@ -75,7 +75,7 @@ export function Index() {
   React.useEffect(() => {
     async function init() {
       loadTypes();
-      // setQuote(await getQuote());
+      getQuote();
     }
     init();
   }, []);
@@ -100,26 +100,14 @@ export function Index() {
             </select><br/>
             
             <table id="indexFields">
-              <tr>
-                <td>Person's Name</td>
-                <td><input type="text" id="name" placeholder="Jaako Ilkka"/></td>
-              </tr>
-              <tr>
-                <td>Person's Birth Date</td>
-                <td><input type="text" id="name" placeholder="December 5, 1810"/></td>
-              </tr>
-              <tr>
-                <td>Person's Birth Place</td>
-                <td><input type="text" id="name" placeholder="Hämeenlinna, Finland"/></td>
-              </tr>
-              <tr>
-                <td>Mother's Name</td>
-              <td><input type="text" id="name" placeholder="Riika Ilkka"/></td>
-              </tr>
-              <tr>
-                <td>Father's Name</td>
-                <td><input type="text" id="name" placeholder="Antti Ilkka"/></td>
-              </tr>
+                {
+                  curRecord?.fields.map(f => {
+                    return (<tr>
+                      <td>{f.field}</td>
+                      <td><input type="text" id={f.field} value={f.value}/></td>
+                      </tr>);
+                  })
+                }
             </table>
             
             <div className="button-row">
