@@ -1,4 +1,4 @@
-body {
+.body {
     display: flex;
     flex-direction: column;
     margin: 0px;
@@ -37,7 +37,6 @@ header > * {
 }
 
 .notification {
-    display: none;
     position: fixed;
     top: 10px;
     right: 10px;
