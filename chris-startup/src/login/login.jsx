@@ -103,7 +103,7 @@ export function Login() {
       <img
         id="slideshow"
         alt="Slideshow Placeholder"
-        src="images/census_example.png"
+        src="../../public/images/census_example.png"
         width="800px"
       />
     </main>

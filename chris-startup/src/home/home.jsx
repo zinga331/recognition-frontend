@@ -202,45 +202,6 @@ function Home() {
     setTypes(types);
   };
 
-  // async function loadIndexDocument() {
-  //   let select = document.getElementById("optgroup");
-  //   let type = select.options[optgroup.selectedIndex].parentNode.label;
-  //   // set the text of select to be lowercase, to match what the server expects
-  //   type = type.toLowerCase();
-  //   console.log(type);
-  //   curRecord = await getRecord(type);
-
-  //   if (curRecord == null) {
-  //     window.alert("There are no records of that type available!");
-  //     return;
-  //   }
-
-  //   document.getElementById("recordImage").src = curRecord.imageURL;
-
-  //   let table = document.getElementById("documentForm");
-
-  //   table.innerHTML = "";
-
-  //   curRecord.fields.forEach((field) => {
-  //     let row = document.createElement("tr");
-
-  //     let labelCell = document.createElement("td");
-  //     labelCell.textContent = field.field;
-  //     row.appendChild(labelCell);
-
-  //     let inputCell = document.createElement("td");
-  //     let input = document.createElement("input");
-  //     input.type = "text";
-  //     input.id = field.field;
-  //     input.value = field.value;
-  //     inputCell.appendChild(input);
-  //     row.appendChild(inputCell);
-
-  //     table.appendChild(row);
-  //   });
-
-  //   addedFields = 0;
-  // }
 
   const submitTable = async () => {
     console.log("submitTable() called");

@@ -24,7 +24,7 @@ function App() {
         </Routes>
         <footer>
           <p>Project by Lawry Sorenson and Christian Hall:</p>
-          <a href="https://github.com/zinga331/startup/blob/main/README.md#websocket-deliverable">
+          <a href="https://github.com/zinga331/startup/blob/main/README.md#react-deliverable">
             Startup Repo
           </a>
         </footer>
