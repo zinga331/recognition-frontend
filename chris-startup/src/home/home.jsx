@@ -7,7 +7,7 @@ function Home() {
   const [username, setUsername] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [types, setTypes] = useState([]);
-  const [recordImage, setRecordImage] = useState(`/images/english.png`);
+  const [recordImage, setRecordImage] = useState("../../public/images/spanish.png");
   const [selectedType, setSelectedType] = useState("");
   const [addedFields, setAddedFields] = useState(0);
   const [curRecord, setCurRecord] = useState(null);
@@ -17,19 +17,9 @@ function Home() {
   const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [optIn, setOptIn] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("spanish");
 
   const selectRef = useRef();
-
-  // useEffect(() => {
-  //   if (notification) {
-  //     const timer = setTimeout(() => {
-  //       setNotification(null);
-  //     }, 2000);
-
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [notification]);
 
   const notify = (msgText) => {
     if (receiveNotifications) {
@@ -133,9 +123,13 @@ function Home() {
   useEffect(() => {
     console.log("selectedLanguage changed");
     console.log(selectedLanguage);
-    setRecordImage(`/images/${selectedLanguage.toLowerCase()}.png`);
-    console.log(recordImage);
+    setRecordImage(`../../public/images/${selectedLanguage.toLowerCase()}.png`);
+    console.log("Record image is (useEffect1)" + recordImage);
   }, [selectedLanguage]);
+
+  useEffect(() => {
+    console.log("Record image is (useEffect2)" + recordImage);
+  }, [recordImage]);
 
   // useEffect(() => {
   //   let hideNoticeTimer;
@@ -280,10 +274,6 @@ function Home() {
   return (
     <main className="container-fluid bg-secondary text-center">
       <header>
-        {/* <NavLink className="nav-link" to="/">
-          {" "}
-          Return to Landing Page
-        </NavLink> */}
         <div className="header-buttons">
           <button id="notification-button" type="notification">
             Notifications
@@ -303,9 +293,6 @@ function Home() {
         <title>Full Page Indexing</title>
         <link rel="stylesheet" href="style.css" />
         <h1>Welcome to indexing, {username}!</h1>
-        {/* <div className="notification" tabIndex="0">
-          No notifications yet
-        </div> */}
         {showNotification ? <div className="notification">{notification}</div> : <></>}
 
         <fieldset>
@@ -340,6 +327,7 @@ function Home() {
         <img
           alt="Slideshow Placeholder"
           src={recordImage}
+          // Testing
           id="recordImage"
           width="800px"
         />
