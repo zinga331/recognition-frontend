@@ -1,19 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getTypes, getRecord, submitRecord, getQuote } from "../service.js";
 import { NavLink, useNavigate } from "react-router-dom";
+import defaultImage from "../images/dummy_example.png";
 
 function Home() {
   const [username, setUsername] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [types, setTypes] = useState([]);
-  const [recordImage, setRecordImage] = useState("");
+  const [recordImage, setRecordImage] = useState(defaultImage);
   const [selectedType, setSelectedType] = useState("");
+  const [addedFields, setAddedFields] = useState(0);
   const [curRecord, setCurRecord] = useState(null);
   const [fields, setFields] = useState([]);
   const [notification, setNotification] = useState(null);
   const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [optIn, setOptIn] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("");
 
   const selectRef = useRef();
 
@@ -36,21 +39,20 @@ function Home() {
   const navigate = useNavigate();
 
   const loadIndexDocument = async () => {
-    console.log("loadIndexDocument() called" + selectedType);
-    if (!selectedType) return;
-    const record = await getRecord(selectedType.toLowerCase());
-    if (!record) {
-      alert("There are no records of that type available!");
+    const type =
+      selectRef.current.options[
+        selectRef.current.selectedIndex
+      ].parentNode.label.toLowerCase();
+    const record = await getRecord(type);
+
+    if (record == null) {
+      window.alert("There are no records of that type available!");
       return;
     }
-    console.log(record);
-    setCurRecord(record);
-    setRecordImage(record.imageURL);
-    setFields(
-      record.fields.map((field) => ({ id: field.field, value: field.value }))
-    );
-  };
 
+    setCurRecord(record);
+    setAddedFields(0);
+  };
   useEffect(() => {
     const init = async () => {
       console.log("init() called");
@@ -89,16 +91,27 @@ function Home() {
   }, []);
 
   useEffect(() => {
-
     loadIndexDocument();
   }, [selectedType]);
 
+  useEffect(() => {
+    console.log("selectedLanguage changed");
+    console.log(selectedLanguage);
+    setRecordImage(`../images/${selectedLanguage.toLowerCase()}.png`);
+  }, [selectedLanguage]);
+
   const addRow = () => {
-    setFields([...fields, { editable: true, value: "" }]);
+    console.log("addRow() called");
+    setCurRecord({
+      ...curRecord,
+      fields: [...curRecord.fields, { editable: true, value: "" }],
+    });
   };
 
-  const removeRow = (index) => {
-    setFields(fields.filter((_, i) => i !== index));
+  const removeRow = () => {
+    const newFields = [...curRecord.fields];
+    newFields.pop();
+    setCurRecord({ ...curRecord, fields: newFields });
   };
 
   const handleDialogConfirm = () => {
@@ -119,33 +132,22 @@ function Home() {
         .label;
     setSelectedType(type.toLowerCase());
   };
+  const handleInputChange = (event, index) => {
+    const newFields = [...curRecord.fields];
+    newFields[index].value = event.target.value;
+    setCurRecord({ ...curRecord, fields: newFields });
+  };
 
-  async function loadTypes() {
-    let types = await getTypes();
-    let select = document.getElementById("optgroup");
-    select.innerHTML = "";
+  const handleFieldChange = (event, index) => {
+    const newFields = [...curRecord.fields];
+    newFields[index].field = event.target.value;
+    setCurRecord({ ...curRecord, fields: newFields });
+  };
 
-    let languages = [...new Set(types.map((type) => type.language))];
-
-    languages.forEach((language) => {
-      let optgroup = document.createElement("optgroup");
-      optgroup.label = language;
-
-      types
-        .filter((type) => type.language === language)
-        .forEach((type) => {
-          let option = document.createElement("option");
-          option.value = type.id;
-          option.textContent = type.display;
-          optgroup.appendChild(option);
-        });
-
-      select.appendChild(optgroup);
-    });
-  }
-
-  // Get the record from the server and display it
-  let addedFields = 0;
+  const loadTypes = async () => {
+    const types = await getTypes();
+    setTypes(types);
+  };
 
   // async function loadIndexDocument() {
   //   let select = document.getElementById("optgroup");
@@ -187,10 +189,6 @@ function Home() {
   //   addedFields = 0;
   // }
 
-  // const loadIndexDocument = async () => {
-  //     // ... similar to addRow and removeRow
-  // };
-
   const submitTable = async () => {
     console.log("submitTable() called");
     if (!curRecord) return;
@@ -203,7 +201,8 @@ function Home() {
       await submitRecord(curRecord);
 
       // Clear the fields
-      setFields([]);
+      console.log("Clearing fields");
+      setCurRecord(null);
     }
   };
 
@@ -259,7 +258,7 @@ function Home() {
     }, [username]); // Re-run the effect when the 'username' changes
   };
 
-  // ... rest of the JSX code
+  const uniqueLanguages = [...new Set(types.map((type) => type.language))];
 
   return (
     <main className="container-fluid bg-secondary text-center">
@@ -286,9 +285,7 @@ function Home() {
       <div>
         <title>Full Page Indexing</title>
         <link rel="stylesheet" href="style.css" />
-        <h1>
-          Welcome to indexing, { username}!
-        </h1>
+        <h1>Welcome to indexing, {username}!</h1>
         <div className="notification" tabIndex="0">
           No notifications yet
         </div>
@@ -324,7 +321,7 @@ function Home() {
         </fieldset>
         <img
           alt="Slideshow Placeholder"
-          src="images/dummy_example.png"
+          src={recordImage}
           id="recordImage"
           width="800px"
         />
@@ -338,35 +335,58 @@ function Home() {
                 id="optgroup"
                 name="varOptGroup"
                 ref={selectRef}
-                onChange={handleSelectChange}
-              ></select>
+                onChange={(event) => {
+                  handleSelectChange(event);
+                  setSelectedLanguage(selectRef.current.value);
+                }}
+              >
+                {uniqueLanguages.map((language, index) => (
+                  <optgroup key={index} label={language}>
+                    {types
+                      .filter((type) => type.language === language)
+                      .map((type, i) => (
+                        <option key={i} value={type.id}>
+                          {type.display}
+                        </option>
+                      ))}
+                  </optgroup>
+                ))}
+              </select>
             </p>
 
             <table id="documentForm">
               <legend>Indexing Entry</legend>
             </table>
             <div>
-              {fields.map((field, index) => (
-                <div key={index}>
-                    <label>{field.field}</label>
-                    <input
+              {curRecord &&
+                curRecord.fields.map((field, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
                         type="text"
+                        value={field.field}
+                        onChange={(event) => handleFieldChange(event, index)}
+                        disabled={false}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id={field.field}
                         value={field.value}
-                        onChange={(e) =>
-                            setFields(
-                                fields.map((f, i) =>
-                                    i === index ? { ...f, value: e.target.value } : f
-                                )
-                            )
-                        }
-                    />
-                    <button onClick={() => removeRow(index)}>Remove</button>
-                </div>
-              ))}{" "}
+                        onChange={(event) => handleInputChange(event, index)}
+                        disabled={false}
+                      />
+                    </td>
+                  </tr>
+                ))}
             </div>
             <button id="addRow" className="menu" onClick={addRow}>
-                +New Field
-              </button>
+              +New Field
+            </button>
+            <button id="removeRow" className="menu" onClick={() => removeRow()}>
+              Remove
+            </button>
             <button
               id="submitTable"
               className="menu"
