@@ -342,8 +342,10 @@ function Home() {
                 name="varOptGroup"
                 ref={selectRef}
                 onChange={(event) => {
+                  console.log(selectRef.current);
                   handleSelectChange(event);
-                  setSelectedLanguage(selectRef.current.value);
+                  const valueWithoutIntegers = selectRef.current.value.replace(/\d/g, '');
+                  setSelectedLanguage(valueWithoutIntegers);
                 }}
               >
                 {uniqueLanguages.map((language, index) => (
