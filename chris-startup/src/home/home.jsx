@@ -12,7 +12,8 @@ function Home() {
   const [addedFields, setAddedFields] = useState(0);
   const [curRecord, setCurRecord] = useState(null);
   const [fields, setFields] = useState([]);
-  const [notification, setNotification] = useState(null);
+  const [notification, setNotification] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
   const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [optIn, setOptIn] = useState(false);
@@ -20,19 +21,20 @@ function Home() {
 
   const selectRef = useRef();
 
-  useEffect(() => {
-    if (notification) {
-      const timer = setTimeout(() => {
-        setNotification(null);
-      }, 2000);
+  // useEffect(() => {
+  //   if (notification) {
+  //     const timer = setTimeout(() => {
+  //       setNotification(null);
+  //     }, 2000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [notification]);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [notification]);
 
   const notify = (msgText) => {
     if (receiveNotifications) {
       setNotification(msgText);
+      setShowNotification(true);
     }
   };
 
@@ -91,6 +93,37 @@ function Home() {
   }, []);
 
   useEffect(() => {
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+    socket.onopen = (event) => {
+      console.log("Connected web socket");
+    };
+
+    socket.onclose = (event) => {
+      console.log("Disconnected web socket");
+    };
+
+    socket.onmessage = async (event) => {
+      const msg = JSON.parse(await event.data);
+      const msgText = msg.msg;
+
+      if (!msgText.includes(username)) {
+        setNotification(msgText);
+        setShowNotification(true);
+
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 2000);
+      }
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  useEffect(() => {
     loadIndexDocument();
   }, [selectedType]);
 
@@ -100,6 +133,22 @@ function Home() {
     setRecordImage(`/images/${selectedLanguage.toLowerCase()}.png`);
     console.log(recordImage);
   }, [selectedLanguage]);
+
+  useEffect(() => {
+    let hideNoticeTimer;
+
+    if (showNotification) {
+      hideNoticeTimer = setTimeout(() => {
+        setShowNotification(false);
+      }, 2000);
+    }
+
+    return () => {
+      if (hideNoticeTimer) {
+        clearTimeout(hideNoticeTimer);
+      }
+    };
+  }, [showNotification, notification]);
 
   const addRow = () => {
     console.log("addRow() called");
@@ -287,9 +336,10 @@ function Home() {
         <title>Full Page Indexing</title>
         <link rel="stylesheet" href="style.css" />
         <h1>Welcome to indexing, {username}!</h1>
-        <div className="notification" tabIndex="0">
+        {/* <div className="notification" tabIndex="0">
           No notifications yet
-        </div>
+        </div> */}
+        {showNotification && <div className="notification">{notification}</div>}
 
         <fieldset>
           <legend>Notifications Settings</legend>
