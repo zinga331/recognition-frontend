@@ -53,6 +53,12 @@ export function Index() {
     setCurRecord(upd);
   }
 
+  function updateNewFieldName(field, i) {
+    let upd = {...curRecord};
+    upd.addedFields[i].field = field;
+    setCurRecord(upd);
+  }
+
   function deleteField(i) {
     let upd = {...curRecord};
     upd.addedFields.splice(i, 1);
@@ -118,7 +124,7 @@ export function Index() {
                 {
                   curRecord?.addedFields.map((f,i) => {
                     return (<tr key={i}> 
-                      <td><span onClick={() => deleteField(i)}>&#10006; </span><span className="edit" contentEditable="true" onChange={console.log}>{f.field}</span></td>
+                      <td><span onClick={() => deleteField(i)}>&#10006; </span><span className="edit" contentEditable="true" onBlur={e => updateNewFieldName(e.target.innerText, i)}>{f.field}</span></td>
                       <td><input type="text" id={f.field} value={f.value} onChange={(e) => updateNewField(e, i)}/></td>
                       </tr>);
                   })
