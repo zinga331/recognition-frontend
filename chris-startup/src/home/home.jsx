@@ -7,22 +7,31 @@ function Home() {
   const [username, setUsername] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [types, setTypes] = useState([]);
-  const [recordImage, setRecordImage] = useState("../../public/images/spanish.png");
+  const [recordImage, setRecordImage] = useState(
+    "../../public/images/spanish.png"
+  );
   const [selectedType, setSelectedType] = useState("");
   const [addedFields, setAddedFields] = useState(0);
   const [curRecord, setCurRecord] = useState(null);
   const [fields, setFields] = useState([]);
   const [notification, setNotification] = useState("");
   const [showNotification, setShowNotification] = useState(false);
-  const [receiveNotifications, setReceiveNotifications] = useState(false);
+  const [receiveNotifications, setReceiveNotifications] = useState();
   const [showDialog, setShowDialog] = useState(false);
   const [optIn, setOptIn] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("spanish");
 
   const selectRef = useRef();
+  const receiveNotificationsRef = useRef(receiveNotifications);
+
+  useEffect(() => {
+    receiveNotificationsRef.current = receiveNotifications;
+  }, [receiveNotifications]);
 
   const notify = (msgText) => {
-    if (receiveNotifications) {
+    console.log("notify() called with " + msgText);
+    console.log("receiveNotifications is " + receiveNotificationsRef.current);
+    if (receiveNotificationsRef.current) {
       setNotification(msgText);
       setShowNotification(true);
       setTimeout(() => {
@@ -83,6 +92,10 @@ function Home() {
       setUsername("Guest");
       setLoggedIn(false);
     }
+    const storedReceiveNotifications = localStorage.getItem(
+      "receiveNotifications"
+    );
+    setReceiveNotifications(storedReceiveNotifications === "true");
   }, []);
 
   useEffect(() => {
@@ -102,12 +115,7 @@ function Home() {
       const msgText = msg.msg;
 
       if (!msgText.includes(username)) {
-        setNotification(msgText);
-        setShowNotification(true);
-
-        setTimeout(() => {
-          setShowNotification(false);
-        }, 2000);
+        notify(msgText);
       }
     };
 
@@ -127,9 +135,14 @@ function Home() {
     console.log("Record image is (useEffect1)" + recordImage);
   }, [selectedLanguage]);
 
+  // Test log messages
   useEffect(() => {
     console.log("Record image is (useEffect2)" + recordImage);
   }, [recordImage]);
+
+  useEffect(() => {
+    console.log("receiveNotifications is " + receiveNotifications);
+  }, [receiveNotifications]);
 
   // useEffect(() => {
   //   let hideNoticeTimer;
@@ -162,15 +175,15 @@ function Home() {
   };
 
   const handleDialogConfirm = () => {
-    setOptIn(true);
     setShowDialog(false);
     setReceiveNotifications(true);
+    localStorage.setItem("receiveNotifications", "true");
   };
 
   const handleDialogCancel = () => {
-    setOptIn(false);
     setShowDialog(false);
     setReceiveNotifications(false);
+    localStorage.setItem("receiveNotifications", "false");
   };
 
   const handleSelectChange = () => {
@@ -195,7 +208,6 @@ function Home() {
     const types = await getTypes();
     setTypes(types);
   };
-
 
   const submitTable = async () => {
     console.log("submitTable() called");
@@ -258,8 +270,10 @@ function Home() {
         // Check if the message contains the username. If not, ignore message and do not notify.
         if (
           !msgText.includes(username) &&
-          msgText.includes("just indexed something! Get on their level.")
+          msgText.includes("just indexed something! Get on their level.") &&
+          receiveNotifications
         ) {
+          console.log("Notification received");
           notify(msgText);
         }
       };
@@ -293,7 +307,11 @@ function Home() {
         <title>Full Page Indexing</title>
         <link rel="stylesheet" href="style.css" />
         <h1>Welcome to indexing, {username}!</h1>
-        {showNotification ? <div className="notification">{notification}</div> : <></>}
+        {showNotification ? (
+          <div className="notification">{notification}</div>
+        ) : (
+          <></>
+        )}
 
         <fieldset>
           <legend>Notifications Settings</legend>
@@ -303,8 +321,8 @@ function Home() {
               id="opt-in"
               name="notification"
               value="receive"
-              checked={optIn}
-              onChange={() => setOptIn(true)}
+              checked={receiveNotifications}
+              onChange={() => setReceiveNotifications(true)}
             />
             <label htmlFor="opt-in">Receive</label>
             <br />
@@ -313,8 +331,8 @@ function Home() {
               id="opt-out"
               name="notification"
               value="receive-not"
-              checked={!optIn}
-              onChange={() => setOptIn(false)}
+              checked={!receiveNotifications}
+              onChange={() => setReceiveNotifications(false)}
             />
             <label htmlFor="opt-out">Don't Receive</label>
             <br />
@@ -327,7 +345,6 @@ function Home() {
         <img
           alt="Slideshow Placeholder"
           src={recordImage}
-          // Testing
           id="recordImage"
           width="800px"
         />
@@ -344,7 +361,10 @@ function Home() {
                 onChange={(event) => {
                   console.log(selectRef.current);
                   handleSelectChange(event);
-                  const valueWithoutIntegers = selectRef.current.value.replace(/\d/g, '');
+                  const valueWithoutIntegers = selectRef.current.value.replace(
+                    /\d/g,
+                    ""
+                  );
                   setSelectedLanguage(valueWithoutIntegers);
                 }}
               >
