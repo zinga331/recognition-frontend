@@ -83,7 +83,7 @@ The following elements were added for the WebSocket assignment.
 - **Data sent over WebSocket connection** - Whenever a user submits a record, a taunt is sent to all users telling them that the other user is indexing more than they are.
 - **WebSocket data displayed in the application interface** - The notifications received from the backend are displayed as temporary popups on the frontend.
 
-## React Delivverable
+## React Deliverable
 
 The following elements were added for the React assignment.
 
