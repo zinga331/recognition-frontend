@@ -76,7 +76,7 @@ export function Index() {
           "Content-Type": "application/json",
       },
       body: JSON.stringify(data)
-  });
+    });
   }
 
   React.useEffect(() => {
@@ -120,7 +120,6 @@ export function Index() {
                       </tr>);
                   })
                 }
-                {/* TODO: content editable complaining */}
                 {
                   curRecord?.addedFields.map((f,i) => {
                     return (<tr key={i}> 
