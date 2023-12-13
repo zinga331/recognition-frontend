@@ -35,6 +35,9 @@ function Home() {
     if (receiveNotifications) {
       setNotification(msgText);
       setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 2000);
     }
   };
 
@@ -134,21 +137,21 @@ function Home() {
     console.log(recordImage);
   }, [selectedLanguage]);
 
-  useEffect(() => {
-    let hideNoticeTimer;
+  // useEffect(() => {
+  //   let hideNoticeTimer;
 
-    if (showNotification) {
-      hideNoticeTimer = setTimeout(() => {
-        setShowNotification(false);
-      }, 2000);
-    }
+  //   if (showNotification) {
+  //     hideNoticeTimer = setTimeout(() => {
+  //       setShowNotification(false);
+  //     }, 2000);
+  //   }
 
-    return () => {
-      if (hideNoticeTimer) {
-        clearTimeout(hideNoticeTimer);
-      }
-    };
-  }, [showNotification, notification]);
+  //   return () => {
+  //     if (hideNoticeTimer) {
+  //       clearTimeout(hideNoticeTimer);
+  //     }
+  //   };
+  // }, [showNotification, notification]);
 
   const addRow = () => {
     console.log("addRow() called");
@@ -298,7 +301,10 @@ function Home() {
         const msgText = msg.msg;
 
         // Check if the message contains the username. If not, ignore message and do not notify.
-        if (!msgText.includes(username)) {
+        if (
+          !msgText.includes(username) &&
+          msgText.includes("just indexed something! Get on their level.")
+        ) {
           notify(msgText);
         }
       };
@@ -339,7 +345,7 @@ function Home() {
         {/* <div className="notification" tabIndex="0">
           No notifications yet
         </div> */}
-        {showNotification && <div className="notification">{notification}</div>}
+        {showNotification ? <div className="notification">{notification}</div> : <></>}
 
         <fieldset>
           <legend>Notifications Settings</legend>
