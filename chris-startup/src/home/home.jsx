@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getTypes, getRecord, submitRecord, getQuote } from "../service.js";
 import { NavLink, useNavigate } from "react-router-dom";
-import defaultImage from "../images/dummy_example.png";
+// import defaultImage from "/images/dummy_example.png";
 
 function Home() {
   const [username, setUsername] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [types, setTypes] = useState([]);
-  const [recordImage, setRecordImage] = useState(defaultImage);
+  const [recordImage, setRecordImage] = useState(`/images/english.png`);
   const [selectedType, setSelectedType] = useState("");
   const [addedFields, setAddedFields] = useState(0);
   const [curRecord, setCurRecord] = useState(null);
@@ -97,7 +97,8 @@ function Home() {
   useEffect(() => {
     console.log("selectedLanguage changed");
     console.log(selectedLanguage);
-    setRecordImage(`../images/${selectedLanguage.toLowerCase()}.png`);
+    setRecordImage(`/images/${selectedLanguage.toLowerCase()}.png`);
+    console.log(recordImage);
   }, [selectedLanguage]);
 
   const addRow = () => {
