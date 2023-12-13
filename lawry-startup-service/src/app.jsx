@@ -39,14 +39,14 @@ export default function App() {
 
   React.useEffect(() => {
     async function init() {
-        setUsername('pipoika'); // REMOVE THIS
+        // setUsername('pipoika');
         setupWebsocket();
 
         // get initial username
-        // let username = await fetch("/api/whoami");
-        // username = await username.json();
-        // username = username.username;
-        // if (username) setUsername(username);
+        let username = await fetch("/api/whoami");
+        username = await username.json();
+        username = username.username;
+        if (username) setUsername(username);
     }
     init();
   }, []);

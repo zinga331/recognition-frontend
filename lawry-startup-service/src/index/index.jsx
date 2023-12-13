@@ -8,63 +8,25 @@ export function Index() {
   const [ curRecord, setCurRecord ] = React.useState(null);
 
   async function getQuote() {
-    // let data = await fetch("https://api.quotable.io/random");
-    // let {content, author} = await data.json();
-    // setQuote(`${content} - ${author}`);
+    let data = await fetch("https://api.quotable.io/random");
+    let {content, author} = await data.json();
+    setQuote(`${content} - ${author}`);
   }
 
   async function loadTypes() {
-    // let data = await fetch("/api/types");
-    // data = await ans.json();
-    let data = [ // temp mock for offline dev
-      {
-        id: "french",
-        language: "French",
-        display: "French 1820 Records",
-      },
-      {
-        id: "french2",
-        language: "French",
-        display: "1900 Obituary",
-      }
-    ];
+    let data = await fetch("/api/types");
+    data = await data.json();
     setTypeList(data);
     if (data?.length) setRecordType(data[0]?.id);
 }
 
   async function getRecord() {
-    // let ans = await fetch(`/api/record?type=${encodeURIComponent(recordType)}`);
-    // ans = await ans.json();
-    // if (ans.error) {
-    //     window.alert("There are no records of that type available!");
-    //     return;
-    // }
-    let ans = {
-        type: 'french',
-        imageURL: "images/example3.png",
-        fields: [
-          {
-            field: "Person's Name",
-            value: "James Smith",
-          },
-          {
-            field: "Record Date",
-            value: "02/04/1780",
-          },
-          {
-            field: "Record Location",
-            value: "London",
-          },
-          {
-            field: "Mother's Name",
-            value: "Elizabeth Johnson",
-          },
-          {
-            field: "Father's Name",
-            value: "John Smith",
-          },
-        ],
-    };
+    let ans = await fetch(`/api/record?type=${encodeURIComponent(recordType)}`);
+    ans = await ans.json();
+    if (ans.error) {
+        window.alert("There are no records of that type available!");
+        return;
+    }
     ans.addedFields = [];
     setCurRecord(ans);
   }
@@ -100,17 +62,15 @@ export function Index() {
   async function submitRecord() {
     let data = {...curRecord};
     getRecord();
-    // data.results = data.fields
-    // data.results.extend(data.addedFields);
-    // TODO: submit results as expected
-    console.log(data);
-  //   await fetch("/api/record", {
-  //     method: "PUT",
-  //     headers: {
-  //         "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data)
-  // });
+    data.results = data.fields.concat(data.addedFields);
+    delete data.fields;
+    await fetch("/api/record", {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+  });
   }
 
   React.useEffect(() => {
@@ -141,13 +101,14 @@ export function Index() {
         
           <form action="javascript:void(0);">
             <select id="datasets" onChange={event => setRecordType(event.target.value)}>
-              { typeList.map(t => <option value={t.id}>{ t.display }</option>) }
+              { typeList.map(t => <option key={t.id} value={t.id}>{ t.display }</option>) }
             </select><br/>
             
             <table id="indexFields">
+              <tbody>
                 {
                   curRecord?.fields.map((f,i) => {
-                    return (<tr>
+                    return (<tr key={f.field}>
                       <td>{f.field}</td>
                       <td><input type="text" id={f.field} value={f.value} onChange={(e) => updateExistingField(e, i)}/></td>
                       </tr>);
@@ -156,12 +117,13 @@ export function Index() {
                 {/* TODO: content editable complaining */}
                 {
                   curRecord?.addedFields.map((f,i) => {
-                    return (<tr> 
+                    return (<tr key={i}> 
                       <td><span onClick={() => deleteField(i)}>&#10006; </span><span className="edit" contentEditable="true" onChange={console.log}>{f.field}</span></td>
                       <td><input type="text" id={f.field} value={f.value} onChange={(e) => updateNewField(e, i)}/></td>
                       </tr>);
                   })
                 }
+              </tbody>
             </table>
             
             <div className="button-row">
