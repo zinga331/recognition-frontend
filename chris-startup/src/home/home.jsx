@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getTypes, getRecord, submitRecord, getQuote } from "../service.js";
 import { NavLink, useNavigate } from "react-router-dom";
-// import defaultImage from "/images/dummy_example.png";
-
 function Home() {
   const [username, setUsername] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -11,7 +9,6 @@ function Home() {
     "../../public/images/spanish.png"
   );
   const [selectedType, setSelectedType] = useState("");
-  const [addedFields, setAddedFields] = useState(0);
   const [curRecord, setCurRecord] = useState(null);
   const [fields, setFields] = useState([]);
   const [notification, setNotification] = useState("");
@@ -35,9 +32,9 @@ function Home() {
       setShowNotification(true);
     }
 
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 2000);
+    // setTimeout(() => {
+    //   setShowNotification(false);
+    // }, 2000);
   };
 
   const navigate = useNavigate();
@@ -55,7 +52,6 @@ function Home() {
     }
 
     setCurRecord(record);
-    setAddedFields(0);
   };
   useEffect(() => {
     const init = async () => {
@@ -75,9 +71,6 @@ function Home() {
 
     const initialize = async () => {
       await loadTypes();
-      // setShowDialog(true);
-
-      //   await showDialog();
     };
 
     init();
@@ -135,36 +128,8 @@ function Home() {
   }, [selectedType]);
 
   useEffect(() => {
-    console.log("selectedLanguage changed");
-    console.log(selectedLanguage);
     setRecordImage(`../../public/images/${selectedLanguage.toLowerCase()}.png`);
-    console.log("Record image is (useEffect1)" + recordImage);
   }, [selectedLanguage]);
-
-  // Test log messages
-  useEffect(() => {
-    console.log("Record image is (useEffect2)" + recordImage);
-  }, [recordImage]);
-
-  useEffect(() => {
-    console.log("receiveNotifications is " + receiveNotifications);
-  }, [receiveNotifications]);
-
-  // useEffect(() => {
-  //   let hideNoticeTimer;
-
-  //   if (showNotification) {
-  //     hideNoticeTimer = setTimeout(() => {
-  //       setShowNotification(false);
-  //     }, 2000);
-  //   }
-
-  //   return () => {
-  //     if (hideNoticeTimer) {
-  //       clearTimeout(hideNoticeTimer);
-  //     }
-  //   };
-  // }, [showNotification, notification]);
 
   const addRow = () => {
     console.log("addRow() called");
@@ -299,6 +264,7 @@ function Home() {
             id="notification-button"
             type="button"
             onClick={() => setShowNotification(true)}
+            disabled={!notification}
           >
             Notifications
           </button>
