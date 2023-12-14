@@ -22,7 +22,7 @@ export function Login() {
 
     if (res.username) {
       localStorage.setItem("username", username);
-      window.location.href = "home";
+      navigate("/home");
     } else {
       alert("Invalid username or password");
     }
@@ -102,7 +102,7 @@ export function Login() {
       <img
         id="slideshow"
         alt="Slideshow Placeholder"
-        src="public/images/census_example.png"
+        src="images/census_example.png"
         width="800px"
       />
     </main>

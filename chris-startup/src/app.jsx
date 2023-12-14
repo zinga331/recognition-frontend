@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
-import  Login  from "./login/login.jsx";
-import  Home  from "./home/home.jsx";
+import Login from "./login/login.jsx";
+import Home from "./home/home.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./app.css";
 
@@ -9,17 +9,9 @@ function App() {
   return (
     <BrowserRouter>
       <html>
-        {/* <header>
-          <NavLink className="nav-link" to="home">
-            {" "}
-            Visit indexing home page (log in)
-          </NavLink>
-        </header> */}
         <Routes>
           <Route path="/" element={<Login />} exact />
-          <Route path="/home" element={<Home />} />
-          {/* <Route path="/scores" element={<Scores />} />
-          <Route path="/about" element={<About />} /> */}
+          <Route path="home" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <footer>
@@ -34,7 +26,11 @@ function App() {
 }
 
 function NotFound() {
-  return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
+  return (
+    <main className="container-fluid bg-secondary text-center">
+      404: Return to sender. Address unknown.
+    </main>
+  );
 }
 
 export default App;
