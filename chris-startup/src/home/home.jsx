@@ -18,7 +18,6 @@ function Home() {
   const [showNotification, setShowNotification] = useState(false);
   const [receiveNotifications, setReceiveNotifications] = useState();
   const [showDialog, setShowDialog] = useState(false);
-  const [optIn, setOptIn] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("spanish");
 
   const selectRef = useRef();
@@ -34,10 +33,11 @@ function Home() {
     if (receiveNotificationsRef.current) {
       setNotification(msgText);
       setShowNotification(true);
-      setTimeout(() => {
-        setShowNotification(false);
-      }, 2000);
     }
+
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 2000);
   };
 
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ function Home() {
 
     const initialize = async () => {
       await loadTypes();
-      setShowDialog(true);
+      // setShowDialog(true);
 
       //   await showDialog();
     };
@@ -116,6 +116,12 @@ function Home() {
 
       if (!msgText.includes(username)) {
         notify(msgText);
+
+        // Clear the notification after 2 seconds
+        setTimeout(() => {
+          console.log("Clearing notification");
+          notification.clear();
+        }, 2000);
       }
     };
 
@@ -289,7 +295,11 @@ function Home() {
     <main className="container-fluid bg-secondary text-center">
       <header>
         <div className="header-buttons">
-          <button id="notification-button" type="notification">
+          <button
+            id="notification-button"
+            type="button"
+            onClick={() => setShowNotification(true)}
+          >
             Notifications
           </button>
           <button id="logout-button" type="logout" onClick={logout}>
@@ -298,7 +308,12 @@ function Home() {
         </div>
         <div
           className="notification"
-          style={{ display: notification ? "block" : "none" }}
+          style={{ display: showNotification ? "block" : "none" }}
+          onClick={() => {
+            console.log("Notification is" + notification);
+            console.log("Show notification is" + showNotification);
+            setShowNotification(false);
+          }}
         >
           {notification}
         </div>
@@ -307,11 +322,11 @@ function Home() {
         <title>Full Page Indexing</title>
         <link rel="stylesheet" href="style.css" />
         <h1>Welcome to indexing, {username}!</h1>
-        {showNotification ? (
+        {/* {showNotification ? (
           <div className="notification">{notification}</div>
         ) : (
           <></>
-        )}
+        )} */}
 
         <fieldset>
           <legend>Notifications Settings</legend>
@@ -430,7 +445,6 @@ function Home() {
         </div>
       </body>
 
-      {/* ... rest of the JSX code */}
       {showDialog && (
         <div
           style={{
