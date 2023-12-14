@@ -4,10 +4,9 @@
   "description": "Service for full page indexing",
   "main": "index.js",
   "scripts": {
-
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "debug": "nodemon --inspect index.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
