@@ -1,12 +1,12 @@
+import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from "react-router-dom";
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -31,20 +31,20 @@ export function Login() {
   async function handleRegister(event) {
     event.preventDefault();
     let errorMessage = "";
-  
+
     if (username.length < 3) {
       errorMessage += "Username must be at least 3 characters.\n";
     }
-  
+
     if (password.length < 3) {
       errorMessage += "Password must be at least 3 characters.\n";
     }
-  
+
     if (errorMessage) {
       alert(errorMessage);
       return;
     }
-  
+
     let res = await fetch("/api/register", {
       method: "POST",
       headers: {
@@ -52,9 +52,9 @@ export function Login() {
       },
       body: JSON.stringify({ username, password }),
     });
-  
+
     res = await res.json();
-  
+
     if (res.username) {
       localStorage.setItem("username", username);
       navigate("/home");
@@ -65,14 +65,13 @@ export function Login() {
 
   return (
     <main className="container-fluid bg-secondary text-center">
-        <header>
-          <NavLink className="nav-link" to="home">
-            {" "}
-            Visit indexing home page (log in)
-          </NavLink>
-        </header>
+      <header>
+        <NavLink className="nav-link" to="home">
+          {" "}
+          Visit indexing home page (log in)
+        </NavLink>
+      </header>
       <div id="login">
-
         <p>
           <label htmlFor="username">Username: </label>
           <input
@@ -92,18 +91,18 @@ export function Login() {
           />
         </p>
         <div className="button-container">
-          <button id="submit-button" type="submit" onClick={handleLogin}>
+          <Button id="submit-button" type="button" onClick={handleLogin}>
             Submit
-          </button>
-          <button id="register-button" type="button" onClick={handleRegister}>
+          </Button>
+          <Button id="register-button" type="button" onClick={handleRegister}>
             Register
-          </button>
+          </Button>
         </div>
       </div>
       <img
         id="slideshow"
         alt="Slideshow Placeholder"
-        src="../../public/images/census_example.png"
+        src="public/images/census_example.png"
         width="800px"
       />
     </main>

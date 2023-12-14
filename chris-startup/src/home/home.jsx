@@ -1,3 +1,4 @@
+import Button from "react-bootstrap/Button";
 import React, { useState, useEffect, useRef } from "react";
 import { getTypes, getRecord, submitRecord, getQuote } from "../service.js";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -15,7 +16,7 @@ function Home() {
   const [showNotification, setShowNotification] = useState(false);
   const [receiveNotifications, setReceiveNotifications] = useState();
   const [showDialog, setShowDialog] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("spanish");
+  const [selectedLanguage, setSelectedLanguage] = useState("");
 
   const selectRef = useRef();
   const receiveNotificationsRef = useRef(receiveNotifications);
@@ -260,17 +261,17 @@ function Home() {
     <main className="container-fluid bg-secondary text-center">
       <header>
         <div className="header-buttons">
-          <button
+          <Button
             id="notification-button"
             type="button"
             onClick={() => setShowNotification(true)}
             disabled={!notification}
           >
             Notifications
-          </button>
-          <button id="logout-button" type="logout" onClick={logout}>
+          </Button>
+          <Button id="logout-button" type="button" onClick={logout}>
             Logout
-          </button>
+          </Button>
         </div>
         <div
           className="notification"
@@ -323,12 +324,14 @@ function Home() {
             opted in. You can opt in or out at any time.
           </p>
         </fieldset>
-        <img
-          alt="Slideshow Placeholder"
-          src={recordImage}
-          id="recordImage"
-          width="800px"
-        />
+        {selectedLanguage ? (
+          <img
+            alt="Slideshow Placeholder"
+            src={recordImage}
+            id="recordImage"
+            width="800px"
+          />
+        ) : null}
       </div>
       <body>
         <div className="form-wrapper">
@@ -349,6 +352,7 @@ function Home() {
                   setSelectedLanguage(valueWithoutIntegers);
                 }}
               >
+                <option value="default">Select a record type</option>
                 {uniqueLanguages.map((language, index) => (
                   <optgroup key={index} label={language}>
                     {types
@@ -390,20 +394,20 @@ function Home() {
                   </tr>
                 ))}
             </div>
-            <button id="addRow" className="menu" onClick={addRow}>
+            <Button id="addRow" className="menu" onClick={addRow}>
               +New Field
-            </button>
-            <button id="removeRow" className="menu" onClick={() => removeRow()}>
+            </Button>
+            <Button id="removeRow" className="menu" onClick={() => removeRow()}>
               Remove
-            </button>
-            <button
+            </Button>
+            <Button
               id="submitTable"
               className="menu"
               type="submit"
               onClick={submitTable}
             >
               Submit
-            </button>
+            </Button>
             <p className="warning">
               Verify the accuracy of the generation, then submit.
             </p>
@@ -434,8 +438,8 @@ function Home() {
             }}
           >
             <p>Opt-in to receive notifications?</p>
-            <button onClick={handleDialogConfirm}>Yes</button>
-            <button onClick={handleDialogCancel}>No</button>
+            <Button onClick={handleDialogConfirm}>Yes</Button>
+            <Button onClick={handleDialogCancel}>No</Button>
           </div>
         </div>
       )}
