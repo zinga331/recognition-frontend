@@ -1,6 +1,6 @@
 # Intro to webservices
 
-Up to this point, our entirei application is loaded from the web server and runs on the user's browser. It starts when the browser requests the index.html page, which in tern references other HTML, CSSS, JavaScript or image files. All of these files comprise the `frontend` for our application..
+Up to this point, our entire application is loaded from the web server and runs on the user's browser. It starts when the browser requests the index.html page, which in turn references other HTML, CSSS, JavaScript or image files. All of these files comprise the `frontend` for our application..
 
 The next step in building a full stack web application, is to create our own web service. Our web service will provide the static frontend files along with functions to handle `fetch` requests for things like storing data persistently, providing security, running tasks, executing application logic that you don't want your user to be able to see, and communicating with other users. The functionality provided by your web service represents the `backend` of your application.
 

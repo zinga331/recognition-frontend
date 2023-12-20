@@ -6,6 +6,7 @@ SSH: 22
 300: Redirection
 400: Client Error
 500: Server Error
+[Additional details on the status codes](./statusCodes.md)
 1. What does the HTTP header content-type allows you to do?
 It allows you to specify the type of data being sent, such as JSON, HTML, XML, etc.
 1. What do the following attributes of a cookie do?
@@ -120,7 +121,11 @@ socket.addEventListener('message', function (event) {
 ```
 
 1. What is the WebSocket protocol used for?
+The WebSocket protocol is used for two-way communication between a client and a server over a single TCP connection. It is used to create a persistent connection between a client and a server, allowing for real-time data transfer. Some examples of applications that use WebSockets are chat applications, multiplayer games, and stock tickers. In the case of a chat application, the client would send a message to the server, and the server would then send that message to all other connected clients.
+
 1. What is JSX and how are the curly braces rendered?
+JSX is a syntax extension to JavaScript that allows you to write HTML-like code in JavaScript. The curly braces are used to embed JavaScript expressions in JSX. The curly braces are replaced with the value of the JavaScript expression. JSX comes from React, but it can be used with other frameworks such as Vue.js.
+
 1. Assuming a HTML document with a 
 ```<div id="root"></div>``` element, what content will the following React component generate?
 ```javascript  
@@ -139,6 +144,17 @@ function Welcome(props) {
       const root = ReactDOM.createRoot(document.getElementById('root'));
       root.render(<App />);
 ```
+
+It will contain the following HTML:
+```html
+<div>
+  <h1>Hello, Sara</h1>
+  <h1>Hello, Cahal</h1>
+  <h1>Hello, Edite</h1>
+</div>
+```
+
+
 1. Assuming a HTML document with a 
 ```<div id="root"></div>``` element, what content will the following React component generate?
 ```javascript
@@ -152,6 +168,18 @@ function Welcome(props) {
     const root = ReactDOM.createRoot(document.getElementById('root')); 
     root.render(<Numbers/>);
 ```
+
+It will contain the following HTML:
+```html
+<ul>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+</ul>
+```
+
     1. What does the following React component do?
 ```javascript
     function Example() {
@@ -168,8 +196,23 @@ function Welcome(props) {
 }
 ```
 
+It creates a button that, when clicked, increments a counter. The counter is stored in the state of the component. The useState hook is used to create the state variable count and the function setCount, which is used to update the state variable. The useState hook takes an initial value of 0 for the state variable count. The count variable is then used to display the number of times the button has been clicked.
+
 1. What are React Hooks used for?
+
+React Hooks are used to add state and other features to functional components. They allow you to use state and other features without having to convert the functional component to a class component. Some examples of React Hooks are useState, useEffect, and useContext.
+
+- useState: Allows you to add state to a functional component. 
+  - example: ```const [count, setCount] = useState(0);```
+- useEffect: Allows you to perform side effects in a functional component.
+  - example: ```useEffect(() => { document.title = `You clicked ${count} times`; });```
+- useContext: Allows you to use context in a functional component.
+  - example: ```const value = useContext(MyContext);```
+
 1. What is the useEffect hook used for?
+
+The useEffect hook is used to render side effects in a functional component. The useEffect hook takes a function as an argument, and this function is called after every render of the component. The useEffect hook can be used to perform side effects such as fetching data from an API, updating the document title, and subscribing to events.
+
 1. What does this code do?
 ```javascript
 export default function App() {
@@ -187,8 +230,16 @@ export default function App() {
   );
 }
 ```
+This code produces a navigation bar with links to the Home, Blogs, and Contact pages. The Layout component is rendered for all of these pages, and the Home, Blogs, and Contact components are rendered for their respective pages. The NoPage component is rendered for any other page.
+
 1. What role does npm play in web development?
+Npm is a package manager for JavaScript. It allows you to install and manage packages that you can use in your JavaScript projects. npm is used to install packages such as React, Express, and MongoDB.
 1. What does package.json do in a npm project?
-1. What does the fetch function do?
+The package.json file contains metadata about the project, such as the name, version, and dependencies. It also contains scripts that can be run with the npm run command. The package.json file is used by npm to install dependencies and run scripts.
+> Metadata essentially represents data that provides information on other data, or data about data.
+1. What does the fetch function do (in the context of JavaScript and web development [What is a fetch request])?
+The fetch function is used to make HTTP requests. It takes a URL as an argument and returns a Promise that resolves to a Response object. The Response object contains information about the response, such as the status code and headers. The Response object also has methods that allow you to access the response body as JSON, text, or a blob.
 1. What does node.js do?
+Node.js allows you to run javascript in a server environment. It is used to create web servers, command line tools, and desktop applications. Node.js is built on top of the V8 JavaScript engine, which is the same engine that is used by Google Chrome.
 1. What does Vite do?
+Vite is a build tool for modern web development. It is used to build and serve web applications. Vite is used to build applications that use frameworks such as React, Vue.js, and Svelte. 
